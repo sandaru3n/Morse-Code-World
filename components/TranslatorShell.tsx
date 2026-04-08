@@ -54,9 +54,13 @@ export default function TranslatorShell() {
   const [volume, setVolume] = useState(85);
   const [repeat, setRepeat] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
-  const [lightMode, setLightMode] = useState(false);
+  /** White full-screen flash in time with Morse during PLAY (visual signal). */
+  const [screenBlinkEnabled, setScreenBlinkEnabled] = useState(false);
+  const [lightTheme, setLightTheme] = useState(false);
   const [vibrateOn, setVibrateOn] = useState(false);
   const [configureOpen, setConfigureOpen] = useState(false);
+  const [screenFlashPanelOpen, setScreenFlashPanelOpen] = useState(false);
+  const [bulbClickGlow, setBulbClickGlow] = useState(false);
   const [showLiveInput, setShowLiveInput] = useState(true);
 
   const debouncedInput = useDebounce(input, 300);
@@ -65,7 +69,7 @@ export default function TranslatorShell() {
     return decodeFromMorse(normalizeMorseInput(debouncedInput));
   }, [mode, debouncedInput]);
 
-  const { startPlayback, stop, pause, resume, isPlaying, isPaused, activeSymbolIndex } =
+  const { startPlayback, stop, pause, resume, isPlaying, isPaused, activeSymbolIndex, screenFlashPhase } =
     useMorseAudio();
 
   const repeatRef = useRef(repeat);
@@ -76,12 +80,13 @@ export default function TranslatorShell() {
     pitch,
     volume,
     soundOn,
-    vibrateOn
+    vibrateOn,
+    screenBlinkEnabled
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", !lightMode);
-  }, [lightMode]);
+    document.documentElement.classList.toggle("dark", !lightTheme);
+  }, [lightTheme]);
 
   const beginPlaybackRef = useRef<() => void>(null);
 
@@ -93,6 +98,7 @@ export default function TranslatorShell() {
       volume: s.volume / 100,
       soundEnabled: s.soundOn,
       vibrateEnabled: s.vibrateOn,
+      screenFlashEnabled: s.screenBlinkEnabled,
       onComplete: () => {
         if (repeatRef.current) {
           queueMicrotask(() => beginPlaybackRef.current?.());
@@ -118,10 +124,11 @@ export default function TranslatorShell() {
       pitch,
       volume,
       soundOn,
-      vibrateOn
+      vibrateOn,
+      screenBlinkEnabled
     };
     beginPlaybackRef.current = beginPlayback;
-  }, [repeat, input, mode, speed, pitch, volume, soundOn, vibrateOn, beginPlayback]);
+  }, [repeat, input, mode, speed, pitch, volume, soundOn, vibrateOn, screenBlinkEnabled, beginPlayback]);
 
   const handlePlay = useCallback(() => {
     if (isPaused) {
@@ -191,7 +198,7 @@ export default function TranslatorShell() {
   const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+    <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       <header className="fixed top-0 z-50 flex h-[4.5rem] w-full items-center justify-between bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8">
         <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-none">
           <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 dark:text-[#50FA7B] sm:text-lg md:text-xl lg:text-2xl">
@@ -390,9 +397,19 @@ export default function TranslatorShell() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setLightMode((l) => !l)}
-                  className="rounded-full bg-white p-2.5 text-slate-500 transition-all hover:text-neutral-800 dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
-                  title="Light mode"
+                  onClick={() => {
+                    setBulbClickGlow(true);
+                    window.setTimeout(() => setBulbClickGlow(false), 700);
+                    setScreenFlashPanelOpen(true);
+                  }}
+                  className={`relative rounded-full p-2.5 transition-all ${
+                    bulbClickGlow ? "bulb-click-glow" : ""
+                  } ${
+                    screenBlinkEnabled
+                      ? "bg-primary-container/25 text-emerald-700 shadow-neon-primary dark:text-primary-container"
+                      : "bg-white text-slate-500 hover:text-neutral-800 dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
+                  }`}
+                  title="Screen flash — open options"
                 >
                   <IconLightbulb className="h-5 w-5" />
                 </button>
@@ -573,6 +590,70 @@ export default function TranslatorShell() {
         </div>
       </footer>
 
+      {screenFlashPanelOpen && (
+        <div
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/45 p-4 backdrop-blur-[2px] dark:bg-black/60"
+          role="presentation"
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse 85% 55% at 50% 28%, rgba(255,255,255,0.14) 0%, transparent 55%)"
+          }}
+          onClick={() => setScreenFlashPanelOpen(false)}
+        >
+          <div
+            className="pointer-events-none fixed inset-0 z-[111] bg-white screen-flash-popup-burst"
+            aria-hidden
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="flash-panel-title"
+            className="relative z-[112] w-full max-w-sm overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xl dark:border-outline-variant/40 dark:bg-surface-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative flex flex-col items-center px-5 pb-5 pt-8">
+              <div
+                className="bulb-modal-halo pointer-events-none absolute left-1/2 top-6 h-32 w-32 -translate-x-1/2 rounded-full bg-primary-container/25 blur-2xl dark:bg-primary-container/30"
+                aria-hidden
+              />
+              <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-b from-white to-slate-100 text-emerald-600 shadow-lg ring-2 ring-primary-container/40 dark:from-surface-bright dark:to-surface-container dark:text-primary-container dark:ring-primary-container/50">
+                <IconLightbulb className="h-9 w-9 drop-shadow-[0_0_12px_rgba(80,250,123,0.65)]" />
+              </div>
+              <h2
+                id="flash-panel-title"
+                className="relative mb-1 text-center font-headline text-lg font-bold text-neutral-900 dark:text-on-surface"
+              >
+                Screen flash
+              </h2>
+              <p className="relative mb-5 text-center font-label text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                While <strong className="text-emerald-600 dark:text-primary-container">PLAY</strong> is running,
+                the screen fills <strong className="text-neutral-800 dark:text-on-surface">white</strong> and{" "}
+                <strong className="text-neutral-800 dark:text-on-surface">black</strong> in turn for each dot and
+                dash — full-window blink, same timing as sound.
+              </p>
+              <label className="relative mb-5 flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-outline-variant/30 dark:bg-surface-container-low">
+                <span className="font-label text-sm font-semibold text-neutral-800 dark:text-on-surface">
+                  Enable screen flash
+                </span>
+                <input
+                  type="checkbox"
+                  className="h-5 w-5 accent-primary-container"
+                  checked={screenBlinkEnabled}
+                  onChange={(e) => setScreenBlinkEnabled(e.target.checked)}
+                />
+              </label>
+              <button
+                type="button"
+                className="relative w-full rounded-xl bg-primary-container py-2.5 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-all hover:brightness-110 dark:text-on-primary-container"
+                onClick={() => setScreenFlashPanelOpen(false)}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {configureOpen && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm dark:bg-black/55"
@@ -597,6 +678,14 @@ export default function TranslatorShell() {
               />
               Show live input (tap / hold)
             </label>
+            <label className="mb-2 flex cursor-pointer items-center gap-2 font-label text-xs">
+              <input
+                type="checkbox"
+                checked={lightTheme}
+                onChange={(e) => setLightTheme(e.target.checked)}
+              />
+              Light theme (UI)
+            </label>
             <button
               type="button"
               className="mt-3 w-full rounded-lg bg-primary-container py-2 text-sm font-bold text-on-primary-container dark:text-on-primary-container"
@@ -606,6 +695,16 @@ export default function TranslatorShell() {
             </button>
           </div>
         </div>
+      )}
+
+      {screenFlashPhase !== "off" && (
+        <div
+          className={`pointer-events-none fixed inset-0 z-[300] ${
+            screenFlashPhase === "white" ? "bg-white" : "bg-black"
+          }`}
+          style={{ opacity: screenFlashPhase === "white" ? 0.94 : 0.92 }}
+          aria-hidden
+        />
       )}
     </div>
   );

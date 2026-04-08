@@ -1,11 +1,16 @@
 import type { PlaybackStep } from "@/lib/morsePlayback";
 
+/** Full-screen overlay while a Morse symbol plays; alternates white / black per symbol. */
+export type ScreenFlashPhase = "off" | "white" | "black";
+
 export type MorsePlaybackOptions = {
   wpm: number;
   pitchHz: number;
   volume: number;
   soundEnabled: boolean;
   vibrateEnabled: boolean;
+  screenFlashEnabled?: boolean;
+  onScreenFlash?: (phase: ScreenFlashPhase) => void;
   onSymbol?: (index: number) => void;
   onComplete?: () => void;
 };
@@ -60,6 +65,10 @@ export function runMorsePlayback(
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   const peakGain = Math.min(1, Math.max(0, options.volume)) * 0.35;
+  const flash = Boolean(options.screenFlashEnabled && options.onScreenFlash);
+  const setFlash = (phase: ScreenFlashPhase) => {
+    if (flash) options.onScreenFlash?.(phase);
+  };
 
   const clearTimer = () => {
     if (timeoutId !== null) {
@@ -81,6 +90,7 @@ export function runMorsePlayback(
     const step = steps[stepIndex]!;
 
     if (step.kind === "silence") {
+      setFlash("off");
       timeoutId = setTimeout(() => {
         stepIndex += 1;
         scheduleStep();
@@ -88,6 +98,7 @@ export function runMorsePlayback(
       return;
     }
 
+    setFlash(step.symbolIndex % 2 === 0 ? "white" : "black");
     options.onSymbol?.(step.symbolIndex);
     if (options.vibrateEnabled && typeof navigator !== "undefined" && navigator.vibrate) {
       const v = step.durationMs < 200 ? 40 : 120;
@@ -100,6 +111,7 @@ export function runMorsePlayback(
     }
 
     timeoutId = setTimeout(() => {
+      setFlash("off");
       stepIndex += 1;
       scheduleStep();
     }, step.durationMs);
@@ -111,12 +123,14 @@ export function runMorsePlayback(
     stop: () => {
       stopped = true;
       paused = false;
+      setFlash("off");
       clearTimer();
       void ctx.close();
     },
     pause: () => {
       if (stopped || paused) return;
       paused = true;
+      setFlash("off");
       clearTimer();
       void ctx.suspend();
     },

@@ -1,7 +1,11 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { runMorsePlayback, type MorsePlaybackOptions } from "@/lib/audioEngine";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  runMorsePlayback,
+  type MorsePlaybackOptions,
+  type ScreenFlashPhase
+} from "@/lib/audioEngine";
 import type { PlaybackStep } from "@/lib/morsePlayback";
 
 type Controller = ReturnType<typeof runMorsePlayback> | null;
@@ -10,7 +14,19 @@ export function useMorseAudio() {
   const [activeSymbolIndex, setActiveSymbolIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [screenFlashPhase, setScreenFlashPhase] = useState<ScreenFlashPhase>("off");
+  const reduceMotionRef = useRef(false);
   const controllerRef = useRef<Controller>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reduceMotionRef.current = mq.matches;
+    const onChange = () => {
+      reduceMotionRef.current = mq.matches;
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const stop = useCallback(() => {
     controllerRef.current?.stop();
@@ -18,6 +34,7 @@ export function useMorseAudio() {
     setIsPlaying(false);
     setIsPaused(false);
     setActiveSymbolIndex(null);
+    setScreenFlashPhase("off");
   }, []);
 
   const startPlayback = useCallback(
@@ -31,6 +48,11 @@ export function useMorseAudio() {
 
       controllerRef.current = runMorsePlayback(steps, {
         ...baseOptions,
+        onScreenFlash: (phase) => {
+          if (baseOptions.screenFlashEnabled && !reduceMotionRef.current) {
+            setScreenFlashPhase(phase);
+          }
+        },
         onSymbol: (index) => {
           setActiveSymbolIndex(index);
           baseOptions.onSymbol?.(index);
@@ -40,6 +62,7 @@ export function useMorseAudio() {
           setIsPlaying(false);
           setIsPaused(false);
           setActiveSymbolIndex(null);
+          setScreenFlashPhase("off");
           baseOptions.onComplete?.();
         }
       });
@@ -64,6 +87,7 @@ export function useMorseAudio() {
     resume,
     isPlaying,
     isPaused,
-    activeSymbolIndex
+    activeSymbolIndex,
+    screenFlashPhase
   };
 }
