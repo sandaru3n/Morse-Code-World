@@ -157,7 +157,7 @@ export default function TranslatorShell() {
     if (!text.trim()) return;
     try {
       if (navigator.share) {
-        await navigator.share({ title: "morsecodeworld.org", text });
+        await navigator.share({ title: "Morse Code Translator", text });
       } else {
         await navigator.clipboard.writeText(text);
       }
@@ -202,7 +202,7 @@ export default function TranslatorShell() {
       <header className="fixed top-0 z-50 flex h-[4.5rem] w-full items-center justify-between bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8">
         <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-none">
           <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 dark:text-[#50FA7B] sm:text-lg md:text-xl lg:text-2xl">
-            morsecodeworld.org
+            Morse Code Translator
           </span>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex">
@@ -589,7 +589,7 @@ export default function TranslatorShell() {
           </a>
         </div>
         <div className="font-label text-[10px] font-bold uppercase tracking-widest text-emerald-500/30 dark:text-emerald-400/20">
-          © 2026 morsecodeworld.org
+          © 2026 Morse Code Translator
         </div>
       </footer>
 

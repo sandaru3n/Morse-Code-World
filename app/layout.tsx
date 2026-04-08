@@ -16,9 +16,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Morse Code Translator — Encode, Decode & Audio | morsecodeworld.org",
+  title: "Morse Code Translator — Encode, Decode & Audio",
   description:
-    "Free morse code translator online: turn text into Morse and decode dots and dashes with instant playback, speed and pitch controls, and waveform view. Practice and share signals in your browser at morsecodeworld.org.",
+    "Free morse code translator online: turn text into Morse and decode dots and dashes with instant playback, speed and pitch controls, and waveform view. Practice and share signals in your browser.",
   keywords: [
     "morse code translator",
     "morse translator",
