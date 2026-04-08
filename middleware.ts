@@ -15,15 +15,18 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const forwardedProto = request.headers.get("x-forwarded-proto");
-  const proto =
-    forwardedProto ??
-    (request.nextUrl.protocol === "https:" ? "https" : "http");
-
   const path = `${request.nextUrl.pathname}${request.nextUrl.search}`;
-  const needsRedirect = isWww || proto !== "https";
 
-  if (needsRedirect) {
+  // www → apex (one hop to canonical host)
+  if (isWww) {
+    return NextResponse.redirect(`${CANONICAL_ORIGIN}${path}`, 308);
+  }
+
+  // HTTP → HTTPS only when the edge explicitly says the incoming request was HTTP.
+  // Do not use request.nextUrl.protocol as a fallback — on Vercel it is often "http:"
+  // for internal routing even for HTTPS clients, which caused ERR_TOO_MANY_REDIRECTS.
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+  if (forwardedProto === "http") {
     return NextResponse.redirect(`${CANONICAL_ORIGIN}${path}`, 308);
   }
 
