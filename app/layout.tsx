@@ -16,8 +16,17 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "morsecodeworld.org | Morse Code Terminal",
-  description: "Translate text to Morse and back with audio, waveform, and terminal-grade controls."
+  title: "Morse Code Translator — Encode, Decode & Audio | morsecodeworld.org",
+  description:
+    "Free morse code translator online: turn text into Morse and decode dots and dashes with instant playback, speed and pitch controls, and waveform view. Practice and share signals in your browser at morsecodeworld.org.",
+  keywords: [
+    "morse code translator",
+    "morse translator",
+    "text to morse",
+    "morse to text",
+    "morse code decoder",
+    "morse code encoder"
+  ]
 };
 
 export default function RootLayout({
