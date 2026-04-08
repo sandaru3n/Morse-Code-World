@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import LiveInput from "@/components/LiveInput";
+import { SeoArticle } from "@/components/SeoArticle";
 import PulseWaveform from "@/components/PulseWaveform";
 import {
   IconAccount,
@@ -157,7 +159,7 @@ export default function TranslatorShell() {
     if (!text.trim()) return;
     try {
       if (navigator.share) {
-        await navigator.share({ title: "Morse Code Translator", text });
+        await navigator.share({ title: "morsecodeworld.org", text });
       } else {
         await navigator.clipboard.writeText(text);
       }
@@ -201,17 +203,20 @@ export default function TranslatorShell() {
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       <header className="fixed top-0 z-50 flex h-[4.5rem] w-full items-center justify-between bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8">
         <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-none">
-          <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 dark:text-[#50FA7B] sm:text-lg md:text-xl lg:text-2xl">
-            Morse Code Translator
-          </span>
+          <Link
+            href="/"
+            className="truncate font-headline text-base font-black tracking-tight text-emerald-500 transition-colors hover:text-emerald-400 dark:text-[#50FA7B] dark:hover:text-emerald-300 sm:text-lg md:text-xl lg:text-2xl"
+          >
+            morsecodeworld.org
+          </Link>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex">
-          <a className={`${navLink} ${navActive}`} href="#">
+          <Link className={`${navLink} ${navActive}`} href="/">
             Translator
-          </a>
-          <a className={navLink} href="#">
-            History
-          </a>
+          </Link>
+          <Link className={navLink} href="/about">
+            About
+          </Link>
           <a className={navLink} href="#">
             Frequency
           </a>
@@ -563,12 +568,20 @@ export default function TranslatorShell() {
                 </div>
               </div>
             </div>
+
+            <SeoArticle />
           </div>
         </main>
       </div>
 
       <footer className="mt-auto flex w-full flex-col items-center gap-3 bg-neutral-100 py-4 dark:bg-[#0A0E17]">
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          <Link
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href="/about"
+          >
+            About
+          </Link>
           <a
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="#"
@@ -589,7 +602,7 @@ export default function TranslatorShell() {
           </a>
         </div>
         <div className="font-label text-[10px] font-bold uppercase tracking-widest text-emerald-500/30 dark:text-emerald-400/20">
-          © 2026 Morse Code Translator
+          © 2026 morsecodeworld.org
         </div>
       </footer>
 

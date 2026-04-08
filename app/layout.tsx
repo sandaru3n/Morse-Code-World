@@ -18,13 +18,16 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Morse Code Translator — Encode, Decode & Audio",
   description:
-    "Free morse code translator online: turn text into Morse and decode dots and dashes with instant playback, speed and pitch controls, and waveform view. Practice and share signals in your browser.",
+    "Free morse code translator and morse code decoder: convert Morse code to English and back, learn the international alphabet, and compare American Morse history with modern practice. Instant audio, WPM control, and waveform view in your browser.",
   keywords: [
     "morse code translator",
+    "morse code decoder",
+    "american morse code translator",
+    "convert morse code to english",
+    "morse alphabet translator",
     "morse translator",
     "text to morse",
     "morse to text",
-    "morse code decoder",
     "morse code encoder"
   ]
 };
