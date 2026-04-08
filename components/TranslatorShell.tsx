@@ -1,103 +1,612 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import AudioPlayer from "@/components/AudioPlayer";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import LiveInput from "@/components/LiveInput";
-import MorsePanel from "@/components/MorsePanel";
-import ReferenceChart from "@/components/ReferenceChart";
-import SignalVisualizer from "@/components/SignalVisualizer";
-import TextPanel from "@/components/TextPanel";
+import PulseWaveform from "@/components/PulseWaveform";
+import {
+  IconAccount,
+  IconCopy,
+  IconDelete,
+  IconDownload,
+  IconLightbulb,
+  IconPause,
+  IconPlay,
+  IconRepeat,
+  IconSettings,
+  IconShare,
+  IconStop,
+  IconTune,
+  IconVerified,
+  IconVibration,
+  IconVolume
+} from "@/components/SignalPulseIcons";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useMorseAudio } from "@/hooks/useMorseAudio";
+import type { MorsePlaybackOptions } from "@/lib/audioEngine";
 import { decodeFromMorse } from "@/lib/decoder";
 import { encodeToMorse } from "@/lib/encoder";
+import type { TranslateMode } from "@/lib/morsePlayback";
+import { morseForPlayback, morseToSteps } from "@/lib/morsePlayback";
+import { normalizeMorseInput } from "@/lib/translate";
+import { morseStepsToWavBlob } from "@/lib/wavRender";
 
-type Mode = "textToMorse" | "morseToText";
+const QUICK_REF = [
+  ["A", ".-"],
+  ["B", "-..."],
+  ["C", "-.-."],
+  ["D", "-.."],
+  ["E", "."],
+  ["F", "..-."]
+];
+
+function signalIdFromInput(s: string): string {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  const hex = (h >>> 0).toString(16).toUpperCase().padStart(6, "0").slice(0, 6);
+  return `PULSE-${hex}`;
+}
 
 export default function TranslatorShell() {
-  const [mode, setMode] = useState<Mode>("textToMorse");
-  const [text, setText] = useState("");
-  const [morse, setMorse] = useState("");
-  const [wpm, setWpm] = useState(16);
+  const [mode, setMode] = useState<TranslateMode>("encode");
+  const [input, setInput] = useState("");
+  const [speed, setSpeed] = useState(20);
+  const [pitch, setPitch] = useState(600);
+  const [volume, setVolume] = useState(85);
+  const [repeat, setRepeat] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
+  const [lightMode, setLightMode] = useState(false);
+  const [vibrateOn, setVibrateOn] = useState(false);
+  const [configureOpen, setConfigureOpen] = useState(false);
+  const [showLiveInput, setShowLiveInput] = useState(true);
 
-  const debouncedText = useDebounce(text, 300);
-  const debouncedMorse = useDebounce(morse, 300);
-  const { play, stop, isPlaying, activeSymbolIndex } = useMorseAudio();
+  const debouncedInput = useDebounce(input, 300);
+  const output = useMemo(() => {
+    if (mode === "encode") return encodeToMorse(debouncedInput);
+    return decodeFromMorse(normalizeMorseInput(debouncedInput));
+  }, [mode, debouncedInput]);
 
-  const translated = useMemo(() => {
-    if (mode === "textToMorse") {
-      return encodeToMorse(debouncedText);
+  const { startPlayback, stop, pause, resume, isPlaying, isPaused, activeSymbolIndex } =
+    useMorseAudio();
+
+  const repeatRef = useRef(repeat);
+  const playbackStateRef = useRef({
+    input,
+    mode,
+    speed,
+    pitch,
+    volume,
+    soundOn,
+    vibrateOn
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", !lightMode);
+  }, [lightMode]);
+
+  const beginPlaybackRef = useRef<() => void>(null);
+
+  const buildPlaybackOptions = useCallback((): MorsePlaybackOptions => {
+    const s = playbackStateRef.current;
+    return {
+      wpm: s.speed,
+      pitchHz: s.pitch,
+      volume: s.volume / 100,
+      soundEnabled: s.soundOn,
+      vibrateEnabled: s.vibrateOn,
+      onComplete: () => {
+        if (repeatRef.current) {
+          queueMicrotask(() => beginPlaybackRef.current?.());
+        }
+      }
+    };
+  }, []);
+
+  const beginPlayback = useCallback(() => {
+    const s = playbackStateRef.current;
+    const morse = morseForPlayback(s.input, s.mode);
+    const steps = morseToSteps(morse, s.speed);
+    if (steps.length === 0) return;
+    startPlayback(steps, buildPlaybackOptions());
+  }, [buildPlaybackOptions, startPlayback]);
+
+  useLayoutEffect(() => {
+    repeatRef.current = repeat;
+    playbackStateRef.current = {
+      input,
+      mode,
+      speed,
+      pitch,
+      volume,
+      soundOn,
+      vibrateOn
+    };
+    beginPlaybackRef.current = beginPlayback;
+  }, [repeat, input, mode, speed, pitch, volume, soundOn, vibrateOn, beginPlayback]);
+
+  const handlePlay = useCallback(() => {
+    if (isPaused) {
+      resume();
+      return;
     }
-    return decodeFromMorse(debouncedMorse);
-  }, [mode, debouncedText, debouncedMorse]);
+    beginPlayback();
+  }, [beginPlayback, isPaused, resume]);
 
-  const displayText = mode === "morseToText" ? translated : text;
-  const displayMorse = mode === "textToMorse" ? translated : morse;
-
-  const handleCopy = async () => {
-    const value = mode === "textToMorse" ? displayMorse : displayText;
-    await navigator.clipboard.writeText(value);
-  };
-
-  const handleDownload = () => {
-    const value = mode === "textToMorse" ? displayMorse : displayText;
-    const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
+  const handleSaveAudio = useCallback(async () => {
+    const s = playbackStateRef.current;
+    const morse = morseForPlayback(s.input, s.mode);
+    const steps = morseToSteps(morse, s.speed);
+    const blob = await morseStepsToWavBlob(steps, s.pitch, s.volume / 100);
+    if (!blob) return;
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "morse-output.txt";
+    a.download = "morse-audio.wav";
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }, []);
+
+  const handleShare = useCallback(async () => {
+    const text = output || input;
+    if (!text.trim()) return;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "morsecodeworld.org", text });
+      } else {
+        await navigator.clipboard.writeText(text);
+      }
+    } catch {
+      /* cancelled */
+    }
+  }, [input, output]);
+
+  const handleCopy = useCallback(async () => {
+    const text = output || "";
+    if (!text) return;
+    await navigator.clipboard.writeText(text);
+  }, [output]);
+
+  const handleDownloadTxt = useCallback(() => {
+    const text = output || "";
+    if (!text) return;
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "signal-output.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [output]);
+
+  const vizMorse = useMemo(() => {
+    if (mode === "encode") return output;
+    return normalizeMorseInput(input).replace(/[^.\- /]/g, "");
+  }, [mode, input, output]);
+
+  const saveDisabled = morseToSteps(morseForPlayback(input, mode), speed).length === 0;
+
+  const sid = useMemo(() => signalIdFromInput(input), [input]);
+
+  const navLink =
+    "font-headline text-sm font-bold tracking-tight transition-colors duration-300 hover:text-emerald-400 md:text-base dark:text-[#DFE2EF] dark:hover:text-emerald-300";
+  const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 
   return (
-    <main className="container">
-      <h1>Morse Code Translator</h1>
-      <p>Frontend-only Next.js translator with audio, visualizer, and live input.</p>
+    <div className="flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+      <header className="fixed top-0 z-50 flex h-[4.5rem] w-full items-center justify-between bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8">
+        <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-none">
+          <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 dark:text-[#50FA7B] sm:text-lg md:text-xl lg:text-2xl">
+            morsecodeworld.org
+          </span>
+        </div>
+        <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex">
+          <a className={`${navLink} ${navActive}`} href="#">
+            Translator
+          </a>
+          <a className={navLink} href="#">
+            History
+          </a>
+          <a className={navLink} href="#">
+            Frequency
+          </a>
+          <a className={navLink} href="#">
+            Settings
+          </a>
+        </nav>
+        <div className="flex flex-shrink-0 items-center gap-1 md:gap-3">
+          <button
+            type="button"
+            className="scale-95 text-neutral-700 transition-colors hover:text-emerald-600 active:scale-90 dark:text-on-surface dark:hover:text-primary-container"
+            aria-label="Configure"
+            onClick={() => setConfigureOpen(true)}
+          >
+            <IconSettings className="h-6 w-6" />
+          </button>
+          <button
+            type="button"
+            className="scale-95 text-neutral-700 transition-colors hover:text-emerald-600 active:scale-90 dark:text-on-surface dark:hover:text-primary-container"
+            aria-label="Account"
+          >
+            <IconAccount className="h-6 w-6" />
+          </button>
+        </div>
+      </header>
 
-      <div className="controls">
-        <button className="btn" onClick={() => setMode("textToMorse")}>
-          Text to Morse
-        </button>
-        <button className="btn" onClick={() => setMode("morseToText")}>
-          Morse to Text
-        </button>
-        <button className="btn" onClick={handleCopy}>
-          Copy Output
-        </button>
-        <button className="btn" onClick={handleDownload}>
-          Download .txt
-        </button>
+      <div className="flex flex-1 pt-[4.5rem]">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 lg:grid-cols-12">
+            <div className="space-y-5 lg:col-span-8">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl dark:border-transparent dark:bg-surface-container sm:p-5">
+                <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                    <span className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                      Mode
+                    </span>
+                    <div className="flex items-center rounded-full bg-slate-100 p-0.5 dark:bg-surface-container-low">
+                      <button
+                        type="button"
+                        onClick={() => setMode("encode")}
+                        className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all ${
+                          mode === "encode"
+                            ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
+                            : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
+                        }`}
+                      >
+                        Text → Morse
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setMode("decode")}
+                        className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all ${
+                          mode === "decode"
+                            ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
+                            : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
+                        }`}
+                      >
+                        Morse → Text
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setInput("")}
+                    className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-600 opacity-90 transition-opacity hover:opacity-100 dark:text-error"
+                  >
+                    <IconDelete className="h-3.5 w-3.5" />
+                    Clear
+                  </button>
+                </div>
+
+                <div className="relative mb-5">
+                  <textarea
+                    className="h-36 w-full resize-none rounded-xl border border-transparent bg-slate-100 p-3 font-headline text-base text-neutral-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-container/25 dark:bg-surface-container-low dark:text-on-surface dark:placeholder:text-slate-600 sm:p-4 sm:text-lg"
+                    placeholder="Type text or Morse code..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                  <div className="absolute bottom-2 right-3 flex gap-2">
+                    <span className="font-label text-[9px] uppercase tracking-widest text-slate-500 dark:text-slate-500">
+                      Characters: {input.length}
+                    </span>
+                  </div>
+                </div>
+
+                <PulseWaveform morse={vizMorse} activeIndex={activeSymbolIndex} />
+
+                <div className="group relative min-h-[120px] rounded-xl border border-slate-200/80 bg-slate-50 p-4 dark:border-outline-variant/10 dark:bg-surface-container-high sm:p-5">
+                  <div className="mb-2 font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-500">
+                    Signal Output
+                  </div>
+                  <div
+                    className={`break-all font-headline font-bold leading-tight tracking-[0.12em] text-neutral-900 dark:text-primary-fixed sm:tracking-[0.18em] ${
+                      mode === "encode" ? "text-xl sm:text-2xl md:text-3xl" : "text-lg sm:text-xl md:text-2xl"
+                    }`}
+                  >
+                    {output || (
+                      <span className="text-slate-400 dark:text-slate-600">
+                        Output appears here. # = untranslatable.
+                      </span>
+                    )}
+                  </div>
+                  <div className="absolute right-3 top-3 flex gap-1.5 opacity-100 transition-opacity sm:right-4 sm:top-4 sm:opacity-0 sm:group-hover:opacity-100">
+                    <button
+                      type="button"
+                      onClick={() => void handleCopy()}
+                      className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+                      title="Copy"
+                    >
+                      <IconCopy className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDownloadTxt}
+                      className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+                      title="Download"
+                    >
+                      <IconDownload className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleShare()}
+                      className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+                      title="Share"
+                    >
+                      <IconShare className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                <button
+                  type="button"
+                  onClick={handlePlay}
+                  disabled={isPlaying && !isPaused}
+                  className="flex items-center gap-1.5 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container shadow-lg shadow-neon-primary transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:text-on-primary-container sm:px-5 sm:py-2.5"
+                >
+                  <IconPlay className="h-5 w-5" /> PLAY
+                </button>
+                <button
+                  type="button"
+                  onClick={pause}
+                  disabled={!isPlaying || isPaused}
+                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
+                >
+                  <IconPause className="h-5 w-5" /> PAUSE
+                </button>
+                <button
+                  type="button"
+                  onClick={stop}
+                  disabled={!isPlaying && !isPaused}
+                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
+                >
+                  <IconStop className="h-5 w-5" /> STOP
+                </button>
+                <div className="hidden h-8 w-px bg-outline-variant/20 sm:mx-1 sm:block dark:bg-outline-variant/20" />
+                <button
+                  type="button"
+                  onClick={() => setRepeat((r) => !r)}
+                  className={`rounded-full p-2.5 transition-all dark:bg-surface-container ${
+                    repeat
+                      ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
+                      : "bg-white text-neutral-700 hover:text-secondary dark:bg-surface-container dark:text-on-surface dark:hover:text-secondary"
+                  }`}
+                  title="Repeat"
+                >
+                  <IconRepeat className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSoundOn((s) => !s)}
+                  className={`rounded-full p-2.5 transition-all ${
+                    soundOn
+                      ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
+                      : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
+                  }`}
+                  title="Sound"
+                >
+                  <IconVolume className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLightMode((l) => !l)}
+                  className="rounded-full bg-white p-2.5 text-slate-500 transition-all hover:text-neutral-800 dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
+                  title="Light mode"
+                >
+                  <IconLightbulb className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setVibrateOn((v) => !v)}
+                  className={`rounded-full p-2.5 transition-all ${
+                    vibrateOn
+                      ? "bg-primary-container/20 text-emerald-700 dark:text-primary-container"
+                      : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container"
+                  }`}
+                  title="Vibrate"
+                >
+                  <IconVibration className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void handleSaveAudio()}
+                  disabled={saveDisabled}
+                  className="rounded-full border border-slate-200 bg-white p-2.5 text-neutral-700 transition-all hover:bg-slate-50 disabled:opacity-40 dark:border-transparent dark:bg-surface-container dark:text-on-surface"
+                  title="Save audio"
+                >
+                  <IconDownload className="h-5 w-5" />
+                </button>
+              </div>
+
+              {showLiveInput && (
+                <div className="rounded-xl border border-slate-200 bg-white p-3 dark:border-outline-variant/20 dark:bg-surface-container">
+                  <LiveInput
+                    onSymbol={(symbol) => setInput((prev) => prev + symbol)}
+                    onLetterGap={() => setInput((prev) => `${prev} `)}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="lg:col-span-4">
+              <div className="glass-panel relative z-0 rounded-2xl border border-slate-200/80 p-4 dark:border-white/5 sm:p-5">
+                <div className="mb-5 flex items-center gap-2 sm:mb-6">
+                  <IconTune className="h-6 w-6 text-secondary dark:text-secondary" />
+                  <h3 className="font-headline text-base font-bold tracking-tight sm:text-lg">
+                    Signal Controls
+                  </h3>
+                </div>
+                <div className="space-y-6 sm:space-y-7">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                        Transmission Speed
+                      </label>
+                      <span className="font-headline text-sm font-bold text-secondary dark:text-secondary">
+                        {speed} WPM
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min={5}
+                      max={60}
+                      value={speed}
+                      onChange={(e) => setSpeed(Number(e.target.value))}
+                      className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-secondary dark:bg-surface-container-lowest dark:accent-secondary"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                        Frequency Pitch
+                      </label>
+                      <span className="font-headline text-sm font-bold text-emerald-600 dark:text-primary-container">
+                        {pitch} Hz
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min={200}
+                      max={1000}
+                      step={10}
+                      value={pitch}
+                      onChange={(e) => setPitch(Number(e.target.value))}
+                      className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-500 dark:bg-surface-container-lowest dark:accent-primary-container"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                        Output Volume
+                      </label>
+                      <span className="font-headline text-sm font-bold text-slate-700 dark:text-slate-200">
+                        {volume}%
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      value={volume}
+                      onChange={(e) => setVolume(Number(e.target.value))}
+                      className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-slate-500 dark:bg-surface-container-lowest dark:accent-slate-400"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4 dark:border-white/5 dark:bg-surface-container-lowest/50">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="mb-1 font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600">
+                        Signal ID
+                      </div>
+                      <div className="font-headline text-xs font-bold text-slate-700 dark:text-slate-300">
+                        {sid}
+                      </div>
+                    </div>
+                    <IconVerified className="h-6 w-6 text-emerald-500/50" />
+                  </div>
+                  <div className="mt-3 flex items-center gap-2">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                    <span className="font-label text-[10px] uppercase tracking-widest text-emerald-600/80 dark:text-emerald-500/70">
+                      Link Secured
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative z-[1] mt-5 overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-slate-100 to-white p-4 dark:border-white/5 dark:from-surface-container-high/40 dark:to-surface-container-high/20 dark:bg-surface-container-high/30">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 z-0 opacity-[0.07] dark:opacity-10"
+                  style={{
+                    backgroundImage: `radial-gradient(circle at 20% 50%, #50fa7b 0%, transparent 50%),
+                      radial-gradient(circle at 80% 30%, #d7baff 0%, transparent 45%)`
+                  }}
+                />
+                <div className="relative z-[1]">
+                  <h4 className="mb-2 font-headline text-xs font-bold uppercase tracking-widest text-secondary dark:text-secondary">
+                    Quick Reference
+                  </h4>
+                  <div className="grid grid-cols-2 gap-y-1.5 font-label text-[10px] text-slate-600 dark:text-slate-400">
+                    {QUICK_REF.map(([ch, m], i) => (
+                      <div
+                        key={ch}
+                        className={`flex justify-between ${i % 2 === 0 ? "border-r border-outline-variant/20 pr-4 dark:border-outline-variant/20" : "pl-4"}`}
+                      >
+                        <span>{ch}</span>
+                        <span className="text-neutral-900 dark:text-on-surface">{m}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
 
-      <section className="grid" style={{ marginTop: "1rem" }}>
-        <TextPanel
-          value={displayText}
-          onChange={setText}
-          readOnly={mode === "morseToText"}
-        />
-        <MorsePanel
-          value={displayMorse}
-          onChange={setMorse}
-          readOnly={mode === "textToMorse"}
-        />
-      </section>
+      <footer className="mt-auto flex w-full flex-col items-center gap-3 bg-neutral-100 py-4 dark:bg-[#0A0E17]">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+          <a
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href="#"
+          >
+            Privacy
+          </a>
+          <a
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href="#"
+          >
+            API
+          </a>
+          <a
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href="#"
+          >
+            GitHub
+          </a>
+        </div>
+        <div className="font-label text-[10px] font-bold uppercase tracking-widest text-emerald-500/30 dark:text-emerald-400/20">
+          © 2026 morsecodeworld.org
+        </div>
+      </footer>
 
-      <section className="row">
-        <AudioPlayer
-          wpm={wpm}
-          setWpm={setWpm}
-          isPlaying={isPlaying}
-          onPlay={() => play(displayMorse, wpm)}
-          onStop={stop}
-        />
-        <SignalVisualizer morse={displayMorse} activeIndex={activeSymbolIndex} />
-        <LiveInput
-          onSymbol={(symbol) => setMorse((prev) => prev + symbol)}
-          onLetterGap={() => setMorse((prev) => `${prev} `)}
-        />
-        <ReferenceChart onInsert={(char) => setText((prev) => `${prev}${char}`)} />
-      </section>
-    </main>
+      {configureOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm dark:bg-black/55"
+          role="presentation"
+          onClick={() => setConfigureOpen(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cfg-title"
+            className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-4 shadow-xl dark:border-outline-variant/30 dark:bg-surface-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="cfg-title" className="mb-3 font-headline text-base font-bold">
+              Configure
+            </h2>
+            <label className="mb-2 flex cursor-pointer items-center gap-2 font-label text-xs">
+              <input
+                type="checkbox"
+                checked={showLiveInput}
+                onChange={(e) => setShowLiveInput(e.target.checked)}
+              />
+              Show live input (tap / hold)
+            </label>
+            <button
+              type="button"
+              className="mt-3 w-full rounded-lg bg-primary-container py-2 text-sm font-bold text-on-primary-container dark:text-on-primary-container"
+              onClick={() => setConfigureOpen(false)}
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk"
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope"
+});
 
 export const metadata: Metadata = {
-  title: "Morse Code Translator",
-  description: "Translate text to Morse code and back with audio."
+  title: "morsecodeworld.org | Morse Code Terminal",
+  description: "Translate text to Morse and back with audio, waveform, and terminal-grade controls."
 };
 
 export default function RootLayout({
@@ -15,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
+      <body className={`min-h-screen font-body ${manrope.className}`}>{children}</body>
     </html>
   );
 }

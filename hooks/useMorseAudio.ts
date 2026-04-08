@@ -1,36 +1,69 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { playMorse } from "@/lib/audioEngine";
+import { runMorsePlayback, type MorsePlaybackOptions } from "@/lib/audioEngine";
+import type { PlaybackStep } from "@/lib/morsePlayback";
 
-type Player = { stop: () => void } | null;
+type Controller = ReturnType<typeof runMorsePlayback> | null;
 
 export function useMorseAudio() {
   const [activeSymbolIndex, setActiveSymbolIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const playerRef = useRef<Player>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const controllerRef = useRef<Controller>(null);
 
   const stop = useCallback(() => {
-    playerRef.current?.stop();
-    playerRef.current = null;
+    controllerRef.current?.stop();
+    controllerRef.current = null;
     setIsPlaying(false);
+    setIsPaused(false);
     setActiveSymbolIndex(null);
   }, []);
 
-  const play = useCallback(
-    (morse: string, wpm: number) => {
+  const startPlayback = useCallback(
+    (steps: PlaybackStep[], baseOptions: MorsePlaybackOptions) => {
       stop();
-      if (!morse.trim()) return;
+      if (steps.length === 0) return;
+
       setIsPlaying(true);
-      playerRef.current = playMorse(morse, wpm, (index) => setActiveSymbolIndex(index));
-      const approximateMs = Math.max(300, (morse.length * (1200 / wpm)));
-      window.setTimeout(() => {
-        setIsPlaying(false);
-        setActiveSymbolIndex(null);
-      }, approximateMs + 500);
+      setIsPaused(false);
+      setActiveSymbolIndex(null);
+
+      controllerRef.current = runMorsePlayback(steps, {
+        ...baseOptions,
+        onSymbol: (index) => {
+          setActiveSymbolIndex(index);
+          baseOptions.onSymbol?.(index);
+        },
+        onComplete: () => {
+          controllerRef.current = null;
+          setIsPlaying(false);
+          setIsPaused(false);
+          setActiveSymbolIndex(null);
+          baseOptions.onComplete?.();
+        }
+      });
     },
     [stop]
   );
 
-  return { play, stop, isPlaying, activeSymbolIndex };
+  const pause = useCallback(() => {
+    controllerRef.current?.pause();
+    setIsPaused(true);
+  }, []);
+
+  const resume = useCallback(() => {
+    controllerRef.current?.resume();
+    setIsPaused(false);
+  }, []);
+
+  return {
+    startPlayback,
+    stop,
+    pause,
+    resume,
+    isPlaying,
+    isPaused,
+    activeSymbolIndex
+  };
 }

@@ -8,10 +8,9 @@ export function encodeToMorse(input: string): string {
     .map((word) =>
       word
         .split("")
-        .map((char) => CHAR_TO_MORSE[char] ?? "")
-        .filter(Boolean)
+        .map((char) => CHAR_TO_MORSE[char] ?? "#")
         .join(" ")
     )
-    .filter(Boolean)
+    .filter((w) => w.length > 0)
     .join(" / ");
 }

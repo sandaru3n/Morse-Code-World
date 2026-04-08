@@ -8,7 +8,7 @@ export function decodeFromMorse(input: string): string {
       word
         .trim()
         .split(/\s+/)
-        .map((symbol) => MORSE_TO_CHAR[symbol] ?? "")
+        .map((symbol) => MORSE_TO_CHAR[symbol] ?? "#")
         .join("")
     )
     .filter(Boolean)
