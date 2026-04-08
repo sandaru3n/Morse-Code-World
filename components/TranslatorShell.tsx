@@ -241,11 +241,11 @@ export default function TranslatorShell() {
                     <span className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
                       Mode
                     </span>
-                    <div className="flex items-center rounded-full bg-slate-100 p-0.5 dark:bg-surface-container-low">
+                    <div className="flex w-full items-stretch rounded-full bg-slate-100 p-1 dark:bg-surface-container-low sm:w-auto sm:p-0.5">
                       <button
                         type="button"
                         onClick={() => setMode("encode")}
-                        className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all ${
+                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-all sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "encode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
@@ -256,7 +256,7 @@ export default function TranslatorShell() {
                       <button
                         type="button"
                         onClick={() => setMode("decode")}
-                        className={`rounded-full px-3 py-1 text-[11px] font-bold transition-all ${
+                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-all sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "decode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
