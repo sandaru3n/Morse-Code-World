@@ -1,4 +1,6 @@
-const CANONICAL_PRODUCTION_URL = "https://morsecodeworld.org";
+import { SITE_URL } from "@/lib/site";
+
+const CANONICAL_PRODUCTION_URL = SITE_URL;
 
 /** Apex only — never www — for metadata, canonical, sitemap, Open Graph base. */
 function stripWwwMorsecodeworld(url: string): string {

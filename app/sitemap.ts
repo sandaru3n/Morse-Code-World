@@ -1,18 +1,16 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/siteUrl";
+import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl();
-
   return [
     {
-      url: base,
+      url: absoluteUrl("/"),
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1
     },
     {
-      url: `${base}/about`,
+      url: absoluteUrl("/about"),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7

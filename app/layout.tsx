@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Manrope, Space_Grotesk } from "next/font/google";
+import { SITE_NAME } from "@/lib/site";
 import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/"
   },
-  applicationName: "morsecodeworld.org",
+  applicationName: SITE_NAME,
   title: "Morse Code Translator - Convert Morse Code to Text Online",
   description:
     "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately. Try it now!",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "morsecodeworld.org",
+    siteName: SITE_NAME,
     title: "Morse Code Translator - Convert Morse Code to Text Online",
     description:
       "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately. Try it now!"
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: "morsecodeworld.org",
+    title: SITE_NAME,
     statusBarStyle: "black-translucent"
   }
 };
