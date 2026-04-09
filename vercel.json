@@ -1,10 +1,1 @@
-{
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.morsecodeworld.org" }],
-      "destination": "https://morsecodeworld.org/:path*",
-      "permanent": true
-    }
-  ]
-}
+{}
