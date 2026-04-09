@@ -19,11 +19,13 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   applicationName: "morsecodeworld.org",
-  title: "Morse Code Translator — Encode, Decode & Audio",
+  title: "Morse Code Translator - Convert Morse Code to Text Online",
   description:
-    "Free morse code translator and morse code decoder: convert Morse code to English and back, learn the international alphabet, and compare American Morse history with modern practice. Instant audio, WPM control, and waveform view in your browser.",
+    "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately. Try it now!",
   keywords: [
     "morse code translator",
+    "convert morse code to text online",
+    "morse code to text",
     "morse code decoder",
     "american morse code translator",
     "convert morse code to english",
@@ -33,6 +35,19 @@ export const metadata: Metadata = {
     "morse to text",
     "morse code encoder"
   ],
+  openGraph: {
+    type: "website",
+    siteName: "morsecodeworld.org",
+    title: "Morse Code Translator - Convert Morse Code to Text Online",
+    description:
+      "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately. Try it now!"
+  },
+  twitter: {
+    card: "summary",
+    title: "Morse Code Translator - Convert Morse Code to Text Online",
+    description:
+      "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately. Try it now!"
+  },
   manifest: "/favicon/site.webmanifest",
   icons: {
     icon: [

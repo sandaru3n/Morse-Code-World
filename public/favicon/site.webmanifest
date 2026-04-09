@@ -1,7 +1,7 @@
 {
   "name": "morsecodeworld.org — Morse Code Translator",
   "short_name": "Morse World",
-  "description": "Morse code translator and decoder: encode, decode, and practice International Morse in your browser.",
+  "description": "Easily translate Morse code to text online. Decode or encode messages quickly and accurately.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
