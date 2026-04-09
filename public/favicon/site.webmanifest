@@ -1,0 +1,24 @@
+{
+  "name": "morsecodeworld.org — Morse Code Translator",
+  "short_name": "Morse World",
+  "description": "Morse code translator and decoder: encode, decode, and practice International Morse in your browser.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#50fa7b",
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

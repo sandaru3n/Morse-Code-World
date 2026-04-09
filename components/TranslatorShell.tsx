@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import LiveInput from "@/components/LiveInput";
 import { SeoArticle } from "@/components/SeoArticle";
@@ -202,12 +203,22 @@ export default function TranslatorShell() {
   return (
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       <header className="fixed top-0 z-50 flex h-[4.5rem] w-full items-center justify-between bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8">
-        <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-none">
+        <div className="flex min-w-0 flex-1 items-center md:flex-none">
           <Link
             href="/"
-            className="truncate font-headline text-base font-black tracking-tight text-emerald-500 transition-colors hover:text-emerald-400 dark:text-[#50FA7B] dark:hover:text-emerald-300 sm:text-lg md:text-xl lg:text-2xl"
+            className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
-            morsecodeworld.org
+            <Image
+              src="/favicon/android-chrome-192x192.png"
+              alt=""
+              width={40}
+              height={40}
+              className="size-8 shrink-0 rounded-lg object-contain ring-1 ring-emerald-500/25 dark:ring-[#50FA7B]/30 sm:size-9"
+              priority
+            />
+            <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 transition-colors group-hover:text-emerald-400 dark:text-[#50FA7B] dark:group-hover:text-emerald-300 sm:text-lg md:text-xl lg:text-2xl">
+              morsecodeworld.org
+            </span>
           </Link>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex">
