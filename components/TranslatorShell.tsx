@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import LiveInput from "@/components/LiveInput";
 import { SeoArticle } from "@/components/SeoArticle";
@@ -208,13 +207,14 @@ export default function TranslatorShell() {
             href="/"
             className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
-            <Image
+            <img
               src="/favicon/android-chrome-192x192.png"
               alt=""
               width={40}
               height={40}
+              fetchPriority="high"
+              decoding="async"
               className="size-8 shrink-0 rounded-lg object-contain ring-1 ring-emerald-500/25 dark:ring-[#50FA7B]/30 sm:size-9"
-              priority
             />
             <span className="truncate font-headline text-base font-black tracking-tight text-emerald-500 transition-colors group-hover:text-emerald-400 dark:text-[#50FA7B] dark:group-hover:text-emerald-300 sm:text-lg md:text-xl lg:text-2xl">
               morsecodeworld.org

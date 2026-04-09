@@ -19,6 +19,9 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  alternates: {
+    canonical: "/"
+  },
   applicationName: "morsecodeworld.org",
   title: "Morse Code Translator - Convert Morse Code to Text Online",
   description:
@@ -38,6 +41,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
+    url: "/",
     siteName: "morsecodeworld.org",
     title: "Morse Code Translator - Convert Morse Code to Text Online",
     description:

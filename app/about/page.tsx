@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "/about"
+  },
   title: "About — Morse Code Translator",
   description:
     "About Morse Code Translator: International Morse practice tools operated from the United States, with contact details and editorial information for visitors and search engines.",
@@ -11,7 +14,14 @@ export const metadata: Metadata = {
     "about morse translator",
     "USA",
     "International Morse Code"
-  ]
+  ],
+  openGraph: {
+    type: "website",
+    url: "/about",
+    title: "About — Morse Code Translator",
+    description:
+      "About Morse Code Translator: International Morse practice tools operated from the United States, with contact details and editorial information for visitors and search engines."
+  }
 };
 
 export default function AboutPage() {
