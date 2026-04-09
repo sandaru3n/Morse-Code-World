@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import { getSiteUrl } from "@/lib/siteUrl";
@@ -83,6 +84,7 @@ export default function RootLayout({
     <html lang="en" className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body className={`min-h-screen font-body ${manrope.className}`}>
         {children}
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
