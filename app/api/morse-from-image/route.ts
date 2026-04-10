@@ -3,32 +3,54 @@ import { NextRequest, NextResponse } from "next/server";
 import { morseLineFromAiText } from "@/lib/aiMorseResponse";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+/** Allow time for multi-model retries + overload backoff (Vercel Pro+ can raise further). */
+export const maxDuration = 120;
 
 const MAX_BYTES = 4 * 1024 * 1024;
 const ALLOWED = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
 /**
- * Gemini 1.5 IDs are removed from v1beta for many keys (404). Use 2.5 / 2.0 family.
- * Order: prefer 2.5 Flash, then lighter/cheaper variants, then 2.0.
+ * Gemini 3.x: multimodal reasoning fits Morse better than letter-OCR.
+ * Default = highest accuracy (3.1 Pro preview); then 3 Flash, 3.1 Flash-Lite, then 2.x.
+ * IDs: https://ai.google.dev/gemini-api/docs/gemini-3
  */
-const DEFAULT_MODEL = "gemini-2.5-flash";
+const DEFAULT_MODEL = "gemini-3.1-pro-preview";
 const FALLBACK_MODELS = [
+  "gemini-3-flash-preview",
+  "gemini-3.1-flash-lite-preview",
+  "gemini-2.5-flash",
   "gemini-2.5-flash-lite",
   "gemini-2.0-flash",
   "gemini-2.0-flash-lite"
 ];
 
-const PROMPT = `You are an expert at reading International Morse code from images (printed or hand-drawn dots and dashes, or symbols like · • for dot and – — for dash).
+const PROMPT = `You read International Morse code from the IMAGE using visual reasoning—not by guessing English letters first.
+Trace the signal left-to-right (or top-to-bottom if written in columns). For each letter, group dits and dahs by timing/proportion: short marks = dot (.), long marks = dash (-). Treat bullets (· •), small circles, or narrow vertical bars as dots; longer strokes or em-dashes as dashes.
+
+Be strict about not skipping symbols in long runs. If spacing clearly separates words, insert " / " between words; one space between letters within a word.
 
 Rules:
-- Output a SINGLE line of Morse using . for dot/dit and - for dash/dah.
-- One space between letters in a word.
-- Use " / " (space, slash, space) between words.
+- Output exactly ONE line of Morse using only . - / and spaces.
 - If one symbol is unreadable, use ? for that symbol only.
 - No explanations, markdown, code fences, labels, or quotes—ONLY the Morse line.
 
 If the image contains no Morse code, output exactly: (none)`;
+
+function getGenerativeModelForMorse(genAI: GoogleGenerativeAI, modelId: string) {
+  const isGemini3 = modelId.startsWith("gemini-3");
+  if (!isGemini3) {
+    return genAI.getGenerativeModel({ model: modelId });
+  }
+  const thinkingLevel =
+    modelId.includes("pro-preview") || modelId.includes("3.1-pro") ? "high" : "medium";
+  return genAI.getGenerativeModel({
+    model: modelId,
+    generationConfig: {
+      temperature: 1,
+      thinkingConfig: { thinkingLevel }
+    }
+  } as Parameters<GoogleGenerativeAI["getGenerativeModel"]>[0]);
+}
 
 function sleep(ms: number): Promise<void> {
   return new Promise((r) => setTimeout(r, ms));
@@ -62,23 +84,52 @@ function isRateLimited(message: string): boolean {
   );
 }
 
+/** 503 / overloaded — retry with backoff, then try another model in the chain. */
+function isOverloaded(message: string): boolean {
+  return (
+    message.includes("503") ||
+    message.includes("Service Unavailable") ||
+    /high demand/i.test(message) ||
+    message.includes("UNAVAILABLE") ||
+    /temporarily unavailable/i.test(message)
+  );
+}
+
+function retryDelayMs(message: string, attempt: number, overloaded: boolean): number {
+  if (!overloaded) {
+    return parseRetryDelayMs(message);
+  }
+  const steps = [2500, 7000, 16000];
+  return steps[Math.min(attempt, steps.length - 1)]!;
+}
+
+function shouldRetryAsTransient(message: string): boolean {
+  return isRateLimited(message) || isOverloaded(message);
+}
+
 function friendlyGeminiError(message: string): string {
   if (isModelNotFound(message)) {
     return (
-      "No working Gemini model responded. Check GOOGLE_GENERATIVE_AI_MODEL against " +
-      "https://ai.google.dev/gemini-api/docs/models — try gemini-2.5-flash, gemini-2.5-flash-lite, gemini-2.0-flash, or gemini-2.0-flash-lite."
+      "No working Gemini model responded. See https://ai.google.dev/gemini-api/docs/gemini-3 and set GOOGLE_GENERATIVE_AI_MODEL. " +
+      "Try gemini-3.1-pro-preview (accuracy), gemini-3-flash-preview (speed), gemini-3.1-flash-lite-preview, or gemini-2.5-flash."
     );
   }
   if (isFreeTierNoQuota(message)) {
     return (
-      "Gemini free-tier quota for this model is exhausted or set to 0. Try another model via GOOGLE_GENERATIVE_AI_MODEL " +
-      "(e.g. gemini-2.5-flash-lite or gemini-2.0-flash-lite) or enable billing in Google AI Studio / Cloud Console."
+      "Gemini quota for this model is exhausted or set to 0. Try GOOGLE_GENERATIVE_AI_MODEL=gemini-3-flash-preview or gemini-3.1-flash-lite-preview, " +
+      "or a 2.5/2.0 -lite model, or enable billing in Google AI Studio / Cloud Console."
     );
   }
   if (isRateLimited(message)) {
     return (
       "Gemini rate limit or quota reached. Wait and retry, try a -lite model, or enable billing. " +
       message.slice(0, 240)
+    );
+  }
+  if (isOverloaded(message)) {
+    return (
+      "Gemini is temporarily overloaded (503 / high demand). Wait 1–2 minutes and tap “Extract with AI” again, " +
+      "or set GOOGLE_GENERATIVE_AI_MODEL=gemini-2.5-flash-lite (often less saturated). See https://status.cloud.google.com/ for incidents."
     );
   }
   return message;
@@ -132,9 +183,9 @@ export async function POST(req: NextRequest) {
   let lastMessage = "Gemini request failed.";
 
   for (const modelId of modelChain) {
-    const model = genAI.getGenerativeModel({ model: modelId });
+    const model = getGenerativeModelForMorse(genAI, modelId);
 
-    for (let attempt = 0; attempt < 3; attempt++) {
+    for (let attempt = 0; attempt < 4; attempt++) {
       try {
         const result = await model.generateContent(parts);
         const raw = result.response.text().trim();
@@ -148,12 +199,13 @@ export async function POST(req: NextRequest) {
           break;
         }
 
-        if (isRateLimited(message) && attempt < 2) {
-          await sleep(parseRetryDelayMs(message));
+        const overloaded = isOverloaded(message);
+        if (shouldRetryAsTransient(message) && attempt < 3) {
+          await sleep(retryDelayMs(message, attempt, overloaded));
           continue;
         }
 
-        if (isRateLimited(message)) {
+        if (shouldRetryAsTransient(message)) {
           break;
         }
 

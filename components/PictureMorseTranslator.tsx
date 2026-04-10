@@ -200,22 +200,20 @@ export default function PictureMorseTranslator() {
       <p className="font-label text-[11px] leading-relaxed text-slate-500 dark:text-slate-500">
         Google AI Studio: create an API key, then set{" "}
         <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">GOOGLE_GENERATIVE_AI_API_KEY</code>{" "}
-        in Vercel (or <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">.env.local</code>{" "}
-        locally). Optional:{" "}
-        <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">GOOGLE_GENERATIVE_AI_MODEL</code>{" "}
-        (default <code className="font-mono text-[10px]">gemini-2.5-flash</code>; fallbacks include{" "}
-        <code className="font-mono text-[10px]">gemini-2.5-flash-lite</code>,{" "}
-        <code className="font-mono text-[10px]">gemini-2.0-flash</code>,{" "}
-        <code className="font-mono text-[10px]">gemini-2.0-flash-lite</code> — see{" "}
+        in Vercel (or <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">.env.local</code>
+        ). AI uses Gemini 3 multimodal models for Morse (not letter-OCR): default{" "}
+        <code className="font-mono text-[10px]">gemini-3.1-pro-preview</code> (accuracy / deep reasoning), then{" "}
+        <code className="font-mono text-[10px]">gemini-3-flash-preview</code> (speed), then lite and 2.x fallbacks. Override with{" "}
+        <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">GOOGLE_GENERATIVE_AI_MODEL</code>.{" "}
         <a
-          href="https://ai.google.dev/gemini-api/docs/models"
+          href="https://ai.google.dev/gemini-api/docs/gemini-3"
           className="text-emerald-600 underline dark:text-primary-container"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Gemini models
+          Gemini 3 guide
         </a>
-        ).
+        .
       </p>
 
       {errorMsg && (
