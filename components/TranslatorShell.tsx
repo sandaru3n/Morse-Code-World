@@ -196,14 +196,23 @@ export default function TranslatorShell() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
-      <SiteTopBar onConfigureClick={() => setConfigureOpen(true)} />
+      <SiteTopBar />
 
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 lg:grid-cols-12">
-            <h1 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl lg:col-span-12">
-              Morse code translator
-            </h1>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between lg:col-span-12">
+              <h1 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
+                Morse code translator
+              </h1>
+              <button
+                type="button"
+                onClick={() => setConfigureOpen(true)}
+                className="self-start font-headline text-sm font-bold text-emerald-600 underline-offset-4 hover:underline dark:text-primary-container sm:self-auto"
+              >
+                Configure
+              </button>
+            </div>
             <div className="space-y-5 lg:col-span-8">
               <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl dark:border-transparent dark:bg-surface-container sm:p-5">
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
