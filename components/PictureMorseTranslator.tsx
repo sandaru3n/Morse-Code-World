@@ -87,7 +87,8 @@ export default function PictureMorseTranslator() {
           id="picture-morse-file"
           type="file"
           accept="image/*"
-          className="sr-only"
+          className="hidden"
+          tabIndex={-1}
           onChange={(e) => onPickFile(e.target.files?.[0] ?? null)}
         />
         <label

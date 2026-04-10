@@ -52,14 +52,8 @@ export default function MorseCodePictureTranslatorPage() {
             <h1 className="font-headline text-2xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-3xl md:text-4xl">
               Morse Code Picture Translator
             </h1>
-            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
-              Upload a clear photo or screenshot of{" "}
-              <strong className="text-neutral-800 dark:text-slate-200">International Morse</strong> (dots and dashes). The image is processed
-              with <strong className="text-neutral-800 dark:text-slate-200">Google Gemini</strong> on our server, then you can edit the Morse
-              line and decode to plain text—like the main translator, but starting from a picture.
-            </p>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <PictureMorseTranslator />
             </div>
 
@@ -74,12 +68,6 @@ export default function MorseCodePictureTranslatorPage() {
                 How to use
               </h2>
               <div className="mt-4 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
-                <p>
-                  Upload a clear photo or screenshot of{" "}
-                  <strong className="text-neutral-800 dark:text-slate-200">International Morse</strong> (dots and dashes). The image is
-                  processed with <strong className="text-neutral-800 dark:text-slate-200">Google Gemini</strong> on our server, then you can
-                  edit the Morse line and decode to plain text—like the main translator, but starting from a picture.
-                </p>
                 <p>
                   This <strong className="text-neutral-800 dark:text-slate-200">morse code picture translator</strong> needs a clear photo or
                   screenshot showing <strong className="text-neutral-800 dark:text-slate-200">dots and dashes</strong> (and spaces or slashes
