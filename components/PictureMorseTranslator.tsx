@@ -203,7 +203,8 @@ export default function PictureMorseTranslator() {
         in Vercel (or <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">.env.local</code>{" "}
         locally). Optional:{" "}
         <code className="rounded bg-slate-100 px-1 font-mono text-[10px] dark:bg-surface-container-high">GOOGLE_GENERATIVE_AI_MODEL</code>{" "}
-        (default <code className="font-mono text-[10px]">gemini-2.0-flash</code>).
+        (default <code className="font-mono text-[10px]">gemini-1.5-flash</code>; use{" "}
+        <code className="font-mono text-[10px]">gemini-2.0-flash</code> only if your project has quota).
       </p>
 
       {errorMsg && (
