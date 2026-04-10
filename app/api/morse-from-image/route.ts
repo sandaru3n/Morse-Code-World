@@ -8,9 +8,16 @@ export const maxDuration = 60;
 const MAX_BYTES = 4 * 1024 * 1024;
 const ALLOWED = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
-/** Free tier often has no quota for 2.0-flash; 1.5-flash is the reliable default. */
-const DEFAULT_MODEL = "gemini-1.5-flash";
-const FALLBACK_MODELS = ["gemini-1.5-flash", "gemini-1.5-flash-8b"];
+/**
+ * Gemini 1.5 IDs are removed from v1beta for many keys (404). Use 2.5 / 2.0 family.
+ * Order: prefer 2.5 Flash, then lighter/cheaper variants, then 2.0.
+ */
+const DEFAULT_MODEL = "gemini-2.5-flash";
+const FALLBACK_MODELS = [
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite"
+];
 
 const PROMPT = `You are an expert at reading International Morse code from images (printed or hand-drawn dots and dashes, or symbols like · • for dot and – — for dash).
 
@@ -33,6 +40,15 @@ function parseRetryDelayMs(message: string): number {
   return 21_000;
 }
 
+function isModelNotFound(message: string): boolean {
+  return (
+    /\[404\b/.test(message) ||
+    /404\s+Not\s+Found/i.test(message) ||
+    /is not found for API version/i.test(message) ||
+    /models\/[\w.-]+\s+is not found/i.test(message)
+  );
+}
+
 function isFreeTierNoQuota(message: string): boolean {
   return /limit:\s*0/i.test(message) && /free_tier|FreeTier/i.test(message);
 }
@@ -47,17 +63,22 @@ function isRateLimited(message: string): boolean {
 }
 
 function friendlyGeminiError(message: string): string {
-  if (isFreeTierNoQuota(message) && message.includes("gemini-2.0")) {
+  if (isModelNotFound(message)) {
     return (
-      "This Google Cloud project has no free-tier quota for gemini-2.0-flash (limit 0). " +
-      `Unset GOOGLE_GENERATIVE_AI_MODEL or set it to ${DEFAULT_MODEL}. ` +
-      "Or enable billing in Google AI Studio / Cloud Console."
+      "No working Gemini model responded. Check GOOGLE_GENERATIVE_AI_MODEL against " +
+      "https://ai.google.dev/gemini-api/docs/models — try gemini-2.5-flash, gemini-2.5-flash-lite, gemini-2.0-flash, or gemini-2.0-flash-lite."
+    );
+  }
+  if (isFreeTierNoQuota(message)) {
+    return (
+      "Gemini free-tier quota for this model is exhausted or set to 0. Try another model via GOOGLE_GENERATIVE_AI_MODEL " +
+      "(e.g. gemini-2.5-flash-lite or gemini-2.0-flash-lite) or enable billing in Google AI Studio / Cloud Console."
     );
   }
   if (isRateLimited(message)) {
     return (
-      "Gemini rate limit or quota reached. Wait a minute and try again, " +
-      `or set GOOGLE_GENERATIVE_AI_MODEL=${DEFAULT_MODEL}, or enable billing. Details: ${message.slice(0, 280)}`
+      "Gemini rate limit or quota reached. Wait and retry, try a -lite model, or enable billing. " +
+      message.slice(0, 240)
     );
   }
   return message;
@@ -99,7 +120,7 @@ export async function POST(req: NextRequest) {
 
   const envModel = process.env.GOOGLE_GENERATIVE_AI_MODEL?.trim();
   const primary = envModel || DEFAULT_MODEL;
-  const modelChain = [...new Set([primary, ...FALLBACK_MODELS])];
+  const modelChain = [...new Set([primary, DEFAULT_MODEL, ...FALLBACK_MODELS])];
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const base64 = buffer.toString("base64");
@@ -123,7 +144,7 @@ export async function POST(req: NextRequest) {
         const message = e instanceof Error ? e.message : String(e);
         lastMessage = message;
 
-        if (isFreeTierNoQuota(message)) {
+        if (isModelNotFound(message) || isFreeTierNoQuota(message)) {
           break;
         }
 
@@ -132,11 +153,11 @@ export async function POST(req: NextRequest) {
           continue;
         }
 
-        if (!isRateLimited(message)) {
-          return NextResponse.json({ error: friendlyGeminiError(message) }, { status: 502 });
+        if (isRateLimited(message)) {
+          break;
         }
 
-        break;
+        return NextResponse.json({ error: friendlyGeminiError(message) }, { status: 502 });
       }
     }
   }
