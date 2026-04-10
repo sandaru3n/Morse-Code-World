@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7
+    },
+    {
+      url: absoluteUrl("/morse-code-picture-translator"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75
     }
   ];
 }
