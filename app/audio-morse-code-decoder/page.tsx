@@ -47,14 +47,6 @@ export default function AudioMorseCodeDecoderPage() {
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
           <div className="mx-auto max-w-3xl">
-            <div className="mb-3">
-              <Link
-                href="/"
-                className="font-headline text-sm font-bold text-emerald-600 underline underline-offset-2 dark:text-primary-container"
-              >
-                ← Back to Home
-              </Link>
-            </div>
             <h1 className="font-headline text-2xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-3xl md:text-4xl">
               Audio Morse Code Decoder
             </h1>
