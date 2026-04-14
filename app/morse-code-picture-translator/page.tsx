@@ -18,7 +18,7 @@ const SEO_KEYWORDS = [
 const PAGE_TITLE = "Morse Code Picture Translator - Decode Morse Code from Images Online";
 
 const PAGE_DESCRIPTION =
-  "Free morse code picture translator: upload a photo of International Morse (dots and dashes). AI reads your image; edit Morse and decode to plain text online. Try it now!";
+  "Free Morse code picture translator. Upload an image with dots and dashes, extract Morse with AI, and decode to plain text online.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,
