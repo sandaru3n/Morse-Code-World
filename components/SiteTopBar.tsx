@@ -18,6 +18,7 @@ export function SiteTopBar() {
   const isTranslator = pathname === "/";
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
+  const isAudioDecoder = pathname === "/audio-morse-code-decoder";
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const menuButtonId = useId();
@@ -94,6 +95,14 @@ export function SiteTopBar() {
             >
               Morse picture
             </Link>
+            <Link
+              className={`${mobileNavItem} ${isAudioDecoder ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
+              href="/audio-morse-code-decoder"
+              title="Audio Morse code decoder"
+              onClick={closeMenu}
+            >
+              Audio decoder
+            </Link>
             <a
               className={`${mobileNavItem} opacity-80`}
               href="#"
@@ -146,6 +155,13 @@ export function SiteTopBar() {
             title="Morse code picture translator"
           >
             Morse picture
+          </Link>
+          <Link
+            className={`${navLink} ${isAudioDecoder ? navActive : ""}`}
+            href="/audio-morse-code-decoder"
+            title="Audio Morse code decoder"
+          >
+            Audio decoder
           </Link>
           <a className={navLink} href="#">
             Settings
