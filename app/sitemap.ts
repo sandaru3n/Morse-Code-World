@@ -16,6 +16,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7
     },
     {
+      url: absoluteUrl("/es"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/ko"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/zh"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
       url: absoluteUrl("/morse-code-picture-translator"),
       lastModified: new Date(),
       changeFrequency: "monthly",
