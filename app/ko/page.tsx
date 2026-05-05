@@ -3,19 +3,19 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "Traductor de codigo morse - Convertir codigo morse a texto online";
+const PAGE_TITLE = "모스 부호 번역기 - 모스 부호를 텍스트로 변환";
 
 const PAGE_DESCRIPTION =
-  "Traductor de codigo morse gratis para convertir codigo morse a texto y texto a morse en linea, rapido y facil desde cualquier dispositivo.";
+  "모스 부호 번역기로 모스 부호를 텍스트로, 텍스트를 모스 부호로 빠르고 정확하게 변환하세요. 무료 온라인 도구입니다.";
 
-const WEB_APP_SCHEMA_ES = {
+const WEB_APP_SCHEMA_KO = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Traductor de codigo morse",
-  url: "https://morsecodeworld.org/es",
+  name: "모스 부호 번역기",
+  url: "https://morsecodeworld.org/ko",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "es",
+  inLanguage: "ko",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -28,41 +28,33 @@ const WEB_APP_SCHEMA_ES = {
   }
 };
 
-const FAQ_SCHEMA_ES = {
+const FAQ_SCHEMA_KO = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "es",
+  inLanguage: "ko",
   mainEntity: [
     {
       "@type": "Question",
-      name: "El traductor de codigo morse es gratis?",
+      name: "모스 부호 번역기는 무료인가요?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Si. Este traductor de codigo morse es totalmente gratis y funciona en navegadores modernos sin registro."
+        text: "네. 회원가입 없이 무료로 사용할 수 있습니다."
       }
     },
     {
       "@type": "Question",
-      name: "Puedo convertir de texto a morse y de morse a texto?",
+      name: "텍스트를 모스로, 모스를 텍스트로 모두 변환할 수 있나요?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Si. Puedes codificar texto a morse y tambien decodificar morse a texto desde la misma pagina."
+        text: "네. 한 페이지에서 두 가지 변환을 모두 지원합니다."
       }
     },
     {
       "@type": "Question",
-      name: "Necesito instalar una app o extension?",
+      name: "앱이나 확장 프로그램 설치가 필요한가요?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Todo funciona directamente en el navegador, sin instalar aplicaciones ni extensiones."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "Funciona en movil y tablet?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Si. Es compatible con Chrome, Safari, Firefox y Edge en telefono, tablet y computadora."
+        text: "아니요. 브라우저에서 바로 사용할 수 있습니다."
       }
     }
   ]
@@ -82,7 +74,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/es",
+    canonical: "/ko",
     languages: {
       en: "/",
       es: "/es",
@@ -90,67 +82,58 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["traductor de codigo morse", "codigo morse a texto", "texto a codigo morse", SITE_NAME],
+  keywords: ["모스 부호 번역기", "모스 부호 해독", "모스 코드 번역", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/es",
-    title: "Traductor de codigo morse",
-    locale: "es_ES",
-    alternateLocale: ["en_US", "ko_KR"],
+    url: "/ko",
+    title: "모스 부호 번역기",
+    locale: "ko_KR",
+    alternateLocale: ["en_US", "es_ES"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "Traductor de codigo morse",
+    title: "모스 부호 번역기",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function SpanishHomePage() {
+export default function KoreanHomePage() {
   const faqItems = [
     {
-      q: "El traductor de codigo morse es gratis?",
-      a: "Si. Es gratis y puedes usarlo al instante desde tu navegador."
+      q: "모스 부호 번역기는 무료인가요?",
+      a: "네. 브라우저에서 무료로 바로 사용할 수 있습니다."
     },
     {
-      q: "Puedo convertir de texto a morse y de morse a texto?",
-      a: "Si. El mismo traductor permite ambos modos de conversion."
+      q: "텍스트와 모스 부호를 서로 변환할 수 있나요?",
+      a: "네. 텍스트 → 모스, 모스 → 텍스트를 모두 지원합니다."
     },
     {
-      q: "Necesito instalar una app o extension?",
-      a: "No. No necesitas instalar nada para usar esta herramienta."
-    },
-    {
-      q: "Funciona en movil y tablet?",
-      a: "Si. Funciona en los navegadores modernos mas usados."
+      q: "휴대폰에서도 사용할 수 있나요?",
+      a: "네. 모바일과 데스크톱 브라우저에서 모두 작동합니다."
     }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="es"
+        locale="ko"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
-              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                Preguntas frecuentes
-              </h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 dark:border-sky-900/50 dark:bg-sky-950/30 dark:text-sky-300">
+              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">자주 묻는 질문</h2>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:border-violet-900/50 dark:bg-violet-950/30 dark:text-violet-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
                 </Link>
                 <span className="opacity-50">|</span>
-                Korean:
-                <Link href="/ko" hrefLang="ko" className="underline underline-offset-2 hover:no-underline">
-                  모스 부호 번역기
+                Espanol:
+                <Link href="/es" hrefLang="es" className="underline underline-offset-2 hover:no-underline">
+                  Traductor de codigo morse
                 </Link>
               </div>
-              <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 sm:text-base">
-                Guia rapida de uso para el traductor de codigo morse en espanol.
-              </p>
               <div className="mt-4 space-y-3">
                 {faqItems.map((item) => (
                   <details
@@ -168,9 +151,10 @@ export default function SpanishHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_ES) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_ES) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_KO) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_KO) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );
 }
+

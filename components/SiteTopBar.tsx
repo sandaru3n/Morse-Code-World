@@ -13,7 +13,7 @@ const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 const mobileNavItem =
   "block rounded-xl px-4 py-3.5 font-headline text-base font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 active:bg-emerald-500/15 dark:text-on-surface dark:hover:bg-primary-container/10";
 
-type TopBarLocale = "en" | "es";
+type TopBarLocale = "en" | "es" | "ko";
 
 const COPY: Record<
   TopBarLocale,
@@ -50,13 +50,25 @@ const COPY: Record<
     morsePicture: "Morse imagen",
     audioDecoder: "Decodificador audio",
     settings: "Configuracion"
+  },
+  ko: {
+    menu: "메뉴",
+    closeMenu: "메뉴 닫기",
+    openMenu: "메뉴 열기",
+    mobileMain: "모바일 메인 탐색",
+    translator: "번역기",
+    about: "소개",
+    morsePicture: "모스 이미지",
+    audioDecoder: "오디오 디코더",
+    settings: "설정"
   }
 };
 
 export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
   const c = COPY[locale];
+  const homePath = locale === "es" ? "/es" : locale === "ko" ? "/ko" : "/";
   const pathname = usePathname() ?? "/";
-  const isTranslator = pathname === "/" || pathname === "/es";
+  const isTranslator = pathname === "/" || pathname === "/es" || pathname === "/ko";
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
   const isAudioDecoder = pathname === "/audio-morse-code-decoder";
@@ -116,7 +128,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
           <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label={c.mobileMain}>
             <Link
               className={`${mobileNavItem} ${isTranslator ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href={locale === "es" ? "/es" : "/"}
+              href={homePath}
               onClick={closeMenu}
             >
               {c.translator}
@@ -166,7 +178,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
       >
         <div className="flex min-w-0 flex-1 items-center md:flex-none">
           <Link
-            href={locale === "es" ? "/es" : "/"}
+            href={homePath}
             className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
             <img
@@ -184,7 +196,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
           </Link>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex" aria-label="Main">
-          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={locale === "es" ? "/es" : "/"}>
+          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={homePath}>
             {c.translator}
           </Link>
           <Link className={`${navLink} ${isAbout ? navActive : ""}`} href="/about">

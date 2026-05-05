@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -46,6 +46,48 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" }) {
                 Acerca de
               </Link>
               .
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "ko") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-ko">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-ko"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            모스 부호 번역기: 브라우저에서 빠르게 인코딩과 디코딩
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              <strong className="font-semibold text-neutral-800 dark:text-slate-200">모스 부호 번역기</strong>를 사용하면 일반 텍스트와 점/선
+              패턴을 손쉽게 서로 변환할 수 있습니다. 학습, 연습, 빠른 확인 작업에 모두 적합합니다.
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
+              모스 부호를 텍스트로, 텍스트를 모스로 변환
+            </h3>
+            <p>
+              이 도구는 양방향 변환을 지원합니다. 모스 부호를 붙여 넣어 해독하거나, 텍스트를 입력해 모스 부호로 인코딩할 수 있습니다.
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
+              속도와 주파수를 조절하며 연습
+            </h3>
+            <p>
+              WPM, 주파수, 볼륨을 조절해 자신에게 맞는 학습 환경을 만들 수 있습니다. 짧고 꾸준한 연습이 정확도 향상에 가장 효과적입니다.
+            </p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              프로젝트 운영 정보는{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                소개
+              </Link>{" "}
+              페이지에서 확인할 수 있습니다.
             </p>
           </div>
         </div>
