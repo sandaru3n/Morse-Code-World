@@ -108,38 +108,55 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const faqItems = [
+    {
+      q: "Is this Morse Code Translator free to use?",
+      a: "Yes. The tool is completely free and works in modern browsers without registration."
+    },
+    {
+      q: "Can I convert both Morse to text and text to Morse?",
+      a: "Yes. You can decode Morse into plain text and encode text into Morse from the same page."
+    },
+    {
+      q: "Do I need to install any extension or app?",
+      a: "No. Everything runs directly in your browser."
+    },
+    {
+      q: "Does it work on phones and tablets?",
+      a: "Yes. It supports mobile and desktop browsers including Chrome, Safari, Firefox, and Edge."
+    },
+    {
+      q: "What if my decoded output looks wrong?",
+      a: "Double-check the dot, dash, and spacing separators. Small spacing errors can change decoded letters."
+    }
+  ] as const;
+
   return (
     <>
-      <TranslatorShell />
-      <section className="mx-auto max-w-5xl px-4 pb-10 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6">
-          <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-            Frequently Asked Questions
-          </h2>
-          <div className="mt-4 space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
-            <div>
-              <h3 className="font-semibold text-neutral-800 dark:text-slate-200">Is this Morse Code Translator free to use?</h3>
-              <p>Yes. The tool is completely free and works in modern browsers without registration.</p>
+      <TranslatorShell
+        bottomContent={
+          <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
+              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
+                Frequently Asked Questions
+              </h2>
+              <div className="mt-4 space-y-3">
+                {faqItems.map((item) => (
+                  <details
+                    key={item.q}
+                    className="group rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-outline-variant/25 dark:bg-surface-container-high/50"
+                  >
+                    <summary className="cursor-pointer list-none font-semibold text-neutral-900 marker:content-none dark:text-on-surface">
+                      {item.q}
+                    </summary>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300 sm:text-base">{item.a}</p>
+                  </details>
+                ))}
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-neutral-800 dark:text-slate-200">Can I convert both Morse to text and text to Morse?</h3>
-              <p>Yes. You can decode Morse into plain text and encode text into Morse from the same page.</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-neutral-800 dark:text-slate-200">Do I need to install any extension or app?</h3>
-              <p>No. Everything runs directly in your browser.</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-neutral-800 dark:text-slate-200">Does it work on phones and tablets?</h3>
-              <p>Yes. It supports mobile and desktop browsers including Chrome, Safari, Firefox, and Edge.</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-neutral-800 dark:text-slate-200">What if my decoded output looks wrong?</h3>
-              <p>Double-check the dot, dash, and spacing separators. Small spacing errors can change decoded letters.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        }
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />

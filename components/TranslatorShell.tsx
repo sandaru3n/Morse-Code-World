@@ -47,7 +47,7 @@ function signalIdFromInput(s: string): string {
   return `PULSE-${hex}`;
 }
 
-export default function TranslatorShell() {
+export default function TranslatorShell({ bottomContent }: { bottomContent?: React.ReactNode }) {
   const [mode, setMode] = useState<TranslateMode>("encode");
   const [input, setInput] = useState("");
   const [speed, setSpeed] = useState(20);
@@ -534,6 +534,8 @@ export default function TranslatorShell() {
             </div>
 
             <SeoArticle />
+
+            {bottomContent ? <div className="lg:col-span-12">{bottomContent}</div> : null}
           </div>
         </main>
       </div>
