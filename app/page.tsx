@@ -26,17 +26,6 @@ const WEB_APP_SCHEMA = {
   }
 };
 
-const WEB_APP_SCHEMA_TIKTOK_STYLE = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "TikTok downloader",
-  applicationCategory: "EntertainmentApplication",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "297531"
-  }
-};
 
 const FAQ_SCHEMA = {
   "@context": "https://schema.org",
@@ -152,7 +141,6 @@ export default function Page() {
         </div>
       </section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_TIKTOK_STYLE) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
