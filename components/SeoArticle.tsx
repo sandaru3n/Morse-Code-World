@@ -3,7 +3,56 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle() {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" }) {
+  if (locale === "es") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-es"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            Traductor de codigo morse: decodifica, codifica y practica desde tu navegador
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              Un buen <strong className="font-semibold text-neutral-800 dark:text-slate-200">traductor de codigo morse</strong> te ayuda a convertir
+              mensajes entre texto normal y puntos y rayas de forma rapida. Es ideal para radioaficionados, estudiantes y personas que practican
+              Morse en sesiones diarias.
+            </p>
+
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
+              Convertir codigo morse a texto y texto a morse
+            </h3>
+            <p>
+              Esta herramienta funciona en ambos sentidos: puedes pegar Morse para decodificarlo o escribir texto para codificarlo. Al tener ambas
+              funciones en una misma interfaz, resulta mas facil validar espaciado, simbolos y resultado final.
+            </p>
+
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
+              Practica con velocidad, tono y repeticion
+            </h3>
+            <p>
+              Ajusta velocidad (WPM), frecuencia y volumen para entrenar reconocimiento auditivo y visual. La practica corta y constante suele dar
+              mejores resultados que sesiones largas ocasionales.
+            </p>
+
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              Para mas informacion sobre este proyecto, visita la pagina{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                Acerca de
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article
       className="lg:col-span-12"

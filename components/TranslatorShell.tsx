@@ -23,6 +23,7 @@ import {
 } from "@/components/SignalPulseIcons";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useMorseAudio } from "@/hooks/useMorseAudio";
+import { TRANSLATOR_UI_COPY, type HomeLocale } from "@/lib/i18n/home";
 import type { MorsePlaybackOptions } from "@/lib/audioEngine";
 import { decodeFromMorse } from "@/lib/decoder";
 import { encodeToMorse } from "@/lib/encoder";
@@ -47,7 +48,14 @@ function signalIdFromInput(s: string): string {
   return `PULSE-${hex}`;
 }
 
-export default function TranslatorShell({ bottomContent }: { bottomContent?: React.ReactNode }) {
+export default function TranslatorShell({
+  bottomContent,
+  locale = "en"
+}: {
+  bottomContent?: React.ReactNode;
+  locale?: HomeLocale;
+}) {
+  const t = TRANSLATOR_UI_COPY[locale];
   const [mode, setMode] = useState<TranslateMode>("encode");
   const [input, setInput] = useState("");
   const [speed, setSpeed] = useState(20);
@@ -196,21 +204,21 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
 
   return (
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
-      <SiteTopBar />
+      <SiteTopBar locale={locale} />
 
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 lg:grid-cols-12">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between lg:col-span-12">
               <h1 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                Morse code translator
+                {t.heading}
               </h1>
               <button
                 type="button"
                 onClick={() => setConfigureOpen(true)}
                 className="self-start font-headline text-sm font-bold text-emerald-600 underline-offset-4 hover:underline dark:text-primary-container sm:self-auto"
               >
-                Configure
+                {t.configure}
               </button>
             </div>
             <div className="space-y-5 lg:col-span-8">
@@ -218,7 +226,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
                     <span className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                      Mode
+                      {t.mode}
                     </span>
                     <div className="flex w-full items-stretch rounded-full bg-slate-100 p-1 dark:bg-surface-container-low sm:w-auto sm:p-0.5">
                       <button
@@ -230,7 +238,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
                         }`}
                       >
-                        Text → Morse
+                        {t.modeEncode}
                       </button>
                       <button
                         type="button"
@@ -241,7 +249,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
                         }`}
                       >
-                        Morse → Text
+                        {t.modeDecode}
                       </button>
                     </div>
                   </div>
@@ -251,14 +259,14 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                     className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-600 opacity-90 transition-opacity hover:opacity-100 dark:text-error"
                   >
                     <IconDelete className="h-3.5 w-3.5" />
-                    Clear
+                    {t.clear}
                   </button>
                 </div>
 
                 <div className="relative mb-5">
                   <textarea
                     className="h-36 w-full resize-none rounded-xl border border-transparent bg-slate-100 p-3 font-headline text-base text-neutral-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-container/25 dark:bg-surface-container-low dark:text-on-surface dark:placeholder:text-slate-600 sm:p-4 sm:text-lg"
-                    placeholder="Type text or Morse code..."
+                    placeholder={t.inputPlaceholder}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     autoComplete="off"
@@ -266,7 +274,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   />
                   <div className="absolute bottom-2 right-3 flex gap-2">
                     <span className="font-label text-[9px] uppercase tracking-widest text-slate-500 dark:text-slate-500">
-                      Characters: {input.length}
+                      {t.characters}: {input.length}
                     </span>
                   </div>
                 </div>
@@ -275,7 +283,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
 
                 <div className="group relative min-h-[120px] rounded-xl border border-slate-200/80 bg-slate-50 p-4 dark:border-outline-variant/10 dark:bg-surface-container-high sm:p-5">
                   <div className="mb-2 font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-500">
-                    Signal Output
+                    {t.signalOutput}
                   </div>
                   <div
                     className={`break-all font-headline font-bold leading-tight tracking-[0.12em] text-neutral-900 dark:text-primary-fixed sm:tracking-[0.18em] ${
@@ -284,7 +292,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   >
                     {output || (
                       <span className="text-slate-400 dark:text-slate-600">
-                        Output appears here. # = untranslatable.
+                        {t.outputPlaceholder}
                       </span>
                     )}
                   </div>
@@ -293,7 +301,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       type="button"
                       onClick={() => void handleCopy()}
                       className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
-                      title="Copy"
+                      title={t.copy}
                     >
                       <IconCopy className="h-4 w-4" />
                     </button>
@@ -301,7 +309,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       type="button"
                       onClick={handleDownloadTxt}
                       className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
-                      title="Download"
+                      title={t.download}
                     >
                       <IconDownload className="h-4 w-4" />
                     </button>
@@ -309,7 +317,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       type="button"
                       onClick={() => void handleShare()}
                       className="rounded-md bg-white p-1.5 text-neutral-800 shadow-md transition-colors hover:bg-slate-100 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
-                      title="Share"
+                      title={t.share}
                     >
                       <IconShare className="h-4 w-4" />
                     </button>
@@ -324,7 +332,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   disabled={isPlaying && !isPaused}
                   className="flex items-center gap-1.5 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container shadow-lg shadow-neon-primary transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:text-on-primary-container sm:px-5 sm:py-2.5"
                 >
-                  <IconPlay className="h-5 w-5" /> PLAY
+                  <IconPlay className="h-5 w-5" /> {t.play}
                 </button>
                 <button
                   type="button"
@@ -332,7 +340,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   disabled={!isPlaying || isPaused}
                   className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
                 >
-                  <IconPause className="h-5 w-5" /> PAUSE
+                  <IconPause className="h-5 w-5" /> {t.pause}
                 </button>
                 <button
                   type="button"
@@ -340,7 +348,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   disabled={!isPlaying && !isPaused}
                   className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
                 >
-                  <IconStop className="h-5 w-5" /> STOP
+                  <IconStop className="h-5 w-5" /> {t.stop}
                 </button>
                 <div className="hidden h-8 w-px bg-outline-variant/20 sm:mx-1 sm:block dark:bg-outline-variant/20" />
                 <button
@@ -351,7 +359,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
                       : "bg-white text-neutral-700 hover:text-secondary dark:bg-surface-container dark:text-on-surface dark:hover:text-secondary"
                   }`}
-                  title="Repeat"
+                  title={t.repeat}
                 >
                   <IconRepeat className="h-5 w-5" />
                 </button>
@@ -363,7 +371,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
                       : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
                   }`}
-                  title="Sound"
+                  title={t.sound}
                 >
                   <IconVolume className="h-5 w-5" />
                 </button>
@@ -381,7 +389,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       ? "bg-primary-container/25 text-emerald-700 shadow-neon-primary dark:text-primary-container"
                       : "bg-white text-slate-500 hover:text-neutral-800 dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
                   }`}
-                  title="Screen flash — open options"
+                  title={t.screenFlashOpen}
                 >
                   <IconLightbulb className="h-5 w-5" />
                 </button>
@@ -393,7 +401,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                       ? "bg-primary-container/20 text-emerald-700 dark:text-primary-container"
                       : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container"
                   }`}
-                  title="Vibrate"
+                  title={t.vibrate}
                 >
                   <IconVibration className="h-5 w-5" />
                 </button>
@@ -402,7 +410,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   onClick={() => void handleSaveAudio()}
                   disabled={saveDisabled}
                   className="rounded-full border border-slate-200 bg-white p-2.5 text-neutral-700 transition-all hover:bg-slate-50 disabled:opacity-40 dark:border-transparent dark:bg-surface-container dark:text-on-surface"
-                  title="Save audio"
+                  title={t.saveAudio}
                 >
                   <IconDownload className="h-5 w-5" />
                 </button>
@@ -423,14 +431,14 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 <div className="mb-5 flex items-center gap-2 sm:mb-6">
                   <IconTune className="h-6 w-6 text-secondary dark:text-secondary" />
                   <h3 className="font-headline text-base font-bold tracking-tight sm:text-lg">
-                    Signal Controls
+                    {t.signalControls}
                   </h3>
                 </div>
                 <div className="space-y-6 sm:space-y-7">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                        Transmission Speed
+                        {t.transmissionSpeed}
                       </label>
                       <span className="font-headline text-sm font-bold text-secondary dark:text-secondary">
                         {speed} WPM
@@ -448,7 +456,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                        Frequency Pitch
+                        {t.frequencyPitch}
                       </label>
                       <span className="font-headline text-sm font-bold text-emerald-600 dark:text-primary-container">
                         {pitch} Hz
@@ -467,7 +475,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                        Output Volume
+                        {t.outputVolume}
                       </label>
                       <span className="font-headline text-sm font-bold text-slate-700 dark:text-slate-200">
                         {volume}%
@@ -488,7 +496,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="mb-1 font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600">
-                        Signal ID
+                        {t.signalId}
                       </div>
                       <div className="font-headline text-xs font-bold text-slate-700 dark:text-slate-300">
                         {sid}
@@ -499,7 +507,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                   <div className="mt-3 flex items-center gap-2">
                     <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
                     <span className="font-label text-[10px] uppercase tracking-widest text-emerald-600/80 dark:text-emerald-500/70">
-                      Link Secured
+                      {t.linkSecured}
                     </span>
                   </div>
                 </div>
@@ -516,7 +524,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 />
                 <div className="relative z-[1]">
                   <h4 className="mb-2 font-headline text-xs font-bold uppercase tracking-widest text-secondary dark:text-secondary">
-                    Quick Reference
+                    {t.quickReference}
                   </h4>
                   <div className="grid grid-cols-2 gap-y-1.5 font-label text-[10px] text-slate-600 dark:text-slate-400">
                     {QUICK_REF.map(([ch, m], i) => (
@@ -533,7 +541,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
               </div>
             </div>
 
-            <SeoArticle />
+            <SeoArticle locale={locale} />
 
             {bottomContent ? <div className="lg:col-span-12">{bottomContent}</div> : null}
           </div>
@@ -546,32 +554,32 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="/about"
           >
-            About
+            {t.footerAbout}
           </Link>
           <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="/morse-code-picture-translator"
             title="Morse code picture translator"
           >
-            Morse picture
+            {t.footerMorsePicture}
           </Link>
           <a
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="#"
           >
-            Privacy
+            {t.footerPrivacy}
           </a>
           <a
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="#"
           >
-            API
+            {t.footerApi}
           </a>
           <a
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
             href="#"
           >
-            GitHub
+            {t.footerGithub}
           </a>
         </div>
         <div className="font-label text-[10px] font-bold uppercase tracking-widest text-emerald-500/30 dark:text-emerald-400/20">
@@ -612,17 +620,12 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 id="flash-panel-title"
                 className="relative mb-1 text-center font-headline text-lg font-bold text-neutral-900 dark:text-on-surface"
               >
-                Screen flash
+                {t.screenFlashTitle}
               </h2>
-              <p className="relative mb-5 text-center font-label text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-                While <strong className="text-emerald-600 dark:text-primary-container">PLAY</strong> is running,
-                the screen fills <strong className="text-neutral-800 dark:text-on-surface">white</strong> and{" "}
-                <strong className="text-neutral-800 dark:text-on-surface">black</strong> in turn for each dot and
-                dash — full-window blink, same timing as sound.
-              </p>
+              <p className="relative mb-5 text-center font-label text-xs leading-relaxed text-slate-600 dark:text-slate-400">{t.screenFlashBody}</p>
               <label className="relative mb-5 flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-outline-variant/30 dark:bg-surface-container-low">
                 <span className="font-label text-sm font-semibold text-neutral-800 dark:text-on-surface">
-                  Enable screen flash
+                  {t.enableScreenFlash}
                 </span>
                 <input
                   type="checkbox"
@@ -636,7 +639,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 className="relative w-full rounded-xl bg-primary-container py-2.5 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-all hover:brightness-110 dark:text-on-primary-container"
                 onClick={() => setScreenFlashPanelOpen(false)}
               >
-                Done
+                {t.done}
               </button>
             </div>
           </div>
@@ -657,7 +660,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
             onClick={(e) => e.stopPropagation()}
           >
             <h2 id="cfg-title" className="mb-3 font-headline text-base font-bold">
-              Configure
+              {t.configureTitle}
             </h2>
             <label className="mb-2 flex cursor-pointer items-center gap-2 font-label text-xs">
               <input
@@ -665,7 +668,7 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 checked={showLiveInput}
                 onChange={(e) => setShowLiveInput(e.target.checked)}
               />
-              Show live input (tap / hold)
+              {t.showLiveInput}
             </label>
             <label className="mb-2 flex cursor-pointer items-center gap-2 font-label text-xs">
               <input
@@ -673,14 +676,14 @@ export default function TranslatorShell({ bottomContent }: { bottomContent?: Rea
                 checked={lightTheme}
                 onChange={(e) => setLightTheme(e.target.checked)}
               />
-              Light theme (UI)
+              {t.lightTheme}
             </label>
             <button
               type="button"
               className="mt-3 w-full rounded-lg bg-primary-container py-2 text-sm font-bold text-on-primary-container dark:text-on-primary-container"
               onClick={() => setConfigureOpen(false)}
             >
-              Done
+              {t.done}
             </button>
           </div>
         </div>

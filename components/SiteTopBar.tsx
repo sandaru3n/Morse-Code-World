@@ -13,9 +13,50 @@ const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 const mobileNavItem =
   "block rounded-xl px-4 py-3.5 font-headline text-base font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 active:bg-emerald-500/15 dark:text-on-surface dark:hover:bg-primary-container/10";
 
-export function SiteTopBar() {
+type TopBarLocale = "en" | "es";
+
+const COPY: Record<
+  TopBarLocale,
+  {
+    menu: string;
+    closeMenu: string;
+    openMenu: string;
+    mobileMain: string;
+    translator: string;
+    about: string;
+    morsePicture: string;
+    audioDecoder: string;
+    settings: string;
+  }
+> = {
+  en: {
+    menu: "Menu",
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    mobileMain: "Mobile main",
+    translator: "Translator",
+    about: "About",
+    morsePicture: "Morse picture",
+    audioDecoder: "Audio decoder",
+    settings: "Settings"
+  },
+  es: {
+    menu: "Menu",
+    closeMenu: "Cerrar menu",
+    openMenu: "Abrir menu",
+    mobileMain: "Navegacion movil",
+    translator: "Traductor",
+    about: "Acerca de",
+    morsePicture: "Morse imagen",
+    audioDecoder: "Decodificador audio",
+    settings: "Configuracion"
+  }
+};
+
+export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
+  const c = COPY[locale];
   const pathname = usePathname() ?? "/";
-  const isTranslator = pathname === "/";
+  const isTranslator = pathname === "/" || pathname === "/es";
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
   const isAudioDecoder = pathname === "/audio-morse-code-decoder";
@@ -57,7 +98,7 @@ export function SiteTopBar() {
         <button
           type="button"
           className="fixed bottom-0 left-0 right-0 top-[4.5rem] z-[70] bg-black/45 backdrop-blur-[2px] md:hidden"
-          aria-label="Close menu"
+          aria-label={c.closeMenu}
           onClick={closeMenu}
         />
         <div
@@ -69,23 +110,23 @@ export function SiteTopBar() {
         >
           <div className="shrink-0 border-b border-slate-200/80 px-4 py-3 dark:border-outline-variant/30">
             <h2 id={`${panelId}-title`} className="font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
-              Menu
+              {c.menu}
             </h2>
           </div>
-          <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label="Mobile main">
+          <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label={c.mobileMain}>
             <Link
               className={`${mobileNavItem} ${isTranslator ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href="/"
+              href={locale === "es" ? "/es" : "/"}
               onClick={closeMenu}
             >
-              Translator
+              {c.translator}
             </Link>
             <Link
               className={`${mobileNavItem} ${isAbout ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
               href="/about"
               onClick={closeMenu}
             >
-              About
+              {c.about}
             </Link>
             <Link
               className={`${mobileNavItem} ${isPicture ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
@@ -93,7 +134,7 @@ export function SiteTopBar() {
               title="Morse code picture translator"
               onClick={closeMenu}
             >
-              Morse picture
+              {c.morsePicture}
             </Link>
             <Link
               className={`${mobileNavItem} ${isAudioDecoder ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
@@ -101,7 +142,7 @@ export function SiteTopBar() {
               title="Audio Morse code decoder"
               onClick={closeMenu}
             >
-              Audio decoder
+              {c.audioDecoder}
             </Link>
             <a
               className={`${mobileNavItem} opacity-80`}
@@ -111,7 +152,7 @@ export function SiteTopBar() {
                 closeMenu();
               }}
             >
-              Settings
+              {c.settings}
             </a>
           </nav>
         </div>
@@ -125,7 +166,7 @@ export function SiteTopBar() {
       >
         <div className="flex min-w-0 flex-1 items-center md:flex-none">
           <Link
-            href="/"
+            href={locale === "es" ? "/es" : "/"}
             className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
             <img
@@ -143,28 +184,28 @@ export function SiteTopBar() {
           </Link>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex" aria-label="Main">
-          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href="/">
-            Translator
+          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={locale === "es" ? "/es" : "/"}>
+            {c.translator}
           </Link>
           <Link className={`${navLink} ${isAbout ? navActive : ""}`} href="/about">
-            About
+            {c.about}
           </Link>
           <Link
             className={`${navLink} ${isPicture ? navActive : ""}`}
             href="/morse-code-picture-translator"
             title="Morse code picture translator"
           >
-            Morse picture
+            {c.morsePicture}
           </Link>
           <Link
             className={`${navLink} ${isAudioDecoder ? navActive : ""}`}
             href="/audio-morse-code-decoder"
             title="Audio Morse code decoder"
           >
-            Audio decoder
+            {c.audioDecoder}
           </Link>
           <a className={navLink} href="#">
-            Settings
+            {c.settings}
           </a>
         </nav>
 
@@ -176,7 +217,7 @@ export function SiteTopBar() {
             aria-expanded={menuOpen}
             aria-controls={panelId}
             aria-haspopup="dialog"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? c.closeMenu : c.openMenu}
             onClick={() => setMenuOpen((o) => !o)}
           >
             {menuOpen ? <IconClose className="h-7 w-7" /> : <IconMenu className="h-7 w-7" />}

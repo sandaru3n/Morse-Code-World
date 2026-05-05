@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
@@ -90,7 +91,12 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/"
+    canonical: "/",
+    languages: {
+      en: "/",
+      es: "/es",
+      "x-default": "/"
+    }
   },
   keywords: ["Morse Code Translator", "morse code translator", SITE_NAME],
   openGraph: {
@@ -98,6 +104,8 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     url: "/",
     title: "Morse Code Translator",
+    locale: "en_US",
+    alternateLocale: ["es_ES"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -134,12 +142,19 @@ export default function Page() {
   return (
     <>
       <TranslatorShell
+        locale="en"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
                 Frequently Asked Questions
               </h2>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300">
+                Espanol:
+                <Link href="/es" hrefLang="es" className="underline underline-offset-2 hover:no-underline">
+                  Traductor de codigo morse
+                </Link>
+              </div>
               <div className="mt-4 space-y-3">
                 {faqItems.map((item) => (
                   <details
