@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: SITE_NAME,
     url: "/",
-    title: PAGE_TITLE,
+    title: "Morse Code Translator",
     description: PAGE_DESCRIPTION
   },
   twitter: {
