@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -88,6 +88,40 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" }) {
                 소개
               </Link>{" "}
               페이지에서 확인할 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "zh") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-zh">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-zh"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            摩斯電碼翻譯器：在瀏覽器快速編碼與解碼
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              使用 <strong className="font-semibold text-neutral-800 dark:text-slate-200">摩斯電碼翻譯器</strong>，可以在一般文字與點劃訊號之間快速互轉，
+              適合學習、練習與日常解碼需求。
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">文字與摩斯雙向轉換</h3>
+            <p>你可以將摩斯電碼貼上解碼成文字，也可以輸入文字即時轉成摩斯電碼，方便交叉確認結果。</p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">調整速度與頻率進行訓練</h3>
+            <p>可依需求調整 WPM、頻率與音量，建立最適合自己的學習節奏。短時間、持續練習通常更有效。</p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              想了解本專案的更多資訊，請參考{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                關於
+              </Link>{" "}
+              頁面。
             </p>
           </div>
         </div>

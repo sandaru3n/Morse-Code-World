@@ -87,6 +87,7 @@ export const metadata: Metadata = {
       en: "/",
       es: "/es",
       ko: "/ko",
+      zh: "/zh",
       "x-default": "/"
     }
   },
@@ -97,7 +98,7 @@ export const metadata: Metadata = {
     url: "/es",
     title: "Traductor de codigo morse",
     locale: "es_ES",
-    alternateLocale: ["en_US", "ko_KR"],
+    alternateLocale: ["en_US", "ko_KR", "zh_TW"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -146,6 +147,11 @@ export default function SpanishHomePage() {
                 Korean:
                 <Link href="/ko" hrefLang="ko" className="underline underline-offset-2 hover:no-underline">
                   모스 부호 번역기
+                </Link>
+                <span className="opacity-50">|</span>
+                Chinese:
+                <Link href="/zh" hrefLang="zh" className="underline underline-offset-2 hover:no-underline">
+                  摩斯電碼翻譯器
                 </Link>
               </div>
               <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 sm:text-base">

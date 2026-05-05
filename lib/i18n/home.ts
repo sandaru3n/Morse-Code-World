@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko";
+export type HomeLocale = "en" | "es" | "ko" | "zh";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -171,6 +171,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "설정",
     showLiveInput: "실시간 입력 표시 (탭 / 길게 누르기)",
     lightTheme: "라이트 테마 (UI)"
+  },
+  zh: {
+    heading: "摩斯電碼翻譯器",
+    configure: "設定",
+    mode: "模式",
+    modeEncode: "文字 → 摩斯",
+    modeDecode: "摩斯 → 文字",
+    clear: "清除",
+    inputPlaceholder: "輸入文字或摩斯電碼...",
+    characters: "字元數",
+    signalOutput: "輸出訊號",
+    outputPlaceholder: "結果會顯示在這裡。# = 無法轉換。",
+    copy: "複製",
+    download: "下載",
+    share: "分享",
+    play: "播放",
+    pause: "暫停",
+    stop: "停止",
+    repeat: "重複",
+    sound: "聲音",
+    screenFlashOpen: "螢幕閃爍 - 開啟選項",
+    vibrate: "震動",
+    saveAudio: "儲存音訊",
+    signalControls: "訊號控制",
+    transmissionSpeed: "傳送速度",
+    frequencyPitch: "頻率",
+    outputVolume: "輸出音量",
+    signalId: "訊號 ID",
+    linkSecured: "連線安全",
+    quickReference: "快速對照",
+    footerAbout: "關於",
+    footerMorsePicture: "摩斯圖片",
+    footerPrivacy: "隱私",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "螢幕閃爍",
+    screenFlashBody: "播放時，畫面會依點與劃節奏在白與黑之間切換閃爍。",
+    enableScreenFlash: "啟用螢幕閃爍",
+    done: "完成",
+    configureTitle: "設定",
+    showLiveInput: "顯示即時輸入（點按 / 長按）",
+    lightTheme: "淺色主題（UI）"
   }
 };
 

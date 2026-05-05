@@ -3,19 +3,18 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "모스 부호 번역기 - 모스 부호를 텍스트로 변환";
+const PAGE_TITLE = "摩斯電碼翻譯器 - 線上摩斯電碼轉文字";
 
-const PAGE_DESCRIPTION =
-  "모스 부호 번역기로 모스 부호를 텍스트로, 텍스트를 모스 부호로 빠르고 정확하게 변환하세요. 무료 온라인 도구입니다.";
+const PAGE_DESCRIPTION = "使用摩斯電碼翻譯器，快速將摩斯電碼轉成文字，也可把文字轉為摩斯電碼。免費、即時、跨裝置。";
 
-const WEB_APP_SCHEMA_KO = {
+const WEB_APP_SCHEMA_ZH = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "모스 부호 번역기",
-  url: "https://morsecodeworld.org/ko",
+  name: "摩斯電碼翻譯器",
+  url: "https://morsecodeworld.org/zh",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "ko",
+  inLanguage: "zh-Hant",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -28,33 +27,33 @@ const WEB_APP_SCHEMA_KO = {
   }
 };
 
-const FAQ_SCHEMA_KO = {
+const FAQ_SCHEMA_ZH = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "ko",
+  inLanguage: "zh-Hant",
   mainEntity: [
     {
       "@type": "Question",
-      name: "모스 부호 번역기는 무료인가요?",
+      name: "摩斯電碼翻譯器是免費的嗎？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "네. 회원가입 없이 무료로 사용할 수 있습니다."
+        text: "是，完全免費，無需註冊即可使用。"
       }
     },
     {
       "@type": "Question",
-      name: "텍스트를 모스로, 모스를 텍스트로 모두 변환할 수 있나요?",
+      name: "可以同時支援文字轉摩斯與摩斯轉文字嗎？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "네. 한 페이지에서 두 가지 변환을 모두 지원합니다."
+        text: "可以，兩種模式都支援。"
       }
     },
     {
       "@type": "Question",
-      name: "앱이나 확장 프로그램 설치가 필요한가요?",
+      name: "手機上也能使用嗎？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "아니요. 브라우저에서 바로 사용할 수 있습니다."
+        text: "可以，支援手機與桌面瀏覽器。"
       }
     }
   ]
@@ -74,7 +73,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/ko",
+    canonical: "/zh",
     languages: {
       en: "/",
       es: "/es",
@@ -83,48 +82,39 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["모스 부호 번역기", "모스 부호 해독", "모스 코드 번역", SITE_NAME],
+  keywords: ["摩斯電碼翻譯器", "摩斯電碼轉文字", "文字轉摩斯電碼", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/ko",
-    title: "모스 부호 번역기",
-    locale: "ko_KR",
-    alternateLocale: ["en_US", "es_ES", "zh_TW"],
+    url: "/zh",
+    title: "摩斯電碼翻譯器",
+    locale: "zh_TW",
+    alternateLocale: ["en_US", "es_ES", "ko_KR"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "모스 부호 번역기",
+    title: "摩斯電碼翻譯器",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function KoreanHomePage() {
+export default function ChineseHomePage() {
   const faqItems = [
-    {
-      q: "모스 부호 번역기는 무료인가요?",
-      a: "네. 브라우저에서 무료로 바로 사용할 수 있습니다."
-    },
-    {
-      q: "텍스트와 모스 부호를 서로 변환할 수 있나요?",
-      a: "네. 텍스트 → 모스, 모스 → 텍스트를 모두 지원합니다."
-    },
-    {
-      q: "휴대폰에서도 사용할 수 있나요?",
-      a: "네. 모바일과 데스크톱 브라우저에서 모두 작동합니다."
-    }
+    { q: "摩斯電碼翻譯器是免費的嗎？", a: "是，免費且可直接在瀏覽器使用。" },
+    { q: "支援雙向轉換嗎？", a: "支援，包含文字轉摩斯與摩斯轉文字。" },
+    { q: "手機也可以使用嗎？", a: "可以，支援多數現代行動與桌面瀏覽器。" }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="ko"
+        locale="zh"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
-              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">자주 묻는 질문</h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:border-violet-900/50 dark:bg-violet-950/30 dark:text-violet-300">
+              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">常見問題</h2>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
@@ -135,9 +125,9 @@ export default function KoreanHomePage() {
                   Traductor de codigo morse
                 </Link>
                 <span className="opacity-50">|</span>
-                Chinese:
-                <Link href="/zh" hrefLang="zh" className="underline underline-offset-2 hover:no-underline">
-                  摩斯電碼翻譯器
+                Korean:
+                <Link href="/ko" hrefLang="ko" className="underline underline-offset-2 hover:no-underline">
+                  모스 부호 번역기
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
@@ -157,8 +147,8 @@ export default function KoreanHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_KO) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_KO) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_ZH) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_ZH) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );
