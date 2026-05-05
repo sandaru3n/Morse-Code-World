@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -122,6 +122,40 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "z
                 關於
               </Link>{" "}
               頁面。
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "pt") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-pt">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-pt"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            Tradutor de código Morse: codifique e decodifique no navegador
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              Com o <strong className="font-semibold text-neutral-800 dark:text-slate-200">Tradutor de código Morse</strong>, você converte texto em
+              Morse e Morse em texto rapidamente, direto no navegador.
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Conversão em dois sentidos</h3>
+            <p>A ferramenta permite codificar e decodificar na mesma tela para validar símbolos e espaçamentos com mais facilidade.</p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Treino com velocidade e frequência</h3>
+            <p>Ajuste WPM, frequência e volume para praticar no seu ritmo e melhorar a precisão com sessões curtas e consistentes.</p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              Para mais informações sobre o projeto, visite a página{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                Sobre
+              </Link>
+              .
             </p>
           </div>
         </div>

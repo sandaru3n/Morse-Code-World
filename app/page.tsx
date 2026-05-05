@@ -97,6 +97,7 @@ export const metadata: Metadata = {
       es: "/es",
       ko: "/ko",
       zh: "/zh",
+      pt: "/pt",
       "x-default": "/"
     }
   },
@@ -107,7 +108,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "Morse Code Translator",
     locale: "en_US",
-    alternateLocale: ["es_ES", "ko_KR", "zh_TW"],
+    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -165,6 +166,11 @@ export default function Page() {
                 Chinese:
                 <Link href="/zh" hrefLang="zh" className="underline underline-offset-2 hover:no-underline">
                   摩斯電碼翻譯器
+                </Link>
+                <span className="opacity-50">|</span>
+                Portuguese:
+                <Link href="/pt" hrefLang="pt" className="underline underline-offset-2 hover:no-underline">
+                  Tradutor de código Morse
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

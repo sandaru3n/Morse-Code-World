@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -213,6 +213,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "設定",
     showLiveInput: "顯示即時輸入（點按 / 長按）",
     lightTheme: "淺色主題（UI）"
+  },
+  pt: {
+    heading: "Tradutor de código Morse",
+    configure: "Configurar",
+    mode: "Modo",
+    modeEncode: "Texto → Morse",
+    modeDecode: "Morse → Texto",
+    clear: "Limpar",
+    inputPlaceholder: "Digite texto ou código Morse...",
+    characters: "Caracteres",
+    signalOutput: "Saída de sinal",
+    outputPlaceholder: "A saída aparece aqui. # = não traduzível.",
+    copy: "Copiar",
+    download: "Baixar",
+    share: "Compartilhar",
+    play: "REPRODUZIR",
+    pause: "PAUSAR",
+    stop: "PARAR",
+    repeat: "Repetir",
+    sound: "Som",
+    screenFlashOpen: "Flash de tela - abrir opções",
+    vibrate: "Vibrar",
+    saveAudio: "Salvar áudio",
+    signalControls: "Controles de sinal",
+    transmissionSpeed: "Velocidade de transmissão",
+    frequencyPitch: "Frequência",
+    outputVolume: "Volume de saída",
+    signalId: "ID do sinal",
+    linkSecured: "Link seguro",
+    quickReference: "Referência rápida",
+    footerAbout: "Sobre",
+    footerMorsePicture: "Morse imagem",
+    footerPrivacy: "Privacidade",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "Flash de tela",
+    screenFlashBody: "Durante a reprodução, a tela alterna entre branco e preto no ritmo dos pontos e traços.",
+    enableScreenFlash: "Ativar flash de tela",
+    done: "Concluir",
+    configureTitle: "Configurar",
+    showLiveInput: "Mostrar entrada ao vivo (toque / segure)",
+    lightTheme: "Tema claro (UI)"
   }
 };
 

@@ -13,7 +13,7 @@ const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 const mobileNavItem =
   "block rounded-xl px-4 py-3.5 font-headline text-base font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 active:bg-emerald-500/15 dark:text-on-surface dark:hover:bg-primary-container/10";
 
-type TopBarLocale = "en" | "es" | "ko" | "zh";
+type TopBarLocale = "en" | "es" | "ko" | "zh" | "pt";
 
 const COPY: Record<
   TopBarLocale,
@@ -72,14 +72,25 @@ const COPY: Record<
     morsePicture: "摩斯圖片",
     audioDecoder: "音訊解碼",
     settings: "設定"
+  },
+  pt: {
+    menu: "Menu",
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    mobileMain: "Navegacao principal movel",
+    translator: "Tradutor",
+    about: "Sobre",
+    morsePicture: "Morse imagem",
+    audioDecoder: "Decodificador de audio",
+    settings: "Configuracoes"
   }
 };
 
 export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
   const c = COPY[locale];
-  const homePath = locale === "es" ? "/es" : locale === "ko" ? "/ko" : locale === "zh" ? "/zh" : "/";
+  const homePath = locale === "es" ? "/es" : locale === "ko" ? "/ko" : locale === "zh" ? "/zh" : locale === "pt" ? "/pt" : "/";
   const pathname = usePathname() ?? "/";
-  const isTranslator = pathname === "/" || pathname === "/es" || pathname === "/ko" || pathname === "/zh";
+  const isTranslator = pathname === "/" || pathname === "/es" || pathname === "/ko" || pathname === "/zh" || pathname === "/pt";
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
   const isAudioDecoder = pathname === "/audio-morse-code-decoder";

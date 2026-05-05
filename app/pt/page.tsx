@@ -3,18 +3,18 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "摩斯電碼翻譯器 - 線上摩斯電碼轉文字";
+const PAGE_TITLE = "Tradutor de código Morse - Converter Morse para texto online";
+const PAGE_DESCRIPTION =
+  "Use o Tradutor de código Morse para converter Morse em texto e texto em Morse com rapidez e precisão. Ferramenta online gratuita.";
 
-const PAGE_DESCRIPTION = "使用摩斯電碼翻譯器，快速將摩斯電碼轉成文字，也可把文字轉為摩斯電碼。免費、即時、跨裝置。";
-
-const WEB_APP_SCHEMA_ZH = {
+const WEB_APP_SCHEMA_PT = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "摩斯電碼翻譯器",
-  url: "https://morsecodeworld.org/zh",
+  name: "Tradutor de código Morse",
+  url: "https://morsecodeworld.org/pt",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "zh-Hant",
+  inLanguage: "pt-BR",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -27,33 +27,33 @@ const WEB_APP_SCHEMA_ZH = {
   }
 };
 
-const FAQ_SCHEMA_ZH = {
+const FAQ_SCHEMA_PT = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "zh-Hant",
+  inLanguage: "pt-BR",
   mainEntity: [
     {
       "@type": "Question",
-      name: "摩斯電碼翻譯器是免費的嗎？",
+      name: "O Tradutor de código Morse é gratuito?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "是，完全免費，無需註冊即可使用。"
+        text: "Sim, é totalmente gratuito e funciona sem cadastro."
       }
     },
     {
       "@type": "Question",
-      name: "可以同時支援文字轉摩斯與摩斯轉文字嗎？",
+      name: "Converte texto para Morse e Morse para texto?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "可以，兩種模式都支援。"
+        text: "Sim, os dois modos estão disponíveis na mesma página."
       }
     },
     {
       "@type": "Question",
-      name: "手機上也能使用嗎？",
+      name: "Funciona no celular?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "可以，支援手機與桌面瀏覽器。"
+        text: "Sim, funciona em navegadores modernos no celular e no computador."
       }
     }
   ]
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/zh",
+    canonical: "/pt",
     languages: {
       en: "/",
       es: "/es",
@@ -83,39 +83,39 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["摩斯電碼翻譯器", "摩斯電碼轉文字", "文字轉摩斯電碼", SITE_NAME],
+  keywords: ["Tradutor de código Morse", "código morse para texto", "texto para código morse", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/zh",
-    title: "摩斯電碼翻譯器",
-    locale: "zh_TW",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "pt_BR"],
+    url: "/pt",
+    title: "Tradutor de código Morse",
+    locale: "pt_BR",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "摩斯電碼翻譯器",
+    title: "Tradutor de código Morse",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function ChineseHomePage() {
+export default function PortugueseHomePage() {
   const faqItems = [
-    { q: "摩斯電碼翻譯器是免費的嗎？", a: "是，免費且可直接在瀏覽器使用。" },
-    { q: "支援雙向轉換嗎？", a: "支援，包含文字轉摩斯與摩斯轉文字。" },
-    { q: "手機也可以使用嗎？", a: "可以，支援多數現代行動與桌面瀏覽器。" }
+    { q: "O Tradutor de código Morse é gratuito?", a: "Sim, você pode usar grátis direto no navegador." },
+    { q: "Existe conversão nos dois sentidos?", a: "Sim, texto → Morse e Morse → texto." },
+    { q: "Posso usar no celular?", a: "Sim, funciona em celulares e computadores." }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="zh"
+        locale="pt"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
-              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">常見問題</h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-300">
+              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">Perguntas frequentes</h2>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-lime-200 bg-lime-50 px-3 py-1 text-xs font-semibold text-lime-700 dark:border-lime-900/50 dark:bg-lime-950/30 dark:text-lime-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
@@ -131,9 +131,9 @@ export default function ChineseHomePage() {
                   모스 부호 번역기
                 </Link>
                 <span className="opacity-50">|</span>
-                Portuguese:
-                <Link href="/pt" hrefLang="pt" className="underline underline-offset-2 hover:no-underline">
-                  Tradutor de código Morse
+                Chinese:
+                <Link href="/zh" hrefLang="zh" className="underline underline-offset-2 hover:no-underline">
+                  摩斯電碼翻譯器
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
@@ -153,8 +153,8 @@ export default function ChineseHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_ZH) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_ZH) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_PT) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_PT) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );
