@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -381,6 +381,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "Настройки",
     showLiveInput: "Показывать живой ввод (касание / удержание)",
     lightTheme: "Светлая тема (UI)"
+  },
+  de: {
+    heading: "Morsecode-Übersetzer",
+    configure: "Einstellungen",
+    mode: "Modus",
+    modeEncode: "Text → Morse",
+    modeDecode: "Morse → Text",
+    clear: "Löschen",
+    inputPlaceholder: "Text oder Morsecode eingeben...",
+    characters: "Zeichen",
+    signalOutput: "Signalausgabe",
+    outputPlaceholder: "Ausgabe erscheint hier. # = nicht übersetzbar.",
+    copy: "Kopieren",
+    download: "Herunterladen",
+    share: "Teilen",
+    play: "START",
+    pause: "PAUSE",
+    stop: "STOP",
+    repeat: "Wiederholen",
+    sound: "Ton",
+    screenFlashOpen: "Bildschirmblitz - Optionen öffnen",
+    vibrate: "Vibration",
+    saveAudio: "Audio speichern",
+    signalControls: "Signalsteuerung",
+    transmissionSpeed: "Übertragungsgeschwindigkeit",
+    frequencyPitch: "Frequenz",
+    outputVolume: "Ausgabelautstärke",
+    signalId: "Signal-ID",
+    linkSecured: "Verbindung gesichert",
+    quickReference: "Schnellreferenz",
+    footerAbout: "Über",
+    footerMorsePicture: "Morsebild",
+    footerPrivacy: "Datenschutz",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "Bildschirmblitz",
+    screenFlashBody: "Während der Wiedergabe wechselt der Bildschirm im Takt von Punkten und Strichen zwischen Weiß und Schwarz.",
+    enableScreenFlash: "Bildschirmblitz aktivieren",
+    done: "Fertig",
+    configureTitle: "Einstellungen",
+    showLiveInput: "Live-Eingabe anzeigen (tippen / halten)",
+    lightTheme: "Helles Design (UI)"
   }
 };
 

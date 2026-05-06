@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -256,6 +256,40 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "z
                 className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
               >
                 О проекте
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "de") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-de">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-de"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            Morsecode-Übersetzer: schnell im Browser umwandeln
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              Mit dem <strong className="font-semibold text-neutral-800 dark:text-slate-200">Morsecode-Übersetzer</strong> wandelst du Text und Morsecode
+              schnell in beide Richtungen um. Ideal für Lernen und Training.
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Umwandlung in beide Richtungen</h3>
+            <p>Du kannst Text zu Morse codieren und Morse zurück in lesbaren Text dekodieren - auf derselben Seite.</p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Geschwindigkeit und Frequenz anpassen</h3>
+            <p>Stelle WPM, Frequenz und Lautstärke ein, um präzise und im eigenen Tempo zu üben.</p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              Mehr über das Projekt auf der Seite{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                Über
               </Link>
               .
             </p>

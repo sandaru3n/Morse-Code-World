@@ -3,18 +3,18 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "モールス信号翻訳機 - モールス信号をテキストに変換";
+const PAGE_TITLE = "Morsecode-Übersetzer - Morse in Text online umwandeln";
 const PAGE_DESCRIPTION =
-  "モールス信号翻訳機で、モールス信号からテキストへ、テキストからモールス信号へ素早く変換できます。無料のオンラインツールです。";
+  "Nutze den Morsecode-Übersetzer, um Morsecode in Text und Text in Morsecode schnell und präzise direkt im Browser umzuwandeln.";
 
-const WEB_APP_SCHEMA_JA = {
+const WEB_APP_SCHEMA_DE = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "モールス信号翻訳機",
-  url: "https://morsecodeworld.org/ja",
+  name: "Morsecode-Übersetzer",
+  url: "https://morsecodeworld.org/de",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "ja",
+  inLanguage: "de",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -27,33 +27,33 @@ const WEB_APP_SCHEMA_JA = {
   }
 };
 
-const FAQ_SCHEMA_JA = {
+const FAQ_SCHEMA_DE = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "ja",
+  inLanguage: "de",
   mainEntity: [
     {
       "@type": "Question",
-      name: "モールス信号翻訳機は無料ですか？",
+      name: "Ist der Morsecode-Übersetzer kostenlos?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "はい。登録不要で無料で利用できます。"
+        text: "Ja. Das Tool ist komplett kostenlos und funktioniert ohne Registrierung im Browser."
       }
     },
     {
       "@type": "Question",
-      name: "テキストからモールス、モールスからテキストの両方に対応していますか？",
+      name: "Kann ich in beide Richtungen umwandeln?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "はい。同じページで双方向の変換ができます。"
+        text: "Ja. Du kannst Text in Morse und Morse in Text auf derselben Seite umwandeln."
       }
     },
     {
       "@type": "Question",
-      name: "スマートフォンでも使えますか？",
+      name: "Funktioniert es auf dem Smartphone?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "はい。スマートフォンとPCの主要ブラウザで利用できます。"
+        text: "Ja. Es funktioniert in modernen mobilen und Desktop-Browsern."
       }
     }
   ]
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/ja",
+    canonical: "/de",
     languages: {
       en: "/",
       es: "/es",
@@ -87,41 +87,41 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["モールス信号翻訳機", "モールス信号をテキストに変換", "テキストをモールス信号に変換", SITE_NAME],
+  keywords: ["Morsecode-Übersetzer", "Morsecode in Text", "Text in Morsecode", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/ja",
-    title: "モールス信号翻訳機",
-    locale: "ja_JP",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ru_RU", "de_DE"],
+    url: "/de",
+    title: "Morsecode-Übersetzer",
+    locale: "de_DE",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "モールス信号翻訳機",
+    title: "Morsecode-Übersetzer",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function JapaneseHomePage() {
+export default function GermanHomePage() {
   const faqItems = [
-    { q: "モールス信号翻訳機は無料ですか？", a: "はい。ブラウザですぐに無料で使えます。" },
-    { q: "双方向の変換に対応していますか？", a: "はい。テキスト↔モールス信号の両方に対応しています。" },
-    { q: "スマホでも利用できますか？", a: "はい。主要なモバイル/デスクトップブラウザで利用できます。" }
+    { q: "Ist der Morsecode-Übersetzer kostenlos?", a: "Ja. Du kannst ihn kostenlos direkt im Browser verwenden." },
+    { q: "Unterstützt er die Umwandlung in beide Richtungen?", a: "Ja. Text ↔ Morse wird vollständig unterstützt." },
+    { q: "Kann ich ihn auf dem Handy nutzen?", a: "Ja. Er läuft in den meisten modernen Browsern." }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="ja"
+        locale="de"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                よくある質問
+                Häufige Fragen
               </h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold text-pink-700 dark:border-pink-900/50 dark:bg-pink-950/30 dark:text-pink-300">
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 dark:border-indigo-900/50 dark:bg-indigo-950/30 dark:text-indigo-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
@@ -152,14 +152,14 @@ export default function JapaneseHomePage() {
                   مترجم شفرة مورس
                 </Link>
                 <span className="opacity-50">|</span>
+                Japanese:
+                <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
+                  モールス信号翻訳機
+                </Link>
+                <span className="opacity-50">|</span>
                 Russian:
                 <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
                   переводчик азбуки Морзе
-                </Link>
-                <span className="opacity-50">|</span>
-                German:
-                <Link href="/de" hrefLang="de" className="underline underline-offset-2 hover:no-underline">
-                  Morsecode-Übersetzer
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
@@ -179,8 +179,8 @@ export default function JapaneseHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_JA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_JA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_DE) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_DE) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );
