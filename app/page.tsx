@@ -100,17 +100,18 @@ export const metadata: Metadata = {
       pt: "/pt",
       ar: "/ar",
       ja: "/ja",
+      ru: "/ru",
       "x-default": "/"
     }
   },
-  keywords: ["Morse Code Translator", "morse code translator", "مترجم شفرة مورس", SITE_NAME],
+  keywords: ["Morse Code Translator", "morse code translator", "مترجم شفرة مورس", "モールス信号翻訳機", "переводчик азбуки Морзе", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
     url: "/",
     title: "Morse Code Translator",
     locale: "en_US",
-    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP"],
+    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -183,6 +184,11 @@ export default function Page() {
                 Japanese:
                 <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
                   モールス信号翻訳機
+                </Link>
+                <span className="opacity-50">|</span>
+                Russian:
+                <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
+                  переводчик азбуки Морзе
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

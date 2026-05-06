@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -339,6 +339,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "設定",
     showLiveInput: "ライブ入力を表示（タップ / 長押し）",
     lightTheme: "ライトテーマ（UI）"
+  },
+  ru: {
+    heading: "переводчик азбуки Морзе",
+    configure: "Настройки",
+    mode: "Режим",
+    modeEncode: "Текст → Морзе",
+    modeDecode: "Морзе → Текст",
+    clear: "Очистить",
+    inputPlaceholder: "Введите текст или код Морзе...",
+    characters: "Символы",
+    signalOutput: "Вывод сигнала",
+    outputPlaceholder: "Результат появится здесь. # = непереводимый символ.",
+    copy: "Копировать",
+    download: "Скачать",
+    share: "Поделиться",
+    play: "ПУСК",
+    pause: "ПАУЗА",
+    stop: "СТОП",
+    repeat: "Повтор",
+    sound: "Звук",
+    screenFlashOpen: "Вспышка экрана - открыть параметры",
+    vibrate: "Вибрация",
+    saveAudio: "Сохранить аудио",
+    signalControls: "Управление сигналом",
+    transmissionSpeed: "Скорость передачи",
+    frequencyPitch: "Частота",
+    outputVolume: "Громкость",
+    signalId: "ID сигнала",
+    linkSecured: "Соединение защищено",
+    quickReference: "Быстрая справка",
+    footerAbout: "О проекте",
+    footerMorsePicture: "Изображение Морзе",
+    footerPrivacy: "Конфиденциальность",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "Вспышка экрана",
+    screenFlashBody: "Во время воспроизведения экран мигает белым и черным в ритме точек и тире.",
+    enableScreenFlash: "Включить вспышку экрана",
+    done: "Готово",
+    configureTitle: "Настройки",
+    showLiveInput: "Показывать живой ввод (касание / удержание)",
+    lightTheme: "Светлая тема (UI)"
   }
 };
 

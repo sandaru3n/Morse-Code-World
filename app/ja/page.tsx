@@ -82,6 +82,7 @@ export const metadata: Metadata = {
       pt: "/pt",
       ar: "/ar",
       ja: "/ja",
+      ru: "/ru",
       "x-default": "/"
     }
   },
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
     url: "/ja",
     title: "モールス信号翻訳機",
     locale: "ja_JP",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ru_RU"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -148,6 +149,11 @@ export default function JapaneseHomePage() {
                 Arabic:
                 <Link href="/ar" hrefLang="ar" className="underline underline-offset-2 hover:no-underline">
                   مترجم شفرة مورس
+                </Link>
+                <span className="opacity-50">|</span>
+                Russian:
+                <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
+                  переводчик азбуки Морзе
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

@@ -82,6 +82,7 @@ export const metadata: Metadata = {
       pt: "/pt",
       ar: "/ar",
       ja: "/ja",
+      ru: "/ru",
       "x-default": "/"
     }
   },
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
     url: "/pt",
     title: "Tradutor de código Morse",
     locale: "pt_BR",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA", "ja_JP"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA", "ja_JP", "ru_RU"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -146,6 +147,11 @@ export default function PortugueseHomePage() {
                 Japanese:
                 <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
                   モールス信号翻訳機
+                </Link>
+                <span className="opacity-50">|</span>
+                Russian:
+                <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
+                  переводчик азбуки Морзе
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

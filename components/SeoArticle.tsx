@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -224,6 +224,40 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "z
                 概要
               </Link>{" "}
               ページをご覧ください。
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "ru") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-ru">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-ru"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            переводчик азбуки Морзе: быстрый перевод в браузере
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              <strong className="font-semibold text-neutral-800 dark:text-slate-200">переводчик азбуки Морзе</strong> помогает быстро переводить текст в
+              точки и тире и обратно. Подходит для обучения и практики.
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Двусторонний перевод</h3>
+            <p>На одной странице доступен перевод из текста в Морзе и из Морзе в обычный текст.</p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">Тренировка скорости и частоты</h3>
+            <p>Настраивайте WPM, частоту и громкость, чтобы комфортно повышать точность распознавания.</p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              Подробнее о проекте на странице{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                О проекте
+              </Link>
+              .
             </p>
           </div>
         </div>

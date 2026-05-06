@@ -83,6 +83,7 @@ export const metadata: Metadata = {
       pt: "/pt",
       ar: "/ar",
       ja: "/ja",
+      ru: "/ru",
       "x-default": "/"
     }
   },
@@ -93,7 +94,7 @@ export const metadata: Metadata = {
     url: "/ko",
     title: "모스 부호 번역기",
     locale: "ko_KR",
-    alternateLocale: ["en_US", "es_ES", "zh_TW", "pt_BR", "ar_SA", "ja_JP"],
+    alternateLocale: ["en_US", "es_ES", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -156,6 +157,11 @@ export default function KoreanHomePage() {
                 Japanese:
                 <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
                   モールス信号翻訳機
+                </Link>
+                <span className="opacity-50">|</span>
+                Russian:
+                <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
+                  переводчик азбуки Морзе
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
