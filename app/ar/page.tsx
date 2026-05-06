@@ -3,18 +3,17 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "Tradutor de código Morse - Converter Morse para texto online";
-const PAGE_DESCRIPTION =
-  "Use o Tradutor de código Morse para converter Morse em texto e texto em Morse com rapidez e precisão. Ferramenta online gratuita.";
+const PAGE_TITLE = "مترجم شفرة مورس - تحويل مورس الى نص اونلاين";
+const PAGE_DESCRIPTION = "استخدم مترجم شفرة مورس لتحويل مورس الى نص وتحويل النص الى مورس بسرعة ودقة عبر المتصفح.";
 
-const WEB_APP_SCHEMA_PT = {
+const WEB_APP_SCHEMA_AR = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Tradutor de código Morse",
-  url: "https://morsecodeworld.org/pt",
+  name: "مترجم شفرة مورس",
+  url: "https://morsecodeworld.org/ar",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "pt-BR",
+  inLanguage: "ar",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -27,33 +26,33 @@ const WEB_APP_SCHEMA_PT = {
   }
 };
 
-const FAQ_SCHEMA_PT = {
+const FAQ_SCHEMA_AR = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "pt-BR",
+  inLanguage: "ar",
   mainEntity: [
     {
       "@type": "Question",
-      name: "O Tradutor de código Morse é gratuito?",
+      name: "هل مترجم شفرة مورس مجاني؟",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, é totalmente gratuito e funciona sem cadastro."
+        text: "نعم، المترجم مجاني بالكامل ويعمل مباشرة في المتصفح بدون تسجيل."
       }
     },
     {
       "@type": "Question",
-      name: "Converte texto para Morse e Morse para texto?",
+      name: "هل يمكن التحويل من النص الى مورس ومن مورس الى نص؟",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, os dois modos estão disponíveis na mesma página."
+        text: "نعم، يمكنك استخدام التحويل في الاتجاهين من نفس الصفحة."
       }
     },
     {
       "@type": "Question",
-      name: "Funciona no celular?",
+      name: "هل يعمل على الهاتف؟",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, funciona em navegadores modernos no celular e no computador."
+        text: "نعم، يعمل على متصفحات الهاتف والكمبيوتر الحديثة."
       }
     }
   ]
@@ -73,7 +72,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/pt",
+    canonical: "/ar",
     languages: {
       en: "/",
       es: "/es",
@@ -84,39 +83,41 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["Tradutor de código Morse", "código morse para texto", "texto para código morse", SITE_NAME],
+  keywords: ["مترجم شفرة مورس", "تحويل مورس الى نص", "تحويل النص الى مورس", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/pt",
-    title: "Tradutor de código Morse",
-    locale: "pt_BR",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA"],
+    url: "/ar",
+    title: "مترجم شفرة مورس",
+    locale: "ar_SA",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "Tradutor de código Morse",
+    title: "مترجم شفرة مورس",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function PortugueseHomePage() {
+export default function ArabicHomePage() {
   const faqItems = [
-    { q: "O Tradutor de código Morse é gratuito?", a: "Sim, você pode usar grátis direto no navegador." },
-    { q: "Existe conversão nos dois sentidos?", a: "Sim, texto → Morse e Morse → texto." },
-    { q: "Posso usar no celular?", a: "Sim, funciona em celulares e computadores." }
+    { q: "هل مترجم شفرة مورس مجاني؟", a: "نعم، يمكنك استخدامه مجانا مباشرة من المتصفح." },
+    { q: "هل يدعم التحويل في الاتجاهين؟", a: "نعم، من النص الى مورس ومن مورس الى نص." },
+    { q: "هل يمكن استخدامه على الجوال؟", a: "نعم، يعمل على اغلب المتصفحات الحديثة." }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="pt"
+        locale="ar"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
-              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">Perguntas frequentes</h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-lime-200 bg-lime-50 px-3 py-1 text-xs font-semibold text-lime-700 dark:border-lime-900/50 dark:bg-lime-950/30 dark:text-lime-300">
+              <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
+                الاسئلة الشائعة
+              </h2>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900/50 dark:bg-cyan-950/30 dark:text-cyan-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
@@ -137,9 +138,9 @@ export default function PortugueseHomePage() {
                   摩斯電碼翻譯器
                 </Link>
                 <span className="opacity-50">|</span>
-                Arabic:
-                <Link href="/ar" hrefLang="ar" className="underline underline-offset-2 hover:no-underline">
-                  مترجم شفرة مورس
+                Portuguese:
+                <Link href="/pt" hrefLang="pt" className="underline underline-offset-2 hover:no-underline">
+                  Tradutor de código Morse
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
@@ -159,10 +160,9 @@ export default function PortugueseHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_PT) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_PT) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_AR) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_AR) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );
 }
-

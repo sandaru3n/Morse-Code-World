@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -255,6 +255,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "Configurar",
     showLiveInput: "Mostrar entrada ao vivo (toque / segure)",
     lightTheme: "Tema claro (UI)"
+  },
+  ar: {
+    heading: "مترجم شفرة مورس",
+    configure: "الإعدادات",
+    mode: "الوضع",
+    modeEncode: "نص ← مورس",
+    modeDecode: "مورس ← نص",
+    clear: "مسح",
+    inputPlaceholder: "اكتب نصا او شفرة مورس...",
+    characters: "عدد الاحرف",
+    signalOutput: "الناتج",
+    outputPlaceholder: "سيظهر الناتج هنا. # = غير قابل للترجمة.",
+    copy: "نسخ",
+    download: "تنزيل",
+    share: "مشاركة",
+    play: "تشغيل",
+    pause: "ايقاف مؤقت",
+    stop: "ايقاف",
+    repeat: "تكرار",
+    sound: "الصوت",
+    screenFlashOpen: "وميض الشاشة - فتح الخيارات",
+    vibrate: "اهتزاز",
+    saveAudio: "حفظ الصوت",
+    signalControls: "التحكم في الاشارة",
+    transmissionSpeed: "سرعة الارسال",
+    frequencyPitch: "التردد",
+    outputVolume: "مستوى الصوت",
+    signalId: "معرف الاشارة",
+    linkSecured: "اتصال آمن",
+    quickReference: "مرجع سريع",
+    footerAbout: "حول",
+    footerMorsePicture: "صورة مورس",
+    footerPrivacy: "الخصوصية",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "وميض الشاشة",
+    screenFlashBody: "اثناء التشغيل، تتبدل الشاشة بين الابيض والاسود مع نفس توقيت النقاط والشرطات.",
+    enableScreenFlash: "تفعيل وميض الشاشة",
+    done: "تم",
+    configureTitle: "الاعدادات",
+    showLiveInput: "عرض الادخال المباشر (نقرة / ضغط مطول)",
+    lightTheme: "السمة الفاتحة (الواجهة)"
   }
 };
 
