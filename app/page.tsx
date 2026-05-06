@@ -102,6 +102,7 @@ export const metadata: Metadata = {
       ja: "/ja",
       ru: "/ru",
       de: "/de",
+      cs: "/cs",
       "x-default": "/"
     }
   },
@@ -112,6 +113,7 @@ export const metadata: Metadata = {
     "モールス信号翻訳機",
     "переводчик азбуки Морзе",
     "Morsecode-Übersetzer",
+    "překladač morseovky",
     SITE_NAME
   ],
   openGraph: {
@@ -120,7 +122,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "Morse Code Translator",
     locale: "en_US",
-    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE"],
+    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -203,6 +205,11 @@ export default function Page() {
                 German:
                 <Link href="/de" hrefLang="de" className="underline underline-offset-2 hover:no-underline">
                   Morsecode-Übersetzer
+                </Link>
+                <span className="opacity-50">|</span>
+                Czech:
+                <Link href="/cs" hrefLang="cs" className="underline underline-offset-2 hover:no-underline">
+                  překladač morseovky
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

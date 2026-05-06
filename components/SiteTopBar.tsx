@@ -13,7 +13,7 @@ const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 const mobileNavItem =
   "block rounded-xl px-4 py-3.5 font-headline text-base font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 active:bg-emerald-500/15 dark:text-on-surface dark:hover:bg-primary-container/10";
 
-type TopBarLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de";
+type TopBarLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de" | "cs";
 
 const COPY: Record<
   TopBarLocale,
@@ -127,6 +127,17 @@ const COPY: Record<
     morsePicture: "Morsebild",
     audioDecoder: "Audio-Decoder",
     settings: "Einstellungen"
+  },
+  cs: {
+    menu: "Menu",
+    closeMenu: "Zavřít menu",
+    openMenu: "Otevřít menu",
+    mobileMain: "Hlavní mobilní navigace",
+    translator: "Překladač",
+    about: "O projektu",
+    morsePicture: "Morse obrázek",
+    audioDecoder: "Audio dekodér",
+    settings: "Nastavení"
   }
 };
 
@@ -149,6 +160,8 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
                   ? "/ru"
                   : locale === "de"
                     ? "/de"
+                    : locale === "cs"
+                      ? "/cs"
               : "/";
   const pathname = usePathname() ?? "/";
   const isTranslator =
@@ -160,7 +173,8 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
     pathname === "/ar" ||
     pathname === "/ja" ||
     pathname === "/ru" ||
-    pathname === "/de";
+    pathname === "/de" ||
+    pathname === "/cs";
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
   const isAudioDecoder = pathname === "/audio-morse-code-decoder";

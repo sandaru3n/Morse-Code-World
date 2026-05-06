@@ -84,6 +84,7 @@ export const metadata: Metadata = {
       ja: "/ja",
       ru: "/ru",
       de: "/de",
+      cs: "/cs",
       "x-default": "/"
     }
   },
@@ -94,7 +95,7 @@ export const metadata: Metadata = {
     url: "/pt",
     title: "Tradutor de código Morse",
     locale: "pt_BR",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA", "ja_JP", "ru_RU", "de_DE"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -158,6 +159,11 @@ export default function PortugueseHomePage() {
                 German:
                 <Link href="/de" hrefLang="de" className="underline underline-offset-2 hover:no-underline">
                   Morsecode-Übersetzer
+                </Link>
+                <span className="opacity-50">|</span>
+                Czech:
+                <Link href="/cs" hrefLang="cs" className="underline underline-offset-2 hover:no-underline">
+                  překladač morseovky
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

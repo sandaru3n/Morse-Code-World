@@ -3,19 +3,17 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "Traductor de codigo morse - Convertir codigo morse a texto online";
+const PAGE_TITLE = "překladač morseovky - převod morseovky na text online";
+const PAGE_DESCRIPTION = "Použij překladač morseovky pro rychlý převod morseovky na text i textu na morseovku přímo v prohlížeči.";
 
-const PAGE_DESCRIPTION =
-  "Traductor de codigo morse gratis para convertir codigo morse a texto y texto a morse en linea, rapido y facil desde cualquier dispositivo.";
-
-const WEB_APP_SCHEMA_ES = {
+const WEB_APP_SCHEMA_CS = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Traductor de codigo morse",
-  url: "https://morsecodeworld.org/es",
+  name: "překladač morseovky",
+  url: "https://morsecodeworld.org/cs",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "es",
+  inLanguage: "cs",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -28,41 +26,33 @@ const WEB_APP_SCHEMA_ES = {
   }
 };
 
-const FAQ_SCHEMA_ES = {
+const FAQ_SCHEMA_CS = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "es",
+  inLanguage: "cs",
   mainEntity: [
     {
       "@type": "Question",
-      name: "El traductor de codigo morse es gratis?",
+      name: "Je překladač morseovky zdarma?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Si. Este traductor de codigo morse es totalmente gratis y funciona en navegadores modernos sin registro."
+        text: "Ano. Nástroj je úplně zdarma a funguje bez registrace."
       }
     },
     {
       "@type": "Question",
-      name: "Puedo convertir de texto a morse y de morse a texto?",
+      name: "Lze převádět v obou směrech?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Si. Puedes codificar texto a morse y tambien decodificar morse a texto desde la misma pagina."
+        text: "Ano. Na stejné stránce můžeš převádět text do Morseovky i Morseovku do textu."
       }
     },
     {
       "@type": "Question",
-      name: "Necesito instalar una app o extension?",
+      name: "Funguje to i na mobilu?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Todo funciona directamente en el navegador, sin instalar aplicaciones ni extensiones."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "Funciona en movil y tablet?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Si. Es compatible con Chrome, Safari, Firefox y Edge en telefono, tablet y computadora."
+        text: "Ano. Funguje v moderních mobilních i desktopových prohlížečích."
       }
     }
   ]
@@ -82,7 +72,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/es",
+    canonical: "/cs",
     languages: {
       en: "/",
       es: "/es",
@@ -97,57 +87,49 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["traductor de codigo morse", "codigo morse a texto", "texto a codigo morse", SITE_NAME],
+  keywords: ["překladač morseovky", "morseovka na text", "text na morseovku", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/es",
-    title: "Traductor de codigo morse",
-    locale: "es_ES",
-    alternateLocale: ["en_US", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ"],
+    url: "/cs",
+    title: "překladač morseovky",
+    locale: "cs_CZ",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "Traductor de codigo morse",
+    title: "překladač morseovky",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function SpanishHomePage() {
+export default function CzechHomePage() {
   const faqItems = [
-    {
-      q: "El traductor de codigo morse es gratis?",
-      a: "Si. Es gratis y puedes usarlo al instante desde tu navegador."
-    },
-    {
-      q: "Puedo convertir de texto a morse y de morse a texto?",
-      a: "Si. El mismo traductor permite ambos modos de conversion."
-    },
-    {
-      q: "Necesito instalar una app o extension?",
-      a: "No. No necesitas instalar nada para usar esta herramienta."
-    },
-    {
-      q: "Funciona en movil y tablet?",
-      a: "Si. Funciona en los navegadores modernos mas usados."
-    }
+    { q: "Je překladač morseovky zdarma?", a: "Ano. Můžeš ho používat zdarma přímo v prohlížeči." },
+    { q: "Podporuje převod oběma směry?", a: "Ano. Text ↔ Morseovka je plně podporován." },
+    { q: "Mohu ho používat na telefonu?", a: "Ano. Funguje ve většině moderních prohlížečů." }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="es"
+        locale="cs"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                Preguntas frecuentes
+                Časté dotazy
               </h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 dark:border-sky-900/50 dark:bg-sky-950/30 dark:text-sky-300">
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700 dark:border-teal-900/50 dark:bg-teal-950/30 dark:text-teal-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
+                </Link>
+                <span className="opacity-50">|</span>
+                Espanol:
+                <Link href="/es" hrefLang="es" className="underline underline-offset-2 hover:no-underline">
+                  Traductor de codigo morse
                 </Link>
                 <span className="opacity-50">|</span>
                 Korean:
@@ -184,15 +166,7 @@ export default function SpanishHomePage() {
                 <Link href="/de" hrefLang="de" className="underline underline-offset-2 hover:no-underline">
                   Morsecode-Übersetzer
                 </Link>
-                <span className="opacity-50">|</span>
-                Czech:
-                <Link href="/cs" hrefLang="cs" className="underline underline-offset-2 hover:no-underline">
-                  překladač morseovky
-                </Link>
               </div>
-              <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 sm:text-base">
-                Guia rapida de uso para el traductor de codigo morse en espanol.
-              </p>
               <div className="mt-4 space-y-3">
                 {faqItems.map((item) => (
                   <details
@@ -210,8 +184,8 @@ export default function SpanishHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_ES) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_ES) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_CS) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_CS) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );

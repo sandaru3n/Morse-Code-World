@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de" | "cs";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -423,6 +423,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "Einstellungen",
     showLiveInput: "Live-Eingabe anzeigen (tippen / halten)",
     lightTheme: "Helles Design (UI)"
+  },
+  cs: {
+    heading: "překladač morseovky",
+    configure: "Nastavení",
+    mode: "Režim",
+    modeEncode: "Text → Morse",
+    modeDecode: "Morse → Text",
+    clear: "Vymazat",
+    inputPlaceholder: "Zadejte text nebo Morseovu abecedu...",
+    characters: "Znaky",
+    signalOutput: "Výstup signálu",
+    outputPlaceholder: "Výstup se zobrazí zde. # = nepřeložitelné.",
+    copy: "Kopírovat",
+    download: "Stáhnout",
+    share: "Sdílet",
+    play: "SPUSTIT",
+    pause: "PAUZA",
+    stop: "STOP",
+    repeat: "Opakovat",
+    sound: "Zvuk",
+    screenFlashOpen: "Blikání obrazovky - otevřít možnosti",
+    vibrate: "Vibrace",
+    saveAudio: "Uložit audio",
+    signalControls: "Ovládání signálu",
+    transmissionSpeed: "Rychlost přenosu",
+    frequencyPitch: "Frekvence",
+    outputVolume: "Hlasitost výstupu",
+    signalId: "ID signálu",
+    linkSecured: "Spojení zabezpečeno",
+    quickReference: "Rychlá reference",
+    footerAbout: "O projektu",
+    footerMorsePicture: "Morse obrázek",
+    footerPrivacy: "Soukromí",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "Blikání obrazovky",
+    screenFlashBody: "Během přehrávání se obrazovka střídá mezi bílou a černou podle rytmu teček a čárek.",
+    enableScreenFlash: "Zapnout blikání obrazovky",
+    done: "Hotovo",
+    configureTitle: "Nastavení",
+    showLiveInput: "Zobrazit živý vstup (klepnutí / podržení)",
+    lightTheme: "Světlý motiv (UI)"
   }
 };
 

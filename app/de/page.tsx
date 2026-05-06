@@ -84,6 +84,7 @@ export const metadata: Metadata = {
       ja: "/ja",
       ru: "/ru",
       de: "/de",
+      cs: "/cs",
       "x-default": "/"
     }
   },
@@ -94,7 +95,7 @@ export const metadata: Metadata = {
     url: "/de",
     title: "Morsecode-Übersetzer",
     locale: "de_DE",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "cs_CZ"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -160,6 +161,11 @@ export default function GermanHomePage() {
                 Russian:
                 <Link href="/ru" hrefLang="ru" className="underline underline-offset-2 hover:no-underline">
                   переводчик азбуки Морзе
+                </Link>
+                <span className="opacity-50">|</span>
+                Czech:
+                <Link href="/cs" hrefLang="cs" className="underline underline-offset-2 hover:no-underline">
+                  překladač morseovky
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
