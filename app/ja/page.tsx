@@ -3,17 +3,18 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "مترجم شفرة مورس - تحويل مورس الى نص اونلاين";
-const PAGE_DESCRIPTION = "استخدم مترجم شفرة مورس لتحويل مورس الى نص وتحويل النص الى مورس بسرعة ودقة عبر المتصفح.";
+const PAGE_TITLE = "モールス信号翻訳機 - モールス信号をテキストに変換";
+const PAGE_DESCRIPTION =
+  "モールス信号翻訳機で、モールス信号からテキストへ、テキストからモールス信号へ素早く変換できます。無料のオンラインツールです。";
 
-const WEB_APP_SCHEMA_AR = {
+const WEB_APP_SCHEMA_JA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "مترجم شفرة مورس",
-  url: "https://morsecodeworld.org/ar",
+  name: "モールス信号翻訳機",
+  url: "https://morsecodeworld.org/ja",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  inLanguage: "ar",
+  inLanguage: "ja",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -26,33 +27,33 @@ const WEB_APP_SCHEMA_AR = {
   }
 };
 
-const FAQ_SCHEMA_AR = {
+const FAQ_SCHEMA_JA = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  inLanguage: "ar",
+  inLanguage: "ja",
   mainEntity: [
     {
       "@type": "Question",
-      name: "هل مترجم شفرة مورس مجاني؟",
+      name: "モールス信号翻訳機は無料ですか？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "نعم، المترجم مجاني بالكامل ويعمل مباشرة في المتصفح بدون تسجيل."
+        text: "はい。登録不要で無料で利用できます。"
       }
     },
     {
       "@type": "Question",
-      name: "هل يمكن التحويل من النص الى مورس ومن مورس الى نص؟",
+      name: "テキストからモールス、モールスからテキストの両方に対応していますか？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "نعم، يمكنك استخدام التحويل في الاتجاهين من نفس الصفحة."
+        text: "はい。同じページで双方向の変換ができます。"
       }
     },
     {
       "@type": "Question",
-      name: "هل يعمل على الهاتف؟",
+      name: "スマートフォンでも使えますか？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "نعم، يعمل على متصفحات الهاتف والكمبيوتر الحديثة."
+        text: "はい。スマートフォンとPCの主要ブラウザで利用できます。"
       }
     }
   ]
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/ar",
+    canonical: "/ja",
     languages: {
       en: "/",
       es: "/es",
@@ -84,41 +85,41 @@ export const metadata: Metadata = {
       "x-default": "/"
     }
   },
-  keywords: ["مترجم شفرة مورس", "تحويل مورس الى نص", "تحويل النص الى مورس", SITE_NAME],
+  keywords: ["モールス信号翻訳機", "モールス信号をテキストに変換", "テキストをモールス信号に変換", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/ar",
-    title: "مترجم شفرة مورس",
-    locale: "ar_SA",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ja_JP"],
+    url: "/ja",
+    title: "モールス信号翻訳機",
+    locale: "ja_JP",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
     card: "summary",
-    title: "مترجم شفرة مورس",
+    title: "モールス信号翻訳機",
     description: PAGE_DESCRIPTION
   }
 };
 
-export default function ArabicHomePage() {
+export default function JapaneseHomePage() {
   const faqItems = [
-    { q: "هل مترجم شفرة مورس مجاني؟", a: "نعم، يمكنك استخدامه مجانا مباشرة من المتصفح." },
-    { q: "هل يدعم التحويل في الاتجاهين؟", a: "نعم، من النص الى مورس ومن مورس الى نص." },
-    { q: "هل يمكن استخدامه على الجوال؟", a: "نعم، يعمل على اغلب المتصفحات الحديثة." }
+    { q: "モールス信号翻訳機は無料ですか？", a: "はい。ブラウザですぐに無料で使えます。" },
+    { q: "双方向の変換に対応していますか？", a: "はい。テキスト↔モールス信号の両方に対応しています。" },
+    { q: "スマホでも利用できますか？", a: "はい。主要なモバイル/デスクトップブラウザで利用できます。" }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="ar"
+        locale="ja"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                الاسئلة الشائعة
+                よくある質問
               </h2>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700 dark:border-cyan-900/50 dark:bg-cyan-950/30 dark:text-cyan-300">
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-semibold text-pink-700 dark:border-pink-900/50 dark:bg-pink-950/30 dark:text-pink-300">
                 English:
                 <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">
                   Morse Code Translator
@@ -144,9 +145,9 @@ export default function ArabicHomePage() {
                   Tradutor de código Morse
                 </Link>
                 <span className="opacity-50">|</span>
-                Japanese:
-                <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
-                  モールス信号翻訳機
+                Arabic:
+                <Link href="/ar" hrefLang="ar" className="underline underline-offset-2 hover:no-underline">
+                  مترجم شفرة مورس
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
@@ -166,8 +167,8 @@ export default function ArabicHomePage() {
           </section>
         }
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_AR) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_AR) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_JA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_JA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
     </>
   );

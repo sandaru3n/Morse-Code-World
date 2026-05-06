@@ -81,6 +81,7 @@ export const metadata: Metadata = {
       zh: "/zh",
       pt: "/pt",
       ar: "/ar",
+      ja: "/ja",
       "x-default": "/"
     }
   },
@@ -91,7 +92,7 @@ export const metadata: Metadata = {
     url: "/pt",
     title: "Tradutor de código Morse",
     locale: "pt_BR",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "ar_SA", "ja_JP"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -140,6 +141,11 @@ export default function PortugueseHomePage() {
                 Arabic:
                 <Link href="/ar" hrefLang="ar" className="underline underline-offset-2 hover:no-underline">
                   مترجم شفرة مورس
+                </Link>
+                <span className="opacity-50">|</span>
+                Japanese:
+                <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
+                  モールス信号翻訳機
                 </Link>
               </div>
               <div className="mt-4 space-y-3">

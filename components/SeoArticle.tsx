@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" }) {
+export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">
@@ -190,6 +190,40 @@ export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "z
                 حول
               </Link>
               .
+            </p>
+          </div>
+        </div>
+      </article>
+    );
+  }
+  if (locale === "ja") {
+    return (
+      <article className="lg:col-span-12" aria-labelledby="seo-article-heading-ja">
+        <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm dark:border-white/10 dark:bg-surface-container/80 sm:p-7 lg:mt-10 lg:p-10">
+          <h2
+            id="seo-article-heading-ja"
+            className="font-headline text-lg font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl"
+          >
+            モールス信号翻訳機: ブラウザで素早く変換
+          </h2>
+          <div className="mt-5 space-y-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-[15px] sm:leading-7">
+            <p>
+              <strong className="font-semibold text-neutral-800 dark:text-slate-200">モールス信号翻訳機</strong>を使うと、テキストとモールス信号を
+              手軽に相互変換できます。学習にも練習にも便利です。
+            </p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">双方向の変換</h3>
+            <p>テキストをモールスへ、モールスをテキストへ同じページで変換できます。</p>
+            <h3 className="pt-2 font-headline text-base font-bold text-neutral-900 dark:text-on-surface">速度と周波数を調整</h3>
+            <p>WPM、周波数、音量を調整して、自分のペースで精度よく練習できます。</p>
+            <p className="border-t border-slate-200/80 pt-4 text-xs text-slate-500 dark:border-white/10 dark:text-slate-500 sm:text-sm">
+              プロジェクトの詳細は{" "}
+              <Link
+                href="/about"
+                className="font-semibold text-emerald-600 underline decoration-emerald-600/30 underline-offset-2 hover:text-emerald-500 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-fixed"
+              >
+                概要
+              </Link>{" "}
+              ページをご覧ください。
             </p>
           </div>
         </div>

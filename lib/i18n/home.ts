@@ -1,4 +1,4 @@
-export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar";
+export type HomeLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja";
 
 export type TranslatorUiCopy = {
   heading: string;
@@ -297,6 +297,48 @@ export const TRANSLATOR_UI_COPY: Record<HomeLocale, TranslatorUiCopy> = {
     configureTitle: "الاعدادات",
     showLiveInput: "عرض الادخال المباشر (نقرة / ضغط مطول)",
     lightTheme: "السمة الفاتحة (الواجهة)"
+  },
+  ja: {
+    heading: "モールス信号翻訳機",
+    configure: "設定",
+    mode: "モード",
+    modeEncode: "テキスト → モールス",
+    modeDecode: "モールス → テキスト",
+    clear: "クリア",
+    inputPlaceholder: "テキストまたはモールス信号を入力...",
+    characters: "文字数",
+    signalOutput: "出力",
+    outputPlaceholder: "ここに結果が表示されます。# = 変換不可。",
+    copy: "コピー",
+    download: "ダウンロード",
+    share: "共有",
+    play: "再生",
+    pause: "一時停止",
+    stop: "停止",
+    repeat: "リピート",
+    sound: "音声",
+    screenFlashOpen: "画面フラッシュ - オプションを開く",
+    vibrate: "バイブ",
+    saveAudio: "音声を保存",
+    signalControls: "信号コントロール",
+    transmissionSpeed: "送信速度",
+    frequencyPitch: "周波数",
+    outputVolume: "出力音量",
+    signalId: "信号ID",
+    linkSecured: "接続は保護されています",
+    quickReference: "クイックリファレンス",
+    footerAbout: "概要",
+    footerMorsePicture: "モールス画像",
+    footerPrivacy: "プライバシー",
+    footerApi: "API",
+    footerGithub: "GitHub",
+    screenFlashTitle: "画面フラッシュ",
+    screenFlashBody: "再生中、点と線のタイミングに合わせて画面が白と黒に切り替わります。",
+    enableScreenFlash: "画面フラッシュを有効化",
+    done: "完了",
+    configureTitle: "設定",
+    showLiveInput: "ライブ入力を表示（タップ / 長押し）",
+    lightTheme: "ライトテーマ（UI）"
   }
 };
 

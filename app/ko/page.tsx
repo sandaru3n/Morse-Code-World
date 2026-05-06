@@ -82,6 +82,7 @@ export const metadata: Metadata = {
       zh: "/zh",
       pt: "/pt",
       ar: "/ar",
+      ja: "/ja",
       "x-default": "/"
     }
   },
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
     url: "/ko",
     title: "모스 부호 번역기",
     locale: "ko_KR",
-    alternateLocale: ["en_US", "es_ES", "zh_TW", "pt_BR", "ar_SA"],
+    alternateLocale: ["en_US", "es_ES", "zh_TW", "pt_BR", "ar_SA", "ja_JP"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -150,6 +151,11 @@ export default function KoreanHomePage() {
                 Arabic:
                 <Link href="/ar" hrefLang="ar" className="underline underline-offset-2 hover:no-underline">
                   مترجم شفرة مورس
+                </Link>
+                <span className="opacity-50">|</span>
+                Japanese:
+                <Link href="/ja" hrefLang="ja" className="underline underline-offset-2 hover:no-underline">
+                  モールス信号翻訳機
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
