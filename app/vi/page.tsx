@@ -3,74 +3,47 @@ import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
-const PAGE_TITLE = "Morse Code Translator - Convert Morse Code to Text Online";
+const PAGE_TITLE = "Máy dịch mã Morse - Chuyển đổi mã Morse sang văn bản trực tuyến";
 
 const PAGE_DESCRIPTION =
-  "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately.";
+  "Máy dịch mã Morse miễn phí để chuyển đổi mã Morse sang văn bản và văn bản sang mã Morse trực tuyến, nhanh chóng từ mọi thiết bị.";
 
 const WEB_APP_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Morse Code Translator",
-  url: "https://morsecodeworld.org/",
+  name: "Máy dịch mã Morse",
+  url: "https://morsecodeworld.org/vi",
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD"
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "297531"
-  }
+  inLanguage: "vi",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "297531" }
 };
-
 
 const FAQ_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  inLanguage: "vi",
   mainEntity: [
     {
       "@type": "Question",
-      name: "Is this Morse Code Translator free to use?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Morse Code Translator is completely free to use on desktop and mobile browsers, with no account required."
-      }
+      name: "Máy dịch mã Morse có miễn phí không?",
+      acceptedAnswer: { "@type": "Answer", text: "Có. Máy dịch này hoàn toàn miễn phí và hoạt động trên các trình duyệt hiện đại mà không cần đăng ký." }
     },
     {
       "@type": "Question",
-      name: "Can I convert both Morse to text and text to Morse?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. You can decode Morse code into readable text and also encode plain text into Morse code using the same translator."
-      }
+      name: "Tôi có thể chuyển đổi cả văn bản sang Morse và Morse sang văn bản không?",
+      acceptedAnswer: { "@type": "Answer", text: "Có. Bạn có thể mã hóa văn bản sang Morse và giải mã Morse sang văn bản từ cùng một trang." }
     },
     {
       "@type": "Question",
-      name: "Do I need to install any extension or app?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "No. The translator runs fully in your browser, so you can use it instantly without installing extensions or apps."
-      }
+      name: "Tôi có cần cài đặt ứng dụng hoặc tiện ích mở rộng không?",
+      acceptedAnswer: { "@type": "Answer", text: "Không. Mọi thứ hoạt động trực tiếp trên trình duyệt, không cần cài đặt ứng dụng hay tiện ích mở rộng." }
     },
     {
       "@type": "Question",
-      name: "Does the translator work on phones and tablets?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Morse Code Translator works on modern mobile browsers including Chrome, Safari, Firefox, and Edge."
-      }
-    },
-    {
-      "@type": "Question",
-      name: "What should I do if my Morse output looks incorrect?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Check dot and dash spacing first. Small spacing mistakes can change decoded letters, so correcting separators usually fixes the result."
-      }
+      name: "Có hoạt động trên điện thoại và máy tính bảng không?",
+      acceptedAnswer: { "@type": "Answer", text: "Có. Tương thích với Chrome, Safari, Firefox và Edge trên điện thoại, máy tính bảng và máy tính." }
     }
   ]
 };
@@ -82,8 +55,6 @@ const ORGANIZATION_SCHEMA = {
   url: "https://morsecodeworld.org/",
   logo: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
   image: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
-  description:
-    "Morse Code Translator helps you encode and decode Morse code quickly online, with free browser-based tools for text, audio, and image workflows.",
   email: "contact@morsecodeworld.org"
 };
 
@@ -91,7 +62,7 @@ export const metadata: Metadata = {
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   alternates: {
-    canonical: "/",
+    canonical: "/vi",
     languages: {
       en: "/", es: "/es", ko: "/ko", zh: "/zh", pt: "/pt", ar: "/ar",
       ja: "/ja", ru: "/ru", de: "/de", cs: "/cs", fr: "/fr", it: "/it",
@@ -99,70 +70,40 @@ export const metadata: Metadata = {
       th: "/th", uk: "/uk", "x-default": "/"
     }
   },
-  keywords: [
-    "Morse Code Translator",
-    "morse code translator",
-    "مترجم شفرة مورس",
-    "モールス信号翻訳機",
-    "переводчик азбуки Морзе",
-    "Morsecode-Übersetzer",
-    "překladač morseovky",
-    "Traducteur de code Morse",
-    "Traduttore codice Morse",
-    SITE_NAME
-  ],
+  keywords: ["máy dịch mã morse", "mã morse sang văn bản", "dịch morse tiếng việt", SITE_NAME],
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    url: "/",
-    title: "Morse Code Translator",
-    locale: "en_US",
-    alternateLocale: ["es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ", "fr_FR", "it_IT", "tr_TR", "pl_PL", "nl_NL", "hi_IN", "id_ID", "vi_VN", "th_TH", "uk_UA"],
+    url: "/vi",
+    title: "Máy dịch mã Morse",
+    locale: "vi_VN",
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ", "fr_FR", "it_IT", "tr_TR", "pl_PL", "nl_NL", "hi_IN", "id_ID", "th_TH", "uk_UA"],
     description: PAGE_DESCRIPTION
   },
-  twitter: {
-    card: "summary",
-    title: PAGE_TITLE,
-    description: PAGE_DESCRIPTION
-  }
+  twitter: { card: "summary", title: "Máy dịch mã Morse", description: PAGE_DESCRIPTION }
 };
 
-export default function Page() {
+export default function VietnameseHomePage() {
   const faqItems = [
-    {
-      q: "Is this Morse Code Translator free to use?",
-      a: "Yes. The tool is completely free and works in modern browsers without registration."
-    },
-    {
-      q: "Can I convert both Morse to text and text to Morse?",
-      a: "Yes. You can decode Morse into plain text and encode text into Morse from the same page."
-    },
-    {
-      q: "Do I need to install any extension or app?",
-      a: "No. Everything runs directly in your browser."
-    },
-    {
-      q: "Does it work on phones and tablets?",
-      a: "Yes. It supports mobile and desktop browsers including Chrome, Safari, Firefox, and Edge."
-    },
-    {
-      q: "What if my decoded output looks wrong?",
-      a: "Double-check the dot, dash, and spacing separators. Small spacing errors can change decoded letters."
-    }
+    { q: "Máy dịch mã Morse có miễn phí không?", a: "Có. Miễn phí và có thể sử dụng ngay từ trình duyệt của bạn." },
+    { q: "Tôi có thể chuyển đổi cả văn bản sang Morse và Morse sang văn bản không?", a: "Có. Cùng một máy dịch hỗ trợ cả hai chế độ chuyển đổi." },
+    { q: "Tôi có cần cài đặt ứng dụng hoặc tiện ích mở rộng không?", a: "Không. Không cần cài đặt gì để sử dụng công cụ này." },
+    { q: "Có hoạt động trên điện thoại và máy tính bảng không?", a: "Có. Hoạt động trên các trình duyệt hiện đại phổ biến nhất." }
   ] as const;
 
   return (
     <>
       <TranslatorShell
-        locale="en"
+        locale="vi"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
-                Frequently Asked Questions
+                Câu hỏi thường gặp
               </h2>
-              <div className="mt-3 inline-flex flex-wrap items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-300">
-                Spanish: <Link href="/es" hrefLang="es" className="underline underline-offset-2 hover:no-underline">Traductor de codigo morse</Link>
+              <div className="mt-3 inline-flex flex-wrap items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 dark:border-sky-900/50 dark:bg-sky-950/30 dark:text-sky-300">
+                English: <Link href="/" hrefLang="en" className="underline underline-offset-2 hover:no-underline">Morse Code Translator</Link>
+                <span className="opacity-50">|</span> Spanish: <Link href="/es" hrefLang="es" className="underline underline-offset-2 hover:no-underline">Traductor de codigo morse</Link>
                 <span className="opacity-50">|</span> Korean: <Link href="/ko" hrefLang="ko" className="underline underline-offset-2 hover:no-underline">모스 부호 번역기</Link>
                 <span className="opacity-50">|</span> Chinese: <Link href="/zh" hrefLang="zh" className="underline underline-offset-2 hover:no-underline">摩斯電碼翻譯器</Link>
                 <span className="opacity-50">|</span> Portuguese: <Link href="/pt" hrefLang="pt" className="underline underline-offset-2 hover:no-underline">Tradutor de código Morse</Link>
@@ -178,15 +119,17 @@ export default function Page() {
                 <span className="opacity-50">|</span> Dutch: <Link href="/nl" hrefLang="nl" className="underline underline-offset-2 hover:no-underline">Morse code vertaler</Link>
                 <span className="opacity-50">|</span> Hindi: <Link href="/hi" hrefLang="hi" className="underline underline-offset-2 hover:no-underline">मोर्स कोड ट्रांसलेटर</Link>
                 <span className="opacity-50">|</span> Indonesian: <Link href="/id" hrefLang="id" className="underline underline-offset-2 hover:no-underline">Penerjemah kode Morse</Link>
-                <span className="opacity-50">|</span> Vietnamese: <Link href="/vi" hrefLang="vi" className="underline underline-offset-2 hover:no-underline">Máy dịch mã Morse</Link>
                 <span className="opacity-50">|</span> Thai: <Link href="/th" hrefLang="th" className="underline underline-offset-2 hover:no-underline">เครื่องแปลรหัสมอร์ส</Link>
                 <span className="opacity-50">|</span> Ukrainian: <Link href="/uk" hrefLang="uk" className="underline underline-offset-2 hover:no-underline">Перекладач коду Морзе</Link>
               </div>
+              <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 sm:text-base">
+                Hướng dẫn sử dụng nhanh máy dịch mã Morse bằng tiếng Việt.
+              </p>
               <div className="mt-4 space-y-3">
                 {faqItems.map((item) => (
                   <details
                     key={item.q}
-                    className="group rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-outline-variant/25 dark:bg-surface-container-high/50"
+                    className="rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 dark:border-outline-variant/25 dark:bg-surface-container-high/50"
                   >
                     <summary className="cursor-pointer list-none font-semibold text-neutral-900 marker:content-none dark:text-on-surface">
                       {item.q}

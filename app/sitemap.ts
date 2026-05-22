@@ -74,6 +74,72 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.75
+    },
+    {
+      url: absoluteUrl("/audio-morse-code-decoder"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75
+    },
+    {
+      url: absoluteUrl("/fr"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/it"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/tr"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/pl"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/nl"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/hi"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/id"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/vi"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/th"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
+    },
+    {
+      url: absoluteUrl("/uk"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9
     }
   ];
 }

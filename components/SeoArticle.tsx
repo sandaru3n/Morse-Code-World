@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import type { HomeLocale } from "@/lib/i18n/home";
 
 /** Long-form copy above the site footer on the home page (SEO + helpful context). */
-export function SeoArticle({ locale = "en" }: { locale?: "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de" | "cs" }) {
+export function SeoArticle({ locale = "en" }: { locale?: HomeLocale }) {
   if (locale === "es") {
     return (
       <article className="lg:col-span-12" aria-labelledby="seo-article-heading-es">

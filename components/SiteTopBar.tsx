@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { IconClose, IconMenu } from "@/components/SignalPulseIcons";
+import type { HomeLocale } from "@/lib/i18n/home";
 
 const navLink =
   "font-headline text-sm font-bold tracking-tight transition-colors duration-300 hover:text-emerald-400 md:text-base dark:text-[#DFE2EF] dark:hover:text-emerald-300";
@@ -13,7 +14,7 @@ const navActive = "border-b-2 border-emerald-400 pb-1 text-emerald-400";
 const mobileNavItem =
   "block rounded-xl px-4 py-3.5 font-headline text-base font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 active:bg-emerald-500/15 dark:text-on-surface dark:hover:bg-primary-container/10";
 
-type TopBarLocale = "en" | "es" | "ko" | "zh" | "pt" | "ar" | "ja" | "ru" | "de" | "cs";
+type TopBarLocale = HomeLocale;
 
 const COPY: Record<
   TopBarLocale,
@@ -138,43 +139,134 @@ const COPY: Record<
     morsePicture: "Morse obrázek",
     audioDecoder: "Audio dekodér",
     settings: "Nastavení"
+  },
+  fr: {
+    menu: "Menu",
+    closeMenu: "Fermer le menu",
+    openMenu: "Ouvrir le menu",
+    mobileMain: "Navigation principale mobile",
+    translator: "Traducteur",
+    about: "À propos",
+    morsePicture: "Image Morse",
+    audioDecoder: "Décodeur audio",
+    settings: "Paramètres"
+  },
+  it: {
+    menu: "Menu",
+    closeMenu: "Chiudi menu",
+    openMenu: "Apri menu",
+    mobileMain: "Navigazione principale mobile",
+    translator: "Traduttore",
+    about: "Info",
+    morsePicture: "Immagine Morse",
+    audioDecoder: "Decodificatore audio",
+    settings: "Impostazioni"
+  },
+  tr: {
+    menu: "Menü",
+    closeMenu: "Menüyü kapat",
+    openMenu: "Menüyü aç",
+    mobileMain: "Mobil ana navigasyon",
+    translator: "Çevirici",
+    about: "Hakkında",
+    morsePicture: "Mors resmi",
+    audioDecoder: "Ses çözücü",
+    settings: "Ayarlar"
+  },
+  pl: {
+    menu: "Menu",
+    closeMenu: "Zamknij menu",
+    openMenu: "Otwórz menu",
+    mobileMain: "Mobilna nawigacja główna",
+    translator: "Tłumacz",
+    about: "O nas",
+    morsePicture: "Obraz Morse",
+    audioDecoder: "Dekoder audio",
+    settings: "Ustawienia"
+  },
+  nl: {
+    menu: "Menu",
+    closeMenu: "Menu sluiten",
+    openMenu: "Menu openen",
+    mobileMain: "Mobiele hoofdnavigatie",
+    translator: "Vertaler",
+    about: "Over",
+    morsePicture: "Morse afbeelding",
+    audioDecoder: "Audio decoder",
+    settings: "Instellingen"
+  },
+  hi: {
+    menu: "मेनू",
+    closeMenu: "मेनू बंद करें",
+    openMenu: "मेनू खोलें",
+    mobileMain: "मोबाइल मुख्य नेविगेशन",
+    translator: "अनुवादक",
+    about: "के बारे में",
+    morsePicture: "मोर्स चित्र",
+    audioDecoder: "ऑडियो डिकोडर",
+    settings: "सेटिंग्स"
+  },
+  id: {
+    menu: "Menu",
+    closeMenu: "Tutup menu",
+    openMenu: "Buka menu",
+    mobileMain: "Navigasi utama seluler",
+    translator: "Penerjemah",
+    about: "Tentang",
+    morsePicture: "Gambar Morse",
+    audioDecoder: "Dekoder audio",
+    settings: "Pengaturan"
+  },
+  vi: {
+    menu: "Menu",
+    closeMenu: "Đóng menu",
+    openMenu: "Mở menu",
+    mobileMain: "Điều hướng chính di động",
+    translator: "Máy dịch",
+    about: "Giới thiệu",
+    morsePicture: "Ảnh Morse",
+    audioDecoder: "Giải mã âm thanh",
+    settings: "Cài đặt"
+  },
+  th: {
+    menu: "เมนู",
+    closeMenu: "ปิดเมนู",
+    openMenu: "เปิดเมนู",
+    mobileMain: "การนำทางหลักบนมือถือ",
+    translator: "เครื่องแปล",
+    about: "เกี่ยวกับ",
+    morsePicture: "รูปภาพมอร์ส",
+    audioDecoder: "ตัวถอดรหัสเสียง",
+    settings: "การตั้งค่า"
+  },
+  uk: {
+    menu: "Меню",
+    closeMenu: "Закрити меню",
+    openMenu: "Відкрити меню",
+    mobileMain: "Головна мобільна навігація",
+    translator: "Перекладач",
+    about: "Про нас",
+    morsePicture: "Зображення Морзе",
+    audioDecoder: "Аудіодекодер",
+    settings: "Налаштування"
   }
 };
 
 export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
   const c = COPY[locale];
-  const homePath =
-    locale === "es"
-      ? "/es"
-      : locale === "ko"
-        ? "/ko"
-        : locale === "zh"
-          ? "/zh"
-          : locale === "pt"
-            ? "/pt"
-            : locale === "ar"
-              ? "/ar"
-              : locale === "ja"
-                ? "/ja"
-                : locale === "ru"
-                  ? "/ru"
-                  : locale === "de"
-                    ? "/de"
-                    : locale === "cs"
-                      ? "/cs"
-              : "/";
+  const LOCALE_PATHS: Record<string, string> = {
+    es: "/es", ko: "/ko", zh: "/zh", pt: "/pt", ar: "/ar",
+    ja: "/ja", ru: "/ru", de: "/de", cs: "/cs", fr: "/fr",
+    it: "/it", tr: "/tr", pl: "/pl", nl: "/nl", hi: "/hi",
+    id: "/id", vi: "/vi", th: "/th", uk: "/uk"
+  };
+  const homePath = LOCALE_PATHS[locale] ?? "/";
   const pathname = usePathname() ?? "/";
-  const isTranslator =
-    pathname === "/" ||
-    pathname === "/es" ||
-    pathname === "/ko" ||
-    pathname === "/zh" ||
-    pathname === "/pt" ||
-    pathname === "/ar" ||
-    pathname === "/ja" ||
-    pathname === "/ru" ||
-    pathname === "/de" ||
-    pathname === "/cs";
+  const TRANSLATOR_PATHS = new Set([
+    "/", "/es", "/ko", "/zh", "/pt", "/ar", "/ja", "/ru", "/de", "/cs",
+    "/fr", "/it", "/tr", "/pl", "/nl", "/hi", "/id", "/vi", "/th", "/uk"
+  ]);
+  const isTranslator = TRANSLATOR_PATHS.has(pathname);
   const isAbout = pathname === "/about";
   const isPicture = pathname === "/morse-code-picture-translator";
   const isAudioDecoder = pathname === "/audio-morse-code-decoder";

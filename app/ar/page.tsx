@@ -74,17 +74,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/ar",
     languages: {
-      en: "/",
-      es: "/es",
-      ko: "/ko",
-      zh: "/zh",
-      pt: "/pt",
-      ar: "/ar",
-      ja: "/ja",
-      ru: "/ru",
-      de: "/de",
-      cs: "/cs",
-      "x-default": "/"
+      en: "/", es: "/es", ko: "/ko", zh: "/zh", pt: "/pt", ar: "/ar",
+      ja: "/ja", ru: "/ru", de: "/de", cs: "/cs", fr: "/fr", it: "/it",
+      tr: "/tr", pl: "/pl", nl: "/nl", hi: "/hi", id: "/id", vi: "/vi",
+      th: "/th", uk: "/uk", "x-default": "/"
     }
   },
   keywords: ["مترجم شفرة مورس", "تحويل مورس الى نص", "تحويل النص الى مورس", SITE_NAME],
@@ -94,7 +87,7 @@ export const metadata: Metadata = {
     url: "/ar",
     title: "مترجم شفرة مورس",
     locale: "ar_SA",
-    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ja_JP", "ru_RU", "de_DE", "cs_CZ"],
+    alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ja_JP", "ru_RU", "de_DE", "cs_CZ", "fr_FR", "it_IT", "tr_TR", "pl_PL", "nl_NL", "hi_IN", "id_ID", "vi_VN", "th_TH", "uk_UA"],
     description: PAGE_DESCRIPTION
   },
   twitter: {
@@ -165,6 +158,56 @@ export default function ArabicHomePage() {
                 Czech:
                 <Link href="/cs" hrefLang="cs" className="underline underline-offset-2 hover:no-underline">
                   překladač morseovky
+                </Link>
+                <span className="opacity-50">|</span>
+                French:
+                <Link href="/fr" hrefLang="fr" className="underline underline-offset-2 hover:no-underline">
+                  Traducteur de code Morse
+                </Link>
+                <span className="opacity-50">|</span>
+                Italian:
+                <Link href="/it" hrefLang="it" className="underline underline-offset-2 hover:no-underline">
+                  Traduttore codice Morse
+                </Link>
+                <span className="opacity-50">|</span>
+                Turkish:
+                <Link href="/tr" hrefLang="tr" className="underline underline-offset-2 hover:no-underline">
+                  Mors kodu çevirici
+                </Link>
+                <span className="opacity-50">|</span>
+                Polish:
+                <Link href="/pl" hrefLang="pl" className="underline underline-offset-2 hover:no-underline">
+                  Tłumacz kodu Morse
+                </Link>
+                <span className="opacity-50">|</span>
+                Dutch:
+                <Link href="/nl" hrefLang="nl" className="underline underline-offset-2 hover:no-underline">
+                  Morse code vertaler
+                </Link>
+                <span className="opacity-50">|</span>
+                Hindi:
+                <Link href="/hi" hrefLang="hi" className="underline underline-offset-2 hover:no-underline">
+                  मोर्स कोड ट्रांसलेटर
+                </Link>
+                <span className="opacity-50">|</span>
+                Indonesian:
+                <Link href="/id" hrefLang="id" className="underline underline-offset-2 hover:no-underline">
+                  Penerjemah kode Morse
+                </Link>
+                <span className="opacity-50">|</span>
+                Vietnamese:
+                <Link href="/vi" hrefLang="vi" className="underline underline-offset-2 hover:no-underline">
+                  Máy dịch mã Morse
+                </Link>
+                <span className="opacity-50">|</span>
+                Thai:
+                <Link href="/th" hrefLang="th" className="underline underline-offset-2 hover:no-underline">
+                  เครื่องแปลรหัสมอร์ส
+                </Link>
+                <span className="opacity-50">|</span>
+                Ukrainian:
+                <Link href="/uk" hrefLang="uk" className="underline underline-offset-2 hover:no-underline">
+                  Перекладач коду Морзе
                 </Link>
               </div>
               <div className="mt-4 space-y-3">
