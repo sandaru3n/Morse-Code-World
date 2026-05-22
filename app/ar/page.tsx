@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
@@ -94,7 +94,17 @@ export const metadata: Metadata = {
     card: "summary",
     title: "مترجم شفرة مورس",
     description: PAGE_DESCRIPTION
-  }
+  },
+  other: { "Content-Language": "ar" }
+};
+
+const BREADCRUMB_SCHEMA_AR = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "مترجم شفرة مورس", item: "https://morsecodeworld.org/ar" }
+  ]
 };
 
 export default function ArabicHomePage() {
@@ -230,6 +240,7 @@ export default function ArabicHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_AR) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_AR) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA_AR) }} />
     </>
   );
 }

@@ -113,7 +113,19 @@ export const metadata: Metadata = {
     card: "summary",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION
+  },
+  other: {
+    "Content-Language": "en"
   }
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "Audio Morse Code Decoder", item: "https://morsecodeworld.org/audio-morse-code-decoder" }
+  ]
 };
 
 export default function AudioMorseCodeDecoderPage() {
@@ -278,6 +290,7 @@ export default function AudioMorseCodeDecoderPage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(HOW_TO_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
           </div>
         </main>
       </div>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
@@ -80,7 +80,17 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US", "es_ES", "ko_KR", "zh_TW", "pt_BR", "ar_SA", "ja_JP", "ru_RU", "de_DE", "cs_CZ", "fr_FR", "it_IT", "tr_TR", "nl_NL", "hi_IN", "id_ID", "vi_VN", "th_TH", "uk_UA"],
     description: PAGE_DESCRIPTION
   },
-  twitter: { card: "summary", title: "Tłumacz kodu Morse'a", description: PAGE_DESCRIPTION }
+  twitter: { card: "summary", title: "Tłumacz kodu Morse'a", description: PAGE_DESCRIPTION },
+  other: { "Content-Language": "pl" }
+};
+
+const BREADCRUMB_SCHEMA_PL = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "Tłumacz kodu Morse'a", item: "https://morsecodeworld.org/pl" }
+  ]
 };
 
 export default function PolishHomePage() {
@@ -145,6 +155,7 @@ export default function PolishHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA_PL) }} />
     </>
   );
 }

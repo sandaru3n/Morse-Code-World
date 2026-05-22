@@ -80,11 +80,45 @@ const ORGANIZATION_SCHEMA = {
   "@type": "Organization",
   name: "Morse Code Translator",
   url: "https://morsecodeworld.org/",
-  logo: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
+    width: 512,
+    height: 512
+  },
   image: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
   description:
     "Morse Code Translator helps you encode and decode Morse code quickly online, with free browser-based tools for text, audio, and image workflows.",
-  email: "contact@morsecodeworld.org"
+  email: "contact@morsecodeworld.org",
+  sameAs: ["https://morsecodeworld.org/"]
+};
+
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Morse Code Translator",
+  url: "https://morsecodeworld.org/",
+  description:
+    "Free online Morse code translator. Convert text to Morse code and Morse code to text instantly in your browser.",
+  inLanguage: "en",
+  publisher: {
+    "@type": "Organization",
+    name: "Morse Code Translator",
+    url: "https://morsecodeworld.org/"
+  }
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Morse Code Translator",
+      item: "https://morsecodeworld.org/"
+    }
+  ]
 };
 
 export const metadata: Metadata = {
@@ -124,7 +158,8 @@ export const metadata: Metadata = {
     card: "summary",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION
-  }
+  },
+  other: { "Content-Language": "en" }
 };
 
 export default function Page() {
@@ -202,6 +237,8 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
     </>
   );
 }

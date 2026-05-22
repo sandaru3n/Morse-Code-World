@@ -104,7 +104,17 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Traductor de codigo morse",
     description: PAGE_DESCRIPTION
-  }
+  },
+  other: { "Content-Language": "es" }
+};
+
+const BREADCRUMB_SCHEMA_ES = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "Traductor de codigo morse", item: "https://morsecodeworld.org/es" }
+  ]
 };
 
 export default function SpanishHomePage() {
@@ -256,6 +266,7 @@ export default function SpanishHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_ES) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_ES) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA_ES) }} />
     </>
   );
 }

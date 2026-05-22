@@ -96,7 +96,17 @@ export const metadata: Metadata = {
     card: "summary",
     title: "모스 부호 번역기",
     description: PAGE_DESCRIPTION
-  }
+  },
+  other: { "Content-Language": "ko" }
+};
+
+const BREADCRUMB_SCHEMA_KO = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "모스 부호 번역기", item: "https://morsecodeworld.org/ko" }
+  ]
 };
 
 export default function KoreanHomePage() {
@@ -239,6 +249,7 @@ export default function KoreanHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_KO) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_KO) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA_KO) }} />
     </>
   );
 }

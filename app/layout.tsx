@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Manrope, Space_Grotesk } from "next/font/google";
+import { headers } from "next/headers";
 import Script from "next/script";
+import type { HomeLocale } from "@/lib/i18n/home";
 import { SITE_NAME } from "@/lib/site";
 import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
@@ -78,13 +80,17 @@ export const viewport: Viewport = {
   ]
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const locale = (headersList.get("x-locale") ?? "en") as HomeLocale;
+  const dir = (headersList.get("x-html-dir") ?? "ltr") as "ltr" | "rtl";
+
   return (
-    <html lang="en" className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang={locale} dir={dir} className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body className={`min-h-screen font-body ${manrope.className}`}>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-F8RWCSKDRZ" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">

@@ -23,7 +23,19 @@ export const metadata: Metadata = {
     title: "About — Morse Code Translator",
     description:
       "About Morse Code Translator: International Morse practice tools operated from the United States, with contact details and editorial information for visitors and search engines."
+  },
+  other: {
+    "Content-Language": "en"
   }
+};
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://morsecodeworld.org/about" }
+  ]
 };
 
 export default function AboutPage() {
@@ -91,6 +103,7 @@ export default function AboutPage() {
       <footer className="mt-auto border-t border-slate-200/80 py-6 text-center dark:border-white/10">
         <p className="font-label text-[10px] text-slate-500 dark:text-slate-600">© 2026 {SITE_NAME}</p>
       </footer>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
     </div>
   );
 }

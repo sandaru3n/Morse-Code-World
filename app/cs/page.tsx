@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
@@ -94,7 +94,17 @@ export const metadata: Metadata = {
     card: "summary",
     title: "překladač morseovky",
     description: PAGE_DESCRIPTION
-  }
+  },
+  other: { "Content-Language": "cs" }
+};
+
+const BREADCRUMB_SCHEMA_CS = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
+    { "@type": "ListItem", position: 2, name: "překladač morseovky", item: "https://morsecodeworld.org/cs" }
+  ]
 };
 
 export default function CzechHomePage() {
@@ -230,6 +240,7 @@ export default function CzechHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA_CS) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA_CS) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA_CS) }} />
     </>
   );
 }
