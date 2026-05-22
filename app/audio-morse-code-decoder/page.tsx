@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AiSummaryBlock } from "@/components/AiSummaryBlock";
 import AudioMorseDecoder from "@/components/AudioMorseDecoder";
 import { SiteTopBar } from "@/components/SiteTopBar";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { createWebAppSchema, createWebPageSchema } from "@/lib/seo/schemas";
 
 const SEO_KEYWORDS = [
   "audio morse code decoder",
@@ -18,17 +20,18 @@ const PAGE_TITLE = "Audio Morse Code Decoder - Decode Morse Audio to Text Online
 const PAGE_DESCRIPTION =
   "Free audio Morse code decoder. Upload WAV, MP3, or other audio and convert Morse beeps into dots/dashes and readable text online.";
 
-const WEB_APP_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
+const WEB_APP_SCHEMA = createWebAppSchema({
   name: "Audio Morse Code Decoder",
-  url: "https://morsecodeworld.org/audio-morse-code-decoder",
-  applicationCategory: "UtilityApplication",
-  operatingSystem: "Web",
-  description:
-    "Upload an audio file containing morse code beeps. The decoder analyzes tone and silence timing to extract dots and dashes and convert them to readable text.",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
-};
+  url: absoluteUrl("/audio-morse-code-decoder"),
+  description: PAGE_DESCRIPTION
+});
+
+const WEB_PAGE_SCHEMA = createWebPageSchema({
+  name: PAGE_TITLE,
+  url: absoluteUrl("/audio-morse-code-decoder"),
+  description: PAGE_DESCRIPTION,
+  speakableSelectors: ["#site-summary-audio", "#audio-morse-about"]
+});
 
 const HOW_TO_SCHEMA = {
   "@context": "https://schema.org",
@@ -139,6 +142,10 @@ export default function AudioMorseCodeDecoderPage() {
             <h1 className="font-headline text-2xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-3xl md:text-4xl">
               Audio Morse Code Decoder - Decode Morse Code from Audio Recordings
             </h1>
+
+            <div className="mt-4">
+              <AiSummaryBlock variant="audio" />
+            </div>
 
             <div className="mt-6">
               <AudioMorseDecoder />
@@ -288,6 +295,7 @@ export default function AudioMorseCodeDecoderPage() {
             </section>
 
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_PAGE_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(HOW_TO_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />

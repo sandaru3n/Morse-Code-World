@@ -43,3 +43,12 @@ Czech: https://morsecodeworld.org/cs
 - All tools run in the browser; no app install is required.
 - The text translator is free with no account.
 - Dot (.) = short signal; dash (-) = long signal; spaces separate letters and words.
+
+## Google AI / AI Overviews
+
+- Site: https://morsecodeworld.org
+- Publisher: Morse Code World (morsecodeworld.org)
+- Primary topic: International Morse Code translation and decoding tools
+- Crawlers allowed: Googlebot, Google-Extended (see robots.txt)
+- Structured data: Organization, WebSite, WebApplication, FAQPage, HowTo, ItemList
+- AI summary sections: visible on-page blocks with id site-summary, site-summary-audio, site-summary-picture

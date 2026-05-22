@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AiSummaryBlock } from "@/components/AiSummaryBlock";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
-import { createSpeakableSchema, createWebAppSchema } from "@/lib/seo/schemas";
+import { createWebAppSchema, createWebPageSchema } from "@/lib/seo/schemas";
 
 const PAGE_TITLE = "Morse Code Translator - Convert Morse Code to Text Online";
 
@@ -17,7 +17,12 @@ const WEB_APP_SCHEMA = createWebAppSchema({
   inLanguage: "en"
 });
 
-const SPEAKABLE_SCHEMA = createSpeakableSchema(["#site-summary", "#seo-article-heading"]);
+const WEB_PAGE_SCHEMA = createWebPageSchema({
+  name: PAGE_TITLE,
+  url: absoluteUrl("/"),
+  description: PAGE_DESCRIPTION,
+  speakableSelectors: ["#site-summary", "#seo-article-heading"]
+});
 
 
 const FAQ_SCHEMA = {
@@ -221,7 +226,7 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SPEAKABLE_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_PAGE_SCHEMA) }} />
     </>
   );
 }

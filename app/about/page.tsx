@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteTopBar } from "@/components/SiteTopBar";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: {
@@ -36,6 +36,19 @@ const BREADCRUMB_SCHEMA = {
     { "@type": "ListItem", position: 1, name: "Morse Code Translator", item: "https://morsecodeworld.org/" },
     { "@type": "ListItem", position: 2, name: "About", item: "https://morsecodeworld.org/about" }
   ]
+};
+
+const ABOUT_PAGE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Morse Code World",
+  url: absoluteUrl("/about"),
+  description:
+    "About Morse Code World: free International Morse code tools including text translator, audio decoder, and picture translator.",
+  mainEntity: { "@id": `${absoluteUrl("/")}#organization` },
+  publisher: { "@id": `${absoluteUrl("/")}#organization` },
+  inLanguage: "en",
+  isAccessibleForFree: true
 };
 
 export default function AboutPage() {
@@ -103,6 +116,7 @@ export default function AboutPage() {
       <footer className="mt-auto border-t border-slate-200/80 py-6 text-center dark:border-white/10">
         <p className="font-label text-[10px] text-slate-500 dark:text-slate-600">© 2026 {SITE_NAME}</p>
       </footer>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ABOUT_PAGE_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
     </div>
   );

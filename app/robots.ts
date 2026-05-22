@@ -3,6 +3,10 @@ import { absoluteUrl } from "@/lib/site";
 
 /** AI and search crawlers allowed for indexing + Bing Copilot grounding */
 const AI_AND_SEARCH_BOTS = [
+  "Googlebot",
+  "Googlebot-Image",
+  "Google-Extended",
+  "GoogleOther",
   "Bingbot",
   "msnbot",
   "BingPreview",
@@ -12,9 +16,7 @@ const AI_AND_SEARCH_BOTS = [
   "OAI-SearchBot",
   "PerplexityBot",
   "ClaudeBot",
-  "anthropic-ai",
-  "Googlebot",
-  "Google-Extended"
+  "anthropic-ai"
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AiSummaryBlock } from "@/components/AiSummaryBlock";
 import PictureMorseTranslator from "@/components/PictureMorseTranslator";
 import { SiteTopBar } from "@/components/SiteTopBar";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { createWebAppSchema, createWebPageSchema } from "@/lib/seo/schemas";
 
 const SEO_KEYWORDS = [
   "morse code picture translator",
@@ -20,21 +22,18 @@ const PAGE_TITLE = "Morse Code Picture Translator - Decode Morse Code from Image
 const PAGE_DESCRIPTION =
   "Free Morse code picture translator. Upload an image with dots and dashes, extract Morse with AI, and decode to plain text online.";
 
-const WEB_APP_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
+const WEB_APP_SCHEMA = createWebAppSchema({
   name: "Morse Code Picture Translator",
-  url: "https://morsecodeworld.org/morse-code-picture-translator",
-  applicationCategory: "UtilityApplication",
-  operatingSystem: "Web",
-  description:
-    "Upload an image containing morse code dots and dashes. AI extracts and decodes the morse code to plain text instantly.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD"
-  }
-};
+  url: absoluteUrl("/morse-code-picture-translator"),
+  description: PAGE_DESCRIPTION
+});
+
+const WEB_PAGE_SCHEMA = createWebPageSchema({
+  name: PAGE_TITLE,
+  url: absoluteUrl("/morse-code-picture-translator"),
+  description: PAGE_DESCRIPTION,
+  speakableSelectors: ["#site-summary-picture", "#picture-morse-about"]
+});
 
 const HOW_TO_SCHEMA = {
   "@context": "https://schema.org",
@@ -151,6 +150,10 @@ export default function MorseCodePictureTranslatorPage() {
             <h1 className="font-headline text-2xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-3xl md:text-4xl">
               Morse Code Picture Translator - Decode Morse Code from Any Image
             </h1>
+
+            <div className="mt-4">
+              <AiSummaryBlock variant="picture" />
+            </div>
 
             <div className="mt-6">
               <PictureMorseTranslator />
@@ -309,6 +312,7 @@ export default function MorseCodePictureTranslatorPage() {
             </section>
 
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_PAGE_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(HOW_TO_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
