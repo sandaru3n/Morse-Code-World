@@ -7,7 +7,8 @@ const ALL_URLS = [
   "/es", "/ko", "/zh", "/pt", "/ar", "/ja", "/ru", "/de", "/cs",
   "/fr", "/it", "/tr", "/pl", "/nl", "/hi", "/id", "/vi", "/th", "/uk",
   "/morse-code-picture-translator",
-  "/audio-morse-code-decoder"
+  "/audio-morse-code-decoder",
+  "/llms.txt"
 ].map(absoluteUrl);
 
 function hasValidCronAuth(request: Request): boolean {

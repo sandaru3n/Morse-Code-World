@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
@@ -20,11 +20,6 @@ const WEB_APP_SCHEMA_KO = {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD"
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "297531"
   }
 };
 

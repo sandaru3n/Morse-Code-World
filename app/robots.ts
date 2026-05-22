@@ -1,36 +1,39 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site";
 
+/** AI and search crawlers allowed for indexing + Bing Copilot grounding */
+const AI_AND_SEARCH_BOTS = [
+  "Bingbot",
+  "msnbot",
+  "BingPreview",
+  "MicrosoftPreview",
+  "GPTBot",
+  "ChatGPT-User",
+  "OAI-SearchBot",
+  "PerplexityBot",
+  "ClaudeBot",
+  "anthropic-ai",
+  "Googlebot",
+  "Google-Extended"
+] as const;
+
 export default function robots(): MetadataRoute.Robots {
+  const disallow = ["/api/", "/_next/", "/favicon/"];
+
   return {
     rules: [
       {
-        /** Allow all crawlers full access to indexable pages */
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/api/",        // API routes — not indexable content
-          "/_next/",      // Build assets — not indexable
-          "/favicon/",    // Static assets — not indexable
-        ]
+        disallow
       },
-      {
-        /** Explicitly allow Bingbot (important for Bing/Copilot eligibility) */
-        userAgent: "Bingbot",
-        allow: "/",
-        disallow: ["/api/", "/_next/", "/favicon/"]
-      },
-      {
-        /** Allow Copilot crawler for grounding/citation eligibility */
-        userAgent: "GPTBot",
-        allow: "/"
-      },
-      {
-        /** Allow Copilot / Microsoft AI crawlers */
-        userAgent: "ChatGPT-User",
-        allow: "/"
-      }
+      ...AI_AND_SEARCH_BOTS.map((userAgent) => ({
+        userAgent,
+        allow: "/" as const,
+        disallow
+      }))
     ],
-    sitemap: absoluteUrl("/sitemap.xml")
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: absoluteUrl("/").replace(/\/$/, "")
   };
 }

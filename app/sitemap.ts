@@ -169,6 +169,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DATES.uk,
       changeFrequency: "weekly",
       priority: 0.9
+    },
+    {
+      url: absoluteUrl("/llms.txt"),
+      lastModified: DATES.home,
+      changeFrequency: "monthly",
+      priority: 0.5
     }
   ];
 }

@@ -19,11 +19,6 @@ const WEB_APP_SCHEMA_JA = {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD"
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "297531"
   }
 };
 

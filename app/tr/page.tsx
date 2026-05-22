@@ -16,8 +16,7 @@ const WEB_APP_SCHEMA = {
   applicationCategory: "UtilityApplication",
   operatingSystem: "Web",
   inLanguage: "tr",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "297531" }
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
 };
 
 const FAQ_SCHEMA = {

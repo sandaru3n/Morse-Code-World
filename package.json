@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "indexnow": "node --env-file=.env scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

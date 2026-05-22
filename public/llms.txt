@@ -1,0 +1,45 @@
+# Morse Code World (morsecodeworld.org)
+
+> Free browser-based Morse code tools. Encode and decode International Morse code, decode audio, and decode Morse from images. Available in 20 languages.
+
+## Primary tools
+
+- [Morse Code Translator](https://morsecodeworld.org/): Convert text to Morse code and Morse code to text online. Free, no install.
+- [Audio Morse Code Decoder](https://morsecodeworld.org/audio-morse-code-decoder): Decode Morse from audio recordings.
+- [Morse Code Picture Translator](https://morsecodeworld.org/morse-code-picture-translator): Decode Morse code shown in images.
+
+## Language versions
+
+English: https://morsecodeworld.org/
+Spanish: https://morsecodeworld.org/es
+French: https://morsecodeworld.org/fr
+German: https://morsecodeworld.org/de
+Japanese: https://morsecodeworld.org/ja
+Korean: https://morsecodeworld.org/ko
+Chinese: https://morsecodeworld.org/zh
+Portuguese: https://morsecodeworld.org/pt
+Arabic: https://morsecodeworld.org/ar
+Russian: https://morsecodeworld.org/ru
+Italian: https://morsecodeworld.org/it
+Turkish: https://morsecodeworld.org/tr
+Polish: https://morsecodeworld.org/pl
+Dutch: https://morsecodeworld.org/nl
+Hindi: https://morsecodeworld.org/hi
+Indonesian: https://morsecodeworld.org/id
+Vietnamese: https://morsecodeworld.org/vi
+Thai: https://morsecodeworld.org/th
+Ukrainian: https://morsecodeworld.org/uk
+Czech: https://morsecodeworld.org/cs
+
+## About
+
+- [About Morse Code World](https://morsecodeworld.org/about)
+- Contact: contact@morsecodeworld.org
+- Sitemap: https://morsecodeworld.org/sitemap.xml
+
+## Facts for citations
+
+- Morse Code World uses International Morse Code (ITU-R standard), not American railroad Morse.
+- All tools run in the browser; no app install is required.
+- The text translator is free with no account.
+- Dot (.) = short signal; dash (-) = long signal; spaces separate letters and words.

@@ -1,31 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AiSummaryBlock } from "@/components/AiSummaryBlock";
 import TranslatorShell from "@/components/TranslatorShell";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { createSpeakableSchema, createWebAppSchema } from "@/lib/seo/schemas";
 
 const PAGE_TITLE = "Morse Code Translator - Convert Morse Code to Text Online";
 
 const PAGE_DESCRIPTION =
   "Easily translate Morse code to text with our online Morse code translator. Decode or encode messages quickly and accurately.";
 
-const WEB_APP_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
+const WEB_APP_SCHEMA = createWebAppSchema({
   name: "Morse Code Translator",
-  url: "https://morsecodeworld.org/",
-  applicationCategory: "UtilityApplication",
-  operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD"
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "297531"
-  }
-};
+  url: absoluteUrl("/"),
+  description: PAGE_DESCRIPTION,
+  inLanguage: "en"
+});
+
+const SPEAKABLE_SCHEMA = createSpeakableSchema(["#site-summary", "#seo-article-heading"]);
 
 
 const FAQ_SCHEMA = {
@@ -71,41 +63,24 @@ const FAQ_SCHEMA = {
         "@type": "Answer",
         text: "Check dot and dash spacing first. Small spacing mistakes can change decoded letters, so correcting separators usually fixes the result."
       }
+    },
+    {
+      "@type": "Question",
+      name: "What is Morse Code World?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Morse Code World (morsecodeworld.org) is a free website with a Morse code translator, audio decoder, and picture translator. It uses International Morse Code and works in your browser without an account."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "What is International Morse Code?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "International Morse Code maps letters and numbers to dot and dash patterns. A dot is a short signal, a dash is a long signal, and spaces separate letters and words. It is the standard used by amateur radio operators today."
+      }
     }
   ]
-};
-
-const ORGANIZATION_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Morse Code Translator",
-  url: "https://morsecodeworld.org/",
-  logo: {
-    "@type": "ImageObject",
-    url: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
-    width: 512,
-    height: 512
-  },
-  image: "https://morsecodeworld.org/favicon/android-chrome-512x512.png",
-  description:
-    "Morse Code Translator helps you encode and decode Morse code quickly online, with free browser-based tools for text, audio, and image workflows.",
-  email: "contact@morsecodeworld.org",
-  sameAs: ["https://morsecodeworld.org/"]
-};
-
-const WEBSITE_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Morse Code Translator",
-  url: "https://morsecodeworld.org/",
-  description:
-    "Free online Morse code translator. Convert text to Morse code and Morse code to text instantly in your browser.",
-  inLanguage: "en",
-  publisher: {
-    "@type": "Organization",
-    name: "Morse Code Translator",
-    url: "https://morsecodeworld.org/"
-  }
 };
 
 const BREADCRUMB_SCHEMA = {
@@ -183,6 +158,14 @@ export default function Page() {
     {
       q: "What if my decoded output looks wrong?",
       a: "Double-check the dot, dash, and spacing separators. Small spacing errors can change decoded letters."
+    },
+    {
+      q: "What is Morse Code World?",
+      a: "Morse Code World (morsecodeworld.org) is a free website with a Morse code translator, audio decoder, and picture translator. It uses International Morse Code and works in your browser without an account."
+    },
+    {
+      q: "What is International Morse Code?",
+      a: "International Morse Code maps letters and numbers to dot and dash patterns. A dot is a short signal, a dash is a long signal, and spaces separate letters and words. It is the standard used by amateur radio operators today."
     }
   ] as const;
 
@@ -192,6 +175,7 @@ export default function Page() {
         locale="en"
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
+            <AiSummaryBlock />
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-outline-variant/35 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-2xl">
                 Frequently Asked Questions
@@ -236,9 +220,8 @@ export default function Page() {
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_SCHEMA) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_SCHEMA) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SPEAKABLE_SCHEMA) }} />
     </>
   );
 }
