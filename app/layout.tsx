@@ -21,9 +21,6 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  alternates: {
-    canonical: "/"
-  },
   applicationName: SITE_NAME,
   title: "Morse Code Translator - Convert Morse Code to Text Online",
   description:
