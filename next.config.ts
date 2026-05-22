@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const INDEXNOW_KEY = process.env.INDEXNOW_KEY ?? "";
-
 const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
@@ -13,17 +11,6 @@ const nextConfig: NextConfig = {
         source: "/picture-translator",
         destination: "/morse-code-picture-translator",
         permanent: true
-      }
-    ];
-  },
-
-  /** Serve the IndexNow key-verification file at /{key}.txt */
-  async rewrites() {
-    if (!INDEXNOW_KEY) return [];
-    return [
-      {
-        source: `/${INDEXNOW_KEY}.txt`,
-        destination: "/api/indexnow-key"
       }
     ];
   },
