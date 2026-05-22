@@ -67,64 +67,61 @@ export const SITE_WEBSITE_SCHEMA = {
   isAccessibleForFree: true
 };
 
-/** Tools index — Google AI / SGE list of site capabilities */
+/** Build a ListItem with nested WebPage (required by Google ItemList rich results). */
+function createItemListEntry(position: number, name: string, path: string, description: string) {
+  const url = absoluteUrl(path);
+  return {
+    "@type": "ListItem",
+    position,
+    item: {
+      "@type": "WebPage",
+      "@id": url,
+      name,
+      url,
+      description
+    }
+  };
+}
+
+/**
+ * Single tools ItemList — Google allows only ONE ItemList per page for rich results.
+ * Language URLs are signaled via WebSite.inLanguage + page hreflang (not a second ItemList).
+ */
 export const SITE_TOOLS_ITEM_LIST_SCHEMA = {
   "@type": "ItemList",
   "@id": `${SITE_URL}/#tools`,
   name: "Morse Code World tools",
   description: "Free Morse code utilities on morsecodeworld.org",
+  itemListOrder: "https://schema.org/ItemListOrderAscending",
   numberOfItems: 3,
   itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Morse Code Translator (text)",
-      url: absoluteUrl("/"),
-      description: "Encode and decode International Morse code to plain text in the browser."
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Audio Morse Code Decoder",
-      url: absoluteUrl("/audio-morse-code-decoder"),
-      description: "Upload or record audio and decode Morse code from sound."
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Morse Code Picture Translator",
-      url: absoluteUrl("/morse-code-picture-translator"),
-      description: "Decode Morse code from images using AI vision."
-    }
+    createItemListEntry(
+      1,
+      "Morse Code Translator (text)",
+      "/",
+      "Encode and decode International Morse code to plain text in the browser."
+    ),
+    createItemListEntry(
+      2,
+      "Audio Morse Code Decoder",
+      "/audio-morse-code-decoder",
+      "Upload or record audio and decode Morse code from sound."
+    ),
+    createItemListEntry(
+      3,
+      "Morse Code Picture Translator",
+      "/morse-code-picture-translator",
+      "Decode Morse code from images using AI vision."
+    )
   ]
-};
-
-/** Language versions — helps Google AI map hreflang pages */
-export const SITE_LANGUAGES_ITEM_LIST_SCHEMA = {
-  "@type": "ItemList",
-  "@id": `${SITE_URL}/#languages`,
-  name: "Morse Code World language versions",
-  numberOfItems: LANGUAGE_ROUTES.length,
-  itemListElement: LANGUAGE_ROUTES.map((lang, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: `${lang.name} Morse code translator`,
-    url: absoluteUrl(lang.path)
-  }))
 };
 
 /**
- * Single @graph block — preferred by Google for linked entities.
- * Used site-wide in layout.
+ * Site-wide @graph — one ItemList max (Google rich result rule).
  */
 export const SITE_JSON_LD_GRAPH = {
   "@context": "https://schema.org",
-  "@graph": [
-    SITE_ORGANIZATION_SCHEMA,
-    SITE_WEBSITE_SCHEMA,
-    SITE_TOOLS_ITEM_LIST_SCHEMA,
-    SITE_LANGUAGES_ITEM_LIST_SCHEMA
-  ]
+  "@graph": [SITE_ORGANIZATION_SCHEMA, SITE_WEBSITE_SCHEMA, SITE_TOOLS_ITEM_LIST_SCHEMA]
 };
 
 export function createWebAppSchema(options: {
