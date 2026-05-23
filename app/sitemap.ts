@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { audioDecoderPath, homePath, NON_EN_LOCALES, pictureTranslatorPath } from "@/lib/i18n/routes";
 import { absoluteUrl } from "@/lib/site";
 
 /** Actual last-significant-modification dates per URL.
@@ -29,6 +30,22 @@ const DATES = {
   th:          "2026-05-22",
   uk:          "2026-05-22",
 } as const;
+
+const localizedToolEntries = (): MetadataRoute.Sitemap =>
+  NON_EN_LOCALES.flatMap((lang) => [
+    {
+      url: absoluteUrl(audioDecoderPath(lang)),
+      lastModified: DATES.audioTool,
+      changeFrequency: "monthly" as const,
+      priority: 0.7
+    },
+    {
+      url: absoluteUrl(pictureTranslatorPath(lang)),
+      lastModified: DATES.pictureTool,
+      changeFrequency: "monthly" as const,
+      priority: 0.7
+    }
+  ]);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -175,6 +192,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DATES.home,
       changeFrequency: "monthly",
       priority: 0.5
-    }
+    },
+    ...localizedToolEntries()
   ];
 }

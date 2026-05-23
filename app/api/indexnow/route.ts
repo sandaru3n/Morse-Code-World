@@ -1,15 +1,7 @@
-import { absoluteUrl } from "@/lib/site";
+import { getAllIndexableUrls } from "@/lib/i18n/sitemapUrls";
 import { SITE_DOMAIN } from "@/lib/site";
 
-/** All canonical URLs to notify Bing about when content is added or updated. */
-const ALL_URLS = [
-  "/", "/about",
-  "/es", "/ko", "/zh", "/pt", "/ar", "/ja", "/ru", "/de", "/cs",
-  "/fr", "/it", "/tr", "/pl", "/nl", "/hi", "/id", "/vi", "/th", "/uk",
-  "/morse-code-picture-translator",
-  "/audio-morse-code-decoder",
-  "/llms.txt"
-].map(absoluteUrl);
+const ALL_URLS = getAllIndexableUrls();
 
 function hasValidCronAuth(request: Request): boolean {
   const cronSecret = process.env.CRON_SECRET;

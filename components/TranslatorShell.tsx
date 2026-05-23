@@ -24,6 +24,7 @@ import {
 import { useDebounce } from "@/hooks/useDebounce";
 import { useMorseAudio } from "@/hooks/useMorseAudio";
 import { TRANSLATOR_UI_COPY, type HomeLocale } from "@/lib/i18n/home";
+import { audioDecoderPath, pictureTranslatorPath } from "@/lib/i18n/routes";
 import type { MorsePlaybackOptions } from "@/lib/audioEngine";
 import { decodeFromMorse } from "@/lib/decoder";
 import { encodeToMorse } from "@/lib/encoder";
@@ -558,10 +559,17 @@ export default function TranslatorShell({
           </Link>
           <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
-            href="/morse-code-picture-translator"
+            href={pictureTranslatorPath(locale)}
             title="Morse code picture translator"
           >
             {t.footerMorsePicture}
+          </Link>
+          <Link
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href={audioDecoderPath(locale)}
+            title="Audio Morse code decoder"
+          >
+            {t.footerAudioDecoder}
           </Link>
           <a
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"

@@ -5,31 +5,21 @@
  */
 
 const HOST = "morsecodeworld.org";
+const LANGS = [
+  "es", "ko", "zh", "pt", "ar", "ja", "ru", "de", "cs",
+  "fr", "it", "tr", "pl", "nl", "hi", "id", "vi", "th", "uk"
+];
 const PATHS = [
   "/",
   "/about",
-  "/es",
-  "/ko",
-  "/zh",
-  "/pt",
-  "/ar",
-  "/ja",
-  "/ru",
-  "/de",
-  "/cs",
-  "/fr",
-  "/it",
-  "/tr",
-  "/pl",
-  "/nl",
-  "/hi",
-  "/id",
-  "/vi",
-  "/th",
-  "/uk",
   "/morse-code-picture-translator",
   "/audio-morse-code-decoder",
-  "/llms.txt"
+  "/llms.txt",
+  ...LANGS.flatMap((lang) => [
+    `/${lang}`,
+    `/${lang}/audio-morse-code-decoder`,
+    `/${lang}/morse-code-picture-translator`
+  ])
 ];
 
 const key = process.env.INDEXNOW_KEY?.trim();

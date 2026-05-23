@@ -6,6 +6,8 @@ import { useCallback, useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { IconClose, IconMenu } from "@/components/SignalPulseIcons";
 import type { HomeLocale } from "@/lib/i18n/home";
+import { audioDecoderPath, homePath, pictureTranslatorPath, TOOL_SLUGS } from "@/lib/i18n/routes";
+import { localeFromPathname } from "@/lib/localeFromPath";
 
 const navLink =
   "font-headline text-sm font-bold tracking-tight transition-colors duration-300 hover:text-emerald-400 md:text-base dark:text-[#DFE2EF] dark:hover:text-emerald-300";
@@ -252,24 +254,17 @@ const COPY: Record<
   }
 };
 
-export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
-  const c = COPY[locale];
-  const LOCALE_PATHS: Record<string, string> = {
-    es: "/es", ko: "/ko", zh: "/zh", pt: "/pt", ar: "/ar",
-    ja: "/ja", ru: "/ru", de: "/de", cs: "/cs", fr: "/fr",
-    it: "/it", tr: "/tr", pl: "/pl", nl: "/nl", hi: "/hi",
-    id: "/id", vi: "/vi", th: "/th", uk: "/uk"
-  };
-  const homePath = LOCALE_PATHS[locale] ?? "/";
+export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
   const pathname = usePathname() ?? "/";
-  const TRANSLATOR_PATHS = new Set([
-    "/", "/es", "/ko", "/zh", "/pt", "/ar", "/ja", "/ru", "/de", "/cs",
-    "/fr", "/it", "/tr", "/pl", "/nl", "/hi", "/id", "/vi", "/th", "/uk"
-  ]);
-  const isTranslator = TRANSLATOR_PATHS.has(pathname);
+  const locale = localeProp ?? localeFromPathname(pathname);
+  const c = COPY[locale];
+  const hp = homePath(locale);
+  const audioHref = audioDecoderPath(locale);
+  const pictureHref = pictureTranslatorPath(locale);
+  const isTranslator = pathname === hp;
   const isAbout = pathname === "/about";
-  const isPicture = pathname === "/morse-code-picture-translator";
-  const isAudioDecoder = pathname === "/audio-morse-code-decoder";
+  const isPicture = pathname === pictureHref || pathname.endsWith(TOOL_SLUGS.picture);
+  const isAudioDecoder = pathname === audioHref || pathname.endsWith(TOOL_SLUGS.audio);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const menuButtonId = useId();
@@ -326,7 +321,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
           <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label={c.mobileMain}>
             <Link
               className={`${mobileNavItem} ${isTranslator ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href={homePath}
+              href={hp}
               onClick={closeMenu}
             >
               {c.translator}
@@ -340,7 +335,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
             </Link>
             <Link
               className={`${mobileNavItem} ${isPicture ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href="/morse-code-picture-translator"
+              href={pictureHref}
               title="Morse code picture translator"
               onClick={closeMenu}
             >
@@ -348,7 +343,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
             </Link>
             <Link
               className={`${mobileNavItem} ${isAudioDecoder ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href="/audio-morse-code-decoder"
+              href={audioHref}
               title="Audio Morse code decoder"
               onClick={closeMenu}
             >
@@ -376,7 +371,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
       >
         <div className="flex min-w-0 flex-1 items-center md:flex-none">
           <Link
-            href={homePath}
+            href={hp}
             className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
             <img
@@ -394,7 +389,7 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
           </Link>
         </div>
         <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex" aria-label="Main">
-          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={homePath}>
+          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={hp}>
             {c.translator}
           </Link>
           <Link className={`${navLink} ${isAbout ? navActive : ""}`} href="/about">
@@ -402,14 +397,14 @@ export function SiteTopBar({ locale = "en" }: { locale?: TopBarLocale }) {
           </Link>
           <Link
             className={`${navLink} ${isPicture ? navActive : ""}`}
-            href="/morse-code-picture-translator"
+            href={pictureHref}
             title="Morse code picture translator"
           >
             {c.morsePicture}
           </Link>
           <Link
             className={`${navLink} ${isAudioDecoder ? navActive : ""}`}
-            href="/audio-morse-code-decoder"
+            href={audioHref}
             title="Audio Morse code decoder"
           >
             {c.audioDecoder}
