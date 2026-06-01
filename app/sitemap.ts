@@ -62,6 +62,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7
     },
     {
+      url: absoluteUrl("/privacy"),
+      lastModified: DATES.about,
+      changeFrequency: "yearly",
+      priority: 0.4
+    },
+    {
+      url: absoluteUrl("/terms"),
+      lastModified: DATES.about,
+      changeFrequency: "yearly",
+      priority: 0.4
+    },
+    {
+      url: absoluteUrl("/contact"),
+      lastModified: DATES.about,
+      changeFrequency: "yearly",
+      priority: 0.5
+    },
+    {
       url: absoluteUrl("/es"),
       lastModified: DATES.es,
       changeFrequency: "weekly",

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { startTransition, useCallback, useEffect, useId, useState } from "react";
+import { startTransition, useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { IconClose, IconMenu } from "@/components/SignalPulseIcons";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -29,7 +29,10 @@ const COPY: Record<
     about: string;
     morsePicture: string;
     audioDecoder: string;
-    settings: string;
+    tools: string;
+    privacy: string;
+    terms: string;
+    contact: string;
   }
 > = {
   en: {
@@ -37,220 +40,280 @@ const COPY: Record<
     closeMenu: "Close menu",
     openMenu: "Open menu",
     mobileMain: "Mobile main",
-    translator: "Translator",
+    translator: "Morse Code Translator",
     about: "About",
-    morsePicture: "Morse picture",
-    audioDecoder: "Audio decoder",
-    settings: "Settings"
+    morsePicture: "Morse Code Picture",
+    audioDecoder: "Morse Code Audio",
+    tools: "Tools",
+    privacy: "Privacy",
+    terms: "Terms",
+    contact: "Contact"
   },
   es: {
     menu: "Menu",
     closeMenu: "Cerrar menu",
     openMenu: "Abrir menu",
     mobileMain: "Navegacion movil",
-    translator: "Traductor",
+    translator: "Traductor de Morse",
     about: "Acerca de",
-    morsePicture: "Morse imagen",
-    audioDecoder: "Decodificador audio",
-    settings: "Configuracion"
+    morsePicture: "Morse Imagen",
+    audioDecoder: "Morse Audio",
+    tools: "Herramientas",
+    privacy: "Privacidad",
+    terms: "Términos",
+    contact: "Contacto"
   },
   ko: {
     menu: "메뉴",
     closeMenu: "메뉴 닫기",
     openMenu: "메뉴 열기",
     mobileMain: "모바일 메인 탐색",
-    translator: "번역기",
+    translator: "모스 번역기",
     about: "소개",
     morsePicture: "모스 이미지",
-    audioDecoder: "오디오 디코더",
-    settings: "설정"
+    audioDecoder: "모스 오디오",
+    tools: "도구",
+    privacy: "개인정보",
+    terms: "이용약관",
+    contact: "문의"
   },
   zh: {
     menu: "選單",
     closeMenu: "關閉選單",
     openMenu: "開啟選單",
     mobileMain: "行動版主選單",
-    translator: "翻譯器",
+    translator: "摩斯翻譯器",
     about: "關於",
     morsePicture: "摩斯圖片",
-    audioDecoder: "音訊解碼",
-    settings: "設定"
+    audioDecoder: "摩斯音訊",
+    tools: "工具",
+    privacy: "隱私",
+    terms: "條款",
+    contact: "聯絡"
   },
   pt: {
     menu: "Menu",
     closeMenu: "Fechar menu",
     openMenu: "Abrir menu",
     mobileMain: "Navegacao principal movel",
-    translator: "Tradutor",
+    translator: "Tradutor Morse",
     about: "Sobre",
-    morsePicture: "Morse imagem",
-    audioDecoder: "Decodificador de audio",
-    settings: "Configuracoes"
+    morsePicture: "Morse Imagem",
+    audioDecoder: "Morse Áudio",
+    tools: "Ferramentas",
+    privacy: "Privacidade",
+    terms: "Termos",
+    contact: "Contato"
   },
   ar: {
     menu: "القائمة",
     closeMenu: "اغلاق القائمة",
     openMenu: "فتح القائمة",
     mobileMain: "التنقل الرئيسي للجوال",
-    translator: "المترجم",
+    translator: "مترجم مورس",
     about: "حول",
     morsePicture: "صورة مورس",
-    audioDecoder: "فك تشفير الصوت",
-    settings: "الاعدادات"
+    audioDecoder: "صوت مورس",
+    tools: "الأدوات",
+    privacy: "الخصوصية",
+    terms: "الشروط",
+    contact: "اتصل"
   },
   ja: {
     menu: "メニュー",
     closeMenu: "メニューを閉じる",
     openMenu: "メニューを開く",
     mobileMain: "モバイルメインナビ",
-    translator: "翻訳機",
+    translator: "モールス翻訳機",
     about: "概要",
     morsePicture: "モールス画像",
-    audioDecoder: "音声デコーダー",
-    settings: "設定"
+    audioDecoder: "モールス音声",
+    tools: "ツール",
+    privacy: "プライバシー",
+    terms: "利用規約",
+    contact: "お問い合わせ"
   },
   ru: {
     menu: "Меню",
     closeMenu: "Закрыть меню",
     openMenu: "Открыть меню",
     mobileMain: "Главная мобильная навигация",
-    translator: "Переводчик",
+    translator: "Переводчик Морзе",
     about: "О проекте",
     morsePicture: "Изображение Морзе",
-    audioDecoder: "Аудиодекодер",
-    settings: "Настройки"
+    audioDecoder: "Аудио Морзе",
+    tools: "Инструменты",
+    privacy: "Конфиденц.",
+    terms: "Условия",
+    contact: "Контакт"
   },
   de: {
     menu: "Menü",
     closeMenu: "Menü schließen",
     openMenu: "Menü öffnen",
     mobileMain: "Mobile Hauptnavigation",
-    translator: "Übersetzer",
+    translator: "Morse-Übersetzer",
     about: "Über",
-    morsePicture: "Morsebild",
-    audioDecoder: "Audio-Decoder",
-    settings: "Einstellungen"
+    morsePicture: "Morse-Bild",
+    audioDecoder: "Morse-Audio",
+    tools: "Tools",
+    privacy: "Datenschutz",
+    terms: "Nutzungsbeding.",
+    contact: "Kontakt"
   },
   cs: {
     menu: "Menu",
     closeMenu: "Zavřít menu",
     openMenu: "Otevřít menu",
     mobileMain: "Hlavní mobilní navigace",
-    translator: "Překladač",
+    translator: "Morse překladač",
     about: "O projektu",
     morsePicture: "Morse obrázek",
-    audioDecoder: "Audio dekodér",
-    settings: "Nastavení"
+    audioDecoder: "Morse audio",
+    tools: "Nástroje",
+    privacy: "Ochrana dat",
+    terms: "Podmínky",
+    contact: "Kontakt"
   },
   fr: {
     menu: "Menu",
     closeMenu: "Fermer le menu",
     openMenu: "Ouvrir le menu",
     mobileMain: "Navigation principale mobile",
-    translator: "Traducteur",
+    translator: "Traducteur Morse",
     about: "À propos",
     morsePicture: "Image Morse",
-    audioDecoder: "Décodeur audio",
-    settings: "Paramètres"
+    audioDecoder: "Audio Morse",
+    tools: "Outils",
+    privacy: "Confidentialité",
+    terms: "Conditions",
+    contact: "Contact"
   },
   it: {
     menu: "Menu",
     closeMenu: "Chiudi menu",
     openMenu: "Apri menu",
     mobileMain: "Navigazione principale mobile",
-    translator: "Traduttore",
+    translator: "Traduttore Morse",
     about: "Info",
     morsePicture: "Immagine Morse",
-    audioDecoder: "Decodificatore audio",
-    settings: "Impostazioni"
+    audioDecoder: "Audio Morse",
+    tools: "Strumenti",
+    privacy: "Privacy",
+    terms: "Termini",
+    contact: "Contatto"
   },
   tr: {
     menu: "Menü",
     closeMenu: "Menüyü kapat",
     openMenu: "Menüyü aç",
     mobileMain: "Mobil ana navigasyon",
-    translator: "Çevirici",
+    translator: "Mors Çevirici",
     about: "Hakkında",
-    morsePicture: "Mors resmi",
-    audioDecoder: "Ses çözücü",
-    settings: "Ayarlar"
+    morsePicture: "Mors Resmi",
+    audioDecoder: "Mors Ses",
+    tools: "Araçlar",
+    privacy: "Gizlilik",
+    terms: "Koşullar",
+    contact: "İletişim"
   },
   pl: {
     menu: "Menu",
     closeMenu: "Zamknij menu",
     openMenu: "Otwórz menu",
     mobileMain: "Mobilna nawigacja główna",
-    translator: "Tłumacz",
+    translator: "Tłumacz Morse",
     about: "O nas",
     morsePicture: "Obraz Morse",
-    audioDecoder: "Dekoder audio",
-    settings: "Ustawienia"
+    audioDecoder: "Audio Morse",
+    tools: "Narzędzia",
+    privacy: "Prywatność",
+    terms: "Warunki",
+    contact: "Kontakt"
   },
   nl: {
     menu: "Menu",
     closeMenu: "Menu sluiten",
     openMenu: "Menu openen",
     mobileMain: "Mobiele hoofdnavigatie",
-    translator: "Vertaler",
+    translator: "Morse Vertaler",
     about: "Over",
-    morsePicture: "Morse afbeelding",
-    audioDecoder: "Audio decoder",
-    settings: "Instellingen"
+    morsePicture: "Morse Afbeelding",
+    audioDecoder: "Morse Audio",
+    tools: "Tools",
+    privacy: "Privacy",
+    terms: "Voorwaarden",
+    contact: "Contact"
   },
   hi: {
     menu: "मेनू",
     closeMenu: "मेनू बंद करें",
     openMenu: "मेनू खोलें",
     mobileMain: "मोबाइल मुख्य नेविगेशन",
-    translator: "अनुवादक",
+    translator: "मोर्स अनुवादक",
     about: "के बारे में",
     morsePicture: "मोर्स चित्र",
-    audioDecoder: "ऑडियो डिकोडर",
-    settings: "सेटिंग्स"
+    audioDecoder: "मोर्स ऑडियो",
+    tools: "उपकरण",
+    privacy: "गोपनीयता",
+    terms: "शर्तें",
+    contact: "संपर्क"
   },
   id: {
     menu: "Menu",
     closeMenu: "Tutup menu",
     openMenu: "Buka menu",
     mobileMain: "Navigasi utama seluler",
-    translator: "Penerjemah",
+    translator: "Penerjemah Morse",
     about: "Tentang",
     morsePicture: "Gambar Morse",
-    audioDecoder: "Dekoder audio",
-    settings: "Pengaturan"
+    audioDecoder: "Audio Morse",
+    tools: "Alat",
+    privacy: "Privasi",
+    terms: "Syarat",
+    contact: "Kontak"
   },
   vi: {
     menu: "Menu",
     closeMenu: "Đóng menu",
     openMenu: "Mở menu",
     mobileMain: "Điều hướng chính di động",
-    translator: "Máy dịch",
+    translator: "Máy dịch Morse",
     about: "Giới thiệu",
     morsePicture: "Ảnh Morse",
-    audioDecoder: "Giải mã âm thanh",
-    settings: "Cài đặt"
+    audioDecoder: "Âm thanh Morse",
+    tools: "Công cụ",
+    privacy: "Quyền riêng tư",
+    terms: "Điều khoản",
+    contact: "Liên hệ"
   },
   th: {
     menu: "เมนู",
     closeMenu: "ปิดเมนู",
     openMenu: "เปิดเมนู",
     mobileMain: "การนำทางหลักบนมือถือ",
-    translator: "เครื่องแปล",
+    translator: "แปลรหัสมอร์ส",
     about: "เกี่ยวกับ",
     morsePicture: "รูปภาพมอร์ส",
-    audioDecoder: "ตัวถอดรหัสเสียง",
-    settings: "การตั้งค่า"
+    audioDecoder: "เสียงมอร์ส",
+    tools: "เครื่องมือ",
+    privacy: "ความเป็นส่วนตัว",
+    terms: "ข้อกำหนด",
+    contact: "ติดต่อ"
   },
   uk: {
     menu: "Меню",
     closeMenu: "Закрити меню",
     openMenu: "Відкрити меню",
     mobileMain: "Головна мобільна навігація",
-    translator: "Перекладач",
+    translator: "Перекладач Морзе",
     about: "Про нас",
     morsePicture: "Зображення Морзе",
-    audioDecoder: "Аудіодекодер",
-    settings: "Налаштування"
+    audioDecoder: "Аудіо Морзе",
+    tools: "Інструменти",
+    privacy: "Конфіденційність",
+    terms: "Умови",
+    contact: "Контакт"
   }
 };
 
@@ -265,12 +328,19 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
   const isAbout = pathname === "/about";
   const isPicture = pathname === pictureHref || pathname.endsWith(TOOL_SLUGS.picture);
   const isAudioDecoder = pathname === audioHref || pathname.endsWith(TOOL_SLUGS.audio);
+  const isPrivacy = pathname === "/privacy";
+  const isTerms = pathname === "/terms";
+  const isContact = pathname === "/contact";
+  const isAnyTool = isTranslator || isPicture || isAudioDecoder;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const menuButtonId = useId();
   const panelId = useId();
+  const toolsRef = useRef<HTMLDivElement>(null);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const closeTools = useCallback(() => setToolsOpen(false), []);
 
   useEffect(() => {
     setMounted(true);
@@ -297,6 +367,24 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen, closeMenu]);
 
+  useEffect(() => {
+    closeTools();
+  }, [pathname, closeTools]);
+
+  useEffect(() => {
+    if (!toolsOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeTools(); };
+    const onClickOutside = (e: MouseEvent) => {
+      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) closeTools();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClickOutside);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [toolsOpen, closeTools]);
+
   const mobileMenu =
     mounted && menuOpen ? (
       <>
@@ -319,13 +407,36 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
             </h2>
           </div>
           <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3" aria-label={c.mobileMain}>
-            <Link
-              className={`${mobileNavItem} ${isTranslator ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href={hp}
-              onClick={closeMenu}
-            >
-              {c.translator}
-            </Link>
+            {/* Tools group */}
+            <div className={`rounded-xl ${isAnyTool ? "bg-emerald-500/8 dark:bg-primary-container/10" : ""}`}>
+              <div className="px-4 pb-1 pt-2.5 font-label text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-primary-container">
+                {c.tools}
+              </div>
+              <Link
+                className={`flex items-center gap-3 rounded-xl px-4 py-2.5 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 dark:text-on-surface dark:hover:bg-primary-container/10 ${isTranslator ? "text-emerald-700 dark:text-primary-container" : ""}`}
+                href={hp}
+                onClick={closeMenu}
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-100 text-base dark:bg-primary-container/20">⠿</span>
+                {c.translator}
+              </Link>
+              <Link
+                className={`flex items-center gap-3 rounded-xl px-4 py-2.5 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 dark:text-on-surface dark:hover:bg-primary-container/10 ${isPicture ? "text-emerald-700 dark:text-primary-container" : ""}`}
+                href={pictureHref}
+                onClick={closeMenu}
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-violet-100 text-base dark:bg-violet-900/30">🖼</span>
+                {c.morsePicture}
+              </Link>
+              <Link
+                className={`flex items-center gap-3 rounded-xl px-4 pb-2.5 pt-2.5 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 dark:text-on-surface dark:hover:bg-primary-container/10 ${isAudioDecoder ? "text-emerald-700 dark:text-primary-container" : ""}`}
+                href={audioHref}
+                onClick={closeMenu}
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-sky-100 text-base dark:bg-sky-900/30">🎧</span>
+                {c.audioDecoder}
+              </Link>
+            </div>
             <Link
               className={`${mobileNavItem} ${isAbout ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
               href="/about"
@@ -334,31 +445,26 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
               {c.about}
             </Link>
             <Link
-              className={`${mobileNavItem} ${isPicture ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href={pictureHref}
-              title="Morse code picture translator"
+              className={`${mobileNavItem} ${isPrivacy ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
+              href="/privacy"
               onClick={closeMenu}
             >
-              {c.morsePicture}
+              {c.privacy}
             </Link>
             <Link
-              className={`${mobileNavItem} ${isAudioDecoder ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
-              href={audioHref}
-              title="Audio Morse code decoder"
+              className={`${mobileNavItem} ${isTerms ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
+              href="/terms"
               onClick={closeMenu}
             >
-              {c.audioDecoder}
+              {c.terms}
             </Link>
-            <a
-              className={`${mobileNavItem} opacity-80`}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                closeMenu();
-              }}
+            <Link
+              className={`${mobileNavItem} ${isContact ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
+              href="/contact"
+              onClick={closeMenu}
             >
-              {c.settings}
-            </a>
+              {c.contact}
+            </Link>
           </nav>
         </div>
       </>
@@ -388,30 +494,80 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
             </span>
           </Link>
         </div>
-        <nav className="hidden flex-1 items-center justify-center gap-8 lg:gap-10 md:flex" aria-label="Main">
-          <Link className={`${navLink} ${isTranslator ? navActive : ""}`} href={hp}>
-            {c.translator}
-          </Link>
+        <nav className="hidden flex-1 items-center justify-center gap-6 lg:gap-8 md:flex" aria-label="Main">
+          {/* Tools dropdown */}
+          <div ref={toolsRef} className="relative">
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={toolsOpen}
+              onClick={() => setToolsOpen((o) => !o)}
+              className={`flex items-center gap-1 ${navLink} ${isAnyTool ? navActive : ""}`}
+            >
+              {c.tools}
+              <svg
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${toolsOpen ? "rotate-180" : ""}`}
+                viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
+              >
+                <path d="M8 10.94 2.53 5.47l1.06-1.06L8 8.81l4.41-4.4 1.06 1.06z" />
+              </svg>
+            </button>
+
+            {toolsOpen && (
+              <div className="absolute left-1/2 top-full z-[200] mt-3 w-72 -translate-x-1/2 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-2xl dark:border-outline-variant/30 dark:bg-surface-container">
+                {/* pointer arrow */}
+                <div className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t border-slate-200/80 bg-white dark:border-outline-variant/30 dark:bg-surface-container" aria-hidden="true" />
+                <div className="relative p-1.5">
+                  <Link
+                    href={hp}
+                    onClick={closeTools}
+                    className={`flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-emerald-50 dark:hover:bg-primary-container/10 ${isTranslator ? "bg-emerald-50 dark:bg-primary-container/15" : ""}`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-xl dark:bg-primary-container/20">⠿</span>
+                    <div>
+                      <div className="font-headline text-sm font-bold text-neutral-900 dark:text-on-surface">{c.translator}</div>
+                      <div className="mt-0.5 font-label text-[11px] text-slate-500 dark:text-slate-400">Text ↔ Morse · sound · download</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href={pictureHref}
+                    onClick={closeTools}
+                    className={`flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-emerald-50 dark:hover:bg-primary-container/10 ${isPicture ? "bg-emerald-50 dark:bg-primary-container/15" : ""}`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-100 text-xl dark:bg-violet-900/30">🖼</span>
+                    <div>
+                      <div className="font-headline text-sm font-bold text-neutral-900 dark:text-on-surface">{c.morsePicture}</div>
+                      <div className="mt-0.5 font-label text-[11px] text-slate-500 dark:text-slate-400">Upload image → decode Morse</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href={audioHref}
+                    onClick={closeTools}
+                    className={`flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-emerald-50 dark:hover:bg-primary-container/10 ${isAudioDecoder ? "bg-emerald-50 dark:bg-primary-container/15" : ""}`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-xl dark:bg-sky-900/30">🎧</span>
+                    <div>
+                      <div className="font-headline text-sm font-bold text-neutral-900 dark:text-on-surface">{c.audioDecoder}</div>
+                      <div className="mt-0.5 font-label text-[11px] text-slate-500 dark:text-slate-400">Upload audio file → decode Morse</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
           <Link className={`${navLink} ${isAbout ? navActive : ""}`} href="/about">
             {c.about}
           </Link>
-          <Link
-            className={`${navLink} ${isPicture ? navActive : ""}`}
-            href={pictureHref}
-            title="Morse code picture translator"
-          >
-            {c.morsePicture}
+          <Link className={`${navLink} ${isPrivacy ? navActive : ""}`} href="/privacy">
+            {c.privacy}
           </Link>
-          <Link
-            className={`${navLink} ${isAudioDecoder ? navActive : ""}`}
-            href={audioHref}
-            title="Audio Morse code decoder"
-          >
-            {c.audioDecoder}
+          <Link className={`${navLink} ${isTerms ? navActive : ""}`} href="/terms">
+            {c.terms}
           </Link>
-          <a className={navLink} href="#">
-            {c.settings}
-          </a>
+          <Link className={`${navLink} ${isContact ? navActive : ""}`} href="/contact">
+            {c.contact}
+          </Link>
         </nav>
 
         <div className="flex shrink-0 items-center md:hidden">

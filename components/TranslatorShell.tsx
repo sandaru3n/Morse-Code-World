@@ -469,24 +469,24 @@ export default function TranslatorShell({
           >
             {t.footerAudioDecoder}
           </Link>
-          <a
+          <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
-            href="#"
+            href="/privacy"
           >
             {t.footerPrivacy}
-          </a>
-          <a
+          </Link>
+          <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
-            href="#"
+            href="/terms"
           >
-            {t.footerApi}
-          </a>
-          <a
+            Terms
+          </Link>
+          <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
-            href="#"
+            href="/contact"
           >
-            {t.footerGithub}
-          </a>
+            Contact
+          </Link>
         </div>
         <div className="font-label text-[10px] font-bold uppercase tracking-widest text-emerald-500/30 dark:text-emerald-400/20">
           © 2026 morsecodeworld.org
