@@ -1,12 +1,14 @@
 "use client";
 
+import { memo } from "react";
+
 type PulseWaveformProps = {
   morse: string;
   activeIndex: number | null;
 };
 
 /** Morse dot/dash strip only (no equalizer / scan line). */
-export default function PulseWaveform({ morse, activeIndex }: PulseWaveformProps) {
+const PulseWaveform = memo(function PulseWaveform({ morse, activeIndex }: PulseWaveformProps) {
   const symbols = morse.split("").filter((c) => c === "." || c === "-");
 
   if (symbols.length === 0) return null;
@@ -23,4 +25,6 @@ export default function PulseWaveform({ morse, activeIndex }: PulseWaveformProps
       ))}
     </div>
   );
-}
+});
+
+export default PulseWaveform;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import LiveInput from "@/components/LiveInput";
 import { SeoArticle } from "@/components/SeoArticle";
@@ -125,7 +125,7 @@ export default function TranslatorShell({
     startPlayback(steps, buildPlaybackOptions());
   }, [buildPlaybackOptions, startPlayback]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     repeatRef.current = repeat;
     playbackStateRef.current = {
       input,
@@ -196,12 +196,15 @@ export default function TranslatorShell({
 
   const vizMorse = useMemo(() => {
     if (mode === "encode") return output;
-    return normalizeMorseInput(input).replace(/[^.\- /]/g, "");
-  }, [mode, input, output]);
+    return normalizeMorseInput(debouncedInput).replace(/[^.\- /]/g, "");
+  }, [mode, debouncedInput, output]);
 
-  const saveDisabled = morseToSteps(morseForPlayback(input, mode), speed).length === 0;
+  const saveDisabled = useMemo(
+    () => morseToSteps(morseForPlayback(debouncedInput, mode), speed).length === 0,
+    [debouncedInput, mode, speed]
+  );
 
-  const sid = useMemo(() => signalIdFromInput(input), [input]);
+  const sid = useMemo(() => signalIdFromInput(debouncedInput), [debouncedInput]);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
