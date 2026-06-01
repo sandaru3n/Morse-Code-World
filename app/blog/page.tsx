@@ -6,7 +6,7 @@ import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
-  title: `Blog — Morse Code Guides & History | ${SITE_NAME}`,
+  title: { absolute: "Blog — Morse Code Guides & History" },
   description:
     "Explore our Morse code blog: history, learning guides, alphabet references, modern uses, and expert tips to help you master the dots and dashes.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: absoluteUrl("/blog"),
-    title: `Blog — Morse Code Guides & History | ${SITE_NAME}`,
+    title: "Blog — Morse Code Guides & History",
     description:
       "Explore our Morse code blog: history, learning guides, alphabet references, modern uses, and expert tips."
   },
