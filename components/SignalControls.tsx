@@ -48,55 +48,61 @@ const SignalControls = memo(function SignalControls({
         <div className="space-y-6 sm:space-y-7">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+              <label htmlFor="ctrl-speed" className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
                 {t.transmissionSpeed}
               </label>
-              <span className="font-headline text-sm font-bold text-secondary dark:text-secondary">
+              <span className="font-headline text-sm font-bold text-secondary dark:text-secondary" aria-hidden="true">
                 {speed} WPM
               </span>
             </div>
             <input
+              id="ctrl-speed"
               type="range"
               min={5}
               max={60}
               value={speed}
+              aria-valuetext={`${speed} words per minute`}
               onChange={(e) => setSpeed(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-secondary dark:bg-surface-container-lowest dark:accent-secondary"
             />
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+              <label htmlFor="ctrl-pitch" className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
                 {t.frequencyPitch}
               </label>
-              <span className="font-headline text-sm font-bold text-emerald-600 dark:text-primary-container">
+              <span className="font-headline text-sm font-bold text-emerald-600 dark:text-primary-container" aria-hidden="true">
                 {pitch} Hz
               </span>
             </div>
             <input
+              id="ctrl-pitch"
               type="range"
               min={200}
               max={1000}
               step={10}
               value={pitch}
+              aria-valuetext={`${pitch} hertz`}
               onChange={(e) => setPitch(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-500 dark:bg-surface-container-lowest dark:accent-primary-container"
             />
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
+              <label htmlFor="ctrl-volume" className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400">
                 {t.outputVolume}
               </label>
-              <span className="font-headline text-sm font-bold text-slate-700 dark:text-slate-200">
+              <span className="font-headline text-sm font-bold text-slate-700 dark:text-slate-200" aria-hidden="true">
                 {volume}%
               </span>
             </div>
             <input
+              id="ctrl-volume"
               type="range"
               min={0}
               max={100}
               value={volume}
+              aria-valuetext={`${volume} percent`}
               onChange={(e) => setVolume(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-slate-500 dark:bg-surface-container-lowest dark:accent-slate-400"
             />
