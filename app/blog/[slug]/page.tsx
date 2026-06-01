@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BlogShare } from "@/components/blog/BlogShare";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
+
+const MAX_META_KEYWORDS = 5;
+const OG_IMAGE = "/favicon/android-chrome-512x512.png";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,18 +21,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
 
   const url = absoluteUrl(`/blog/${post.slug}`);
+  const keywords = post.tags.slice(0, MAX_META_KEYWORDS);
+
   return {
     alternates: { canonical: `/blog/${post.slug}` },
     title: `${post.title} | ${SITE_NAME}`,
     description: post.description,
-    keywords: post.tags,
+    keywords,
     openGraph: {
       type: "article",
       url,
       title: post.title,
       description: post.description,
       publishedTime: post.date,
-      tags: post.tags
+      siteName: SITE_NAME,
+      images: [
+        {
+          url: OG_IMAGE,
+          width: 512,
+          height: 512,
+          alt: post.title
+        }
+      ],
+      tags: keywords
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.description,
+      images: [OG_IMAGE]
     },
     other: { "Content-Language": "en" }
   };
@@ -123,7 +144,7 @@ export default async function BlogPostPage({ params }: Props) {
             <header className="mb-8">
               {/* Cover graphic */}
               <div className={`mb-6 flex h-36 items-center justify-center rounded-2xl bg-gradient-to-br ${post.coverGradient} sm:h-44`}>
-                <span className="text-7xl drop-shadow-md" role="img" aria-hidden="true">
+                <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
                   {post.coverEmoji}
                 </span>
               </div>
@@ -170,6 +191,8 @@ export default async function BlogPostPage({ params }: Props) {
             <article className="blog-article-body rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
               <Content />
             </article>
+
+            <BlogShare slug={post.slug} title={post.title} />
 
             {/* Footer nav */}
             <div className="mt-8 flex items-center justify-between">

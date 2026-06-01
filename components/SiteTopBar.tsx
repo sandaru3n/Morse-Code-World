@@ -511,7 +511,7 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
           >
             <img
               src="/favicon/android-chrome-192x192.png"
-              alt=""
+              alt="Morse Code World logo"
               width={40}
               height={40}
               fetchPriority="high"

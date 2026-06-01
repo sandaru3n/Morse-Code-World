@@ -194,6 +194,11 @@
     @apply font-semibold text-neutral-900 dark:text-on-surface;
   }
 
+  /* Visual emphasis without extra <strong> tags (SEO) */
+  .prose-content .prose-emphasis {
+    @apply font-semibold text-neutral-900 dark:text-on-surface;
+  }
+
   .prose-content em {
     @apply italic text-neutral-800 dark:text-slate-200;
   }

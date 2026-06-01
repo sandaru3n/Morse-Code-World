@@ -15,7 +15,7 @@ export const post: BlogPost = {
   date: "2026-05-22",
   readingTime: 8,
   category: "Learning",
-  tags: ["learn morse code", "beginner guide", "practice", "tips"],
+  tags: ["learn morse code", "beginner guide", "morse code practice"],
   coverEmoji: "🎓",
   coverGradient: "from-emerald-500 to-teal-600",
 
@@ -64,7 +64,7 @@ export const post: BlogPost = {
         <p>
           The essential lesson is this: if you practice at full speed from the very beginning, you
           train your brain to hear Morse as rhythm rather than as a stream of dots and dashes.{" "}
-          <strong>LCWO</strong> (Learn CW Online) uses this technique and is free.
+          LCWO (Learn CW Online) uses this technique and is free.
         </p>
         <br className="prose-gap" />
 
@@ -77,19 +77,19 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <ul>
           <li>
-            <strong>A (·−)</strong>: &ldquo;a-GAIN&rdquo; — short then long
+            <span className="prose-emphasis">A (·−)</span>: &ldquo;a-GAIN&rdquo; — short then long
           </li>
           <li>
-            <strong>E (·)</strong>: &ldquo;E&rdquo; — single short dit
+            <span className="prose-emphasis">E (·)</span>: &ldquo;E&rdquo; — single short dit
           </li>
           <li>
-            <strong>T (−)</strong>: &ldquo;TEA&rdquo; — single long dah
+            <span className="prose-emphasis">T (−)</span>: &ldquo;TEA&rdquo; — single long dah
           </li>
           <li>
-            <strong>S (···)</strong>: &ldquo;SIM-ple-dit&rdquo; — three shorts
+            <span className="prose-emphasis">S (···)</span>: &ldquo;SIM-ple-dit&rdquo; — three shorts
           </li>
           <li>
-            <strong>O (−−−)</strong>: &ldquo;OH-NO-WAIT&rdquo; — three longs
+            <span className="prose-emphasis">O (−−−)</span>: &ldquo;OH-NO-WAIT&rdquo; — three longs
           </li>
         </ul>
         <br className="prose-gap" />
@@ -133,19 +133,20 @@ export const post: BlogPost = {
         <SectionHeadingSingle title="Practice Tools" />
         <ul>
           <li>
-            <strong>
-              <a href="https://morsecodeworld.org">morsecodeworld.org</a>
-            </strong>{" "}
+            <a href="https://morsecodeworld.org" className="prose-emphasis">
+              morsecodeworld.org
+            </a>{" "}
             — encode and decode text, listen to audio at any WPM
           </li>
           <li>
-            <strong>LCWO.net</strong> — Koch method trainer with detailed statistics
+            <span className="prose-emphasis">LCWO.net</span> — Koch method trainer with detailed statistics
           </li>
           <li>
-            <strong>Morse Trainer</strong> (iOS/Android) — structured lessons with gamification
+            <span className="prose-emphasis">Morse Trainer</span> (iOS/Android) — structured lessons with
+            gamification
           </li>
           <li>
-            <strong>Ham Morse</strong> — speed training used by amateur radio operators
+            <span className="prose-emphasis">Ham Morse</span> — speed training used by amateur radio operators
           </li>
         </ul>
         <br className="prose-gap" />
@@ -153,22 +154,24 @@ export const post: BlogPost = {
         <SectionHeadingSingle title="Tips That Actually Work" />
         <ul>
           <li>
-            <strong>Daily short sessions beat weekly marathons.</strong> Morse is a motor skill. Ten
-            minutes every day beats ninety minutes once a week — consistent practice builds the
-            reflex.
+            <span className="prose-emphasis">Daily short sessions beat weekly marathons.</span> Morse is a
+            motor skill. Ten minutes every day beats ninety minutes once a week — consistent practice
+            builds the reflex.
           </li>
           <li>
-            <strong>Use real content.</strong> After the first two weeks, copy actual words and
-            sentences instead of random letter drills. Your brain learns patterns from context.
+            <span className="prose-emphasis">Use real content.</span> After the first two weeks, copy
+            actual words and sentences instead of random letter drills. Your brain learns patterns from
+            context.
           </li>
           <li>
-            <strong>Don&apos;t slow down to &ldquo;see&rdquo; the dots.</strong> If you cannot keep up,
-            it is better to miss a letter than to slow down. Speed is a habit you build from day one.
+            <span className="prose-emphasis">Don&apos;t slow down to &ldquo;see&rdquo; the dots.</span> If
+            you cannot keep up, it is better to miss a letter than to slow down. Speed is a habit you
+            build from day one.
           </li>
           <li>
-            <strong>Introduce the Farnsworth method.</strong> Farnsworth spacing plays every character
-            at full speed while adding extra space between letters, so your brain has time to catch up
-            without slowing the character timing.
+            <span className="prose-emphasis">Introduce the Farnsworth method.</span> Farnsworth spacing
+            plays every character at full speed while adding extra space between letters, so your brain
+            has time to catch up without slowing the character timing.
           </li>
         </ul>
         <br className="prose-gap" />
@@ -180,16 +183,17 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <ul>
           <li>
-            <strong>1–2 weeks:</strong> Learn all letters and numbers
+            <span className="prose-emphasis">1–2 weeks:</span> Learn all letters and numbers
           </li>
           <li>
-            <strong>1 month:</strong> Copy simple sentences at 5–10 WPM
+            <span className="prose-emphasis">1 month:</span> Copy simple sentences at 5–10 WPM
           </li>
           <li>
-            <strong>3 months:</strong> Comfortable at 13–15 WPM (amateur radio basic standard)
+            <span className="prose-emphasis">3 months:</span> Comfortable at 13–15 WPM (amateur radio
+            basic standard)
           </li>
           <li>
-            <strong>6–12 months:</strong> 20+ WPM (proficient operator)
+            <span className="prose-emphasis">6–12 months:</span> 20+ WPM (proficient operator)
           </li>
         </ul>
         <br className="prose-gap" />
