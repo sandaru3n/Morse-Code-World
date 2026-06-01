@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { startTransition, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import LiveInput from "@/components/LiveInput";
 import { SeoArticle } from "@/components/SeoArticle";
@@ -219,7 +219,7 @@ export default function TranslatorShell({
               </h1>
               <button
                 type="button"
-                onClick={() => setConfigureOpen(true)}
+                onClick={() => startTransition(() => setConfigureOpen(true))}
                 className="self-start font-headline text-sm font-bold text-emerald-600 underline-offset-4 hover:underline dark:text-primary-container sm:self-auto"
               >
                 {t.configure}
@@ -236,7 +236,7 @@ export default function TranslatorShell({
                       <button
                         type="button"
                         onClick={() => setMode("encode")}
-                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-all sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
+                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-colors sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "encode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
@@ -247,7 +247,7 @@ export default function TranslatorShell({
                       <button
                         type="button"
                         onClick={() => setMode("decode")}
-                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-all sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
+                        className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-colors sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "decode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
                             : "text-slate-500 hover:text-neutral-800 dark:text-slate-500 dark:hover:text-on-surface"
@@ -334,7 +334,7 @@ export default function TranslatorShell({
                   type="button"
                   onClick={handlePlay}
                   disabled={isPlaying && !isPaused}
-                  className="flex items-center gap-1.5 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container shadow-lg shadow-neon-primary transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:text-on-primary-container sm:px-5 sm:py-2.5"
+                  className="flex items-center gap-1.5 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container shadow-lg shadow-neon-primary transition-[transform,opacity] hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 dark:text-on-primary-container sm:px-5 sm:py-2.5"
                 >
                   <IconPlay className="h-5 w-5" /> {t.play}
                 </button>
@@ -342,7 +342,7 @@ export default function TranslatorShell({
                   type="button"
                   onClick={pause}
                   disabled={!isPlaying || isPaused}
-                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
+                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-colors hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
                 >
                   <IconPause className="h-5 w-5" /> {t.pause}
                 </button>
@@ -350,7 +350,7 @@ export default function TranslatorShell({
                   type="button"
                   onClick={stop}
                   disabled={!isPlaying && !isPaused}
-                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-all hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
+                  className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-neutral-800 transition-colors hover:bg-slate-50 disabled:opacity-50 dark:border-transparent dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright sm:px-5 sm:py-2.5"
                 >
                   <IconStop className="h-5 w-5" /> {t.stop}
                 </button>
@@ -358,7 +358,7 @@ export default function TranslatorShell({
                 <button
                   type="button"
                   onClick={() => setRepeat((r) => !r)}
-                  className={`rounded-full p-2.5 transition-all dark:bg-surface-container ${
+                  className={`rounded-full p-2.5 transition-colors dark:bg-surface-container ${
                     repeat
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
                       : "bg-white text-neutral-700 hover:text-secondary dark:bg-surface-container dark:text-on-surface dark:hover:text-secondary"
@@ -370,7 +370,7 @@ export default function TranslatorShell({
                 <button
                   type="button"
                   onClick={() => setSoundOn((s) => !s)}
-                  className={`rounded-full p-2.5 transition-all ${
+                  className={`rounded-full p-2.5 transition-colors ${
                     soundOn
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
                       : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
@@ -384,9 +384,9 @@ export default function TranslatorShell({
                   onClick={() => {
                     setBulbClickGlow(true);
                     window.setTimeout(() => setBulbClickGlow(false), 700);
-                    setScreenFlashPanelOpen(true);
+                    startTransition(() => setScreenFlashPanelOpen(true));
                   }}
-                  className={`relative rounded-full p-2.5 transition-all ${
+                  className={`relative rounded-full p-2.5 transition-colors ${
                     bulbClickGlow ? "bulb-click-glow" : ""
                   } ${
                     screenBlinkEnabled
@@ -400,7 +400,7 @@ export default function TranslatorShell({
                 <button
                   type="button"
                   onClick={() => setVibrateOn((v) => !v)}
-                  className={`rounded-full p-2.5 transition-all ${
+                  className={`rounded-full p-2.5 transition-colors ${
                     vibrateOn
                       ? "bg-primary-container/20 text-emerald-700 dark:text-primary-container"
                       : "bg-white text-slate-500 hover:text-on-surface dark:bg-surface-container"
@@ -413,7 +413,7 @@ export default function TranslatorShell({
                   type="button"
                   onClick={() => void handleSaveAudio()}
                   disabled={saveDisabled}
-                  className="rounded-full border border-slate-200 bg-white p-2.5 text-neutral-700 transition-all hover:bg-slate-50 disabled:opacity-40 dark:border-transparent dark:bg-surface-container dark:text-on-surface"
+                  className="rounded-full border border-slate-200 bg-white p-2.5 text-neutral-700 transition-colors hover:bg-slate-50 disabled:opacity-40 dark:border-transparent dark:bg-surface-container dark:text-on-surface"
                   title={t.saveAudio}
                 >
                   <IconDownload className="h-5 w-5" />
@@ -647,7 +647,7 @@ export default function TranslatorShell({
               </label>
               <button
                 type="button"
-                className="relative w-full rounded-xl bg-primary-container py-2.5 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-all hover:brightness-110 dark:text-on-primary-container"
+                className="relative w-full rounded-xl bg-primary-container py-2.5 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-[filter] hover:brightness-110 dark:text-on-primary-container"
                 onClick={() => setScreenFlashPanelOpen(false)}
               >
                 {t.done}

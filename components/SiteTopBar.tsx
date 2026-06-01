@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useId, useState } from "react";
+import { startTransition, useCallback, useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { IconClose, IconMenu } from "@/components/SignalPulseIcons";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -423,7 +423,7 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
             aria-controls={panelId}
             aria-haspopup="dialog"
             aria-label={menuOpen ? c.closeMenu : c.openMenu}
-            onClick={() => setMenuOpen((o) => !o)}
+            onClick={() => startTransition(() => setMenuOpen((o) => !o))}
           >
             {menuOpen ? <IconClose className="h-7 w-7" /> : <IconMenu className="h-7 w-7" />}
           </button>
