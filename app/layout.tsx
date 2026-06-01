@@ -12,12 +12,14 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-space-grotesk"
 });
 
 const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
+  preload: true,
   variable: "--font-manrope"
 });
 

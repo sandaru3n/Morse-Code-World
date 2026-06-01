@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSummaryBlock } from "@/components/AiSummaryBlock";
+import { SeoArticle } from "@/components/SeoArticle";
 import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME, absoluteUrl } from "@/lib/site";
 import { createWebAppSchema, createWebPageSchema } from "@/lib/seo/schemas";
@@ -178,6 +179,7 @@ export default function Page() {
     <>
       <TranslatorShell
         locale="en"
+        articleSlot={<SeoArticle locale="en" />}
         bottomContent={
           <section className="mx-auto mt-2 w-full max-w-5xl px-1 pb-2 sm:px-2">
             <AiSummaryBlock />
