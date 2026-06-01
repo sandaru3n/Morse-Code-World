@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { audioDecoderPath, homePath, NON_EN_LOCALES, pictureTranslatorPath } from "@/lib/i18n/routes";
 import { absoluteUrl } from "@/lib/site";
+import { getAllSlugs } from "@/lib/blog";
 
 /** Actual last-significant-modification dates per URL.
  *  Update these when content on the page genuinely changes.
@@ -79,6 +80,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.5
     },
+    {
+      url: absoluteUrl("/blog"),
+      lastModified: DATES.home,
+      changeFrequency: "weekly",
+      priority: 0.7
+    },
+    ...getAllSlugs().map((slug) => ({
+      url: absoluteUrl(`/blog/${slug}`),
+      lastModified: DATES.home,
+      changeFrequency: "monthly" as const,
+      priority: 0.65
+    })),
     {
       url: absoluteUrl("/es"),
       lastModified: DATES.es,

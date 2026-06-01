@@ -30,6 +30,7 @@ const COPY: Record<
     morsePicture: string;
     audioDecoder: string;
     tools: string;
+    blog: string;
     privacy: string;
     terms: string;
     contact: string;
@@ -45,6 +46,7 @@ const COPY: Record<
     morsePicture: "Morse Code Picture",
     audioDecoder: "Morse Code Audio",
     tools: "Tools",
+    blog: "Blog",
     privacy: "Privacy",
     terms: "Terms",
     contact: "Contact"
@@ -59,6 +61,7 @@ const COPY: Record<
     morsePicture: "Morse Imagen",
     audioDecoder: "Morse Audio",
     tools: "Herramientas",
+    blog: "Blog",
     privacy: "Privacidad",
     terms: "Términos",
     contact: "Contacto"
@@ -73,6 +76,7 @@ const COPY: Record<
     morsePicture: "모스 이미지",
     audioDecoder: "모스 오디오",
     tools: "도구",
+    blog: "블로그",
     privacy: "개인정보",
     terms: "이용약관",
     contact: "문의"
@@ -87,6 +91,7 @@ const COPY: Record<
     morsePicture: "摩斯圖片",
     audioDecoder: "摩斯音訊",
     tools: "工具",
+    blog: "部落格",
     privacy: "隱私",
     terms: "條款",
     contact: "聯絡"
@@ -101,6 +106,7 @@ const COPY: Record<
     morsePicture: "Morse Imagem",
     audioDecoder: "Morse Áudio",
     tools: "Ferramentas",
+    blog: "Blog",
     privacy: "Privacidade",
     terms: "Termos",
     contact: "Contato"
@@ -115,6 +121,7 @@ const COPY: Record<
     morsePicture: "صورة مورس",
     audioDecoder: "صوت مورس",
     tools: "الأدوات",
+    blog: "مدونة",
     privacy: "الخصوصية",
     terms: "الشروط",
     contact: "اتصل"
@@ -129,6 +136,7 @@ const COPY: Record<
     morsePicture: "モールス画像",
     audioDecoder: "モールス音声",
     tools: "ツール",
+    blog: "ブログ",
     privacy: "プライバシー",
     terms: "利用規約",
     contact: "お問い合わせ"
@@ -143,6 +151,7 @@ const COPY: Record<
     morsePicture: "Изображение Морзе",
     audioDecoder: "Аудио Морзе",
     tools: "Инструменты",
+    blog: "Блог",
     privacy: "Конфиденц.",
     terms: "Условия",
     contact: "Контакт"
@@ -157,6 +166,7 @@ const COPY: Record<
     morsePicture: "Morse-Bild",
     audioDecoder: "Morse-Audio",
     tools: "Tools",
+    blog: "Blog",
     privacy: "Datenschutz",
     terms: "Nutzungsbeding.",
     contact: "Kontakt"
@@ -171,6 +181,7 @@ const COPY: Record<
     morsePicture: "Morse obrázek",
     audioDecoder: "Morse audio",
     tools: "Nástroje",
+    blog: "Blog",
     privacy: "Ochrana dat",
     terms: "Podmínky",
     contact: "Kontakt"
@@ -185,6 +196,7 @@ const COPY: Record<
     morsePicture: "Image Morse",
     audioDecoder: "Audio Morse",
     tools: "Outils",
+    blog: "Blog",
     privacy: "Confidentialité",
     terms: "Conditions",
     contact: "Contact"
@@ -199,6 +211,7 @@ const COPY: Record<
     morsePicture: "Immagine Morse",
     audioDecoder: "Audio Morse",
     tools: "Strumenti",
+    blog: "Blog",
     privacy: "Privacy",
     terms: "Termini",
     contact: "Contatto"
@@ -213,6 +226,7 @@ const COPY: Record<
     morsePicture: "Mors Resmi",
     audioDecoder: "Mors Ses",
     tools: "Araçlar",
+    blog: "Blog",
     privacy: "Gizlilik",
     terms: "Koşullar",
     contact: "İletişim"
@@ -227,6 +241,7 @@ const COPY: Record<
     morsePicture: "Obraz Morse",
     audioDecoder: "Audio Morse",
     tools: "Narzędzia",
+    blog: "Blog",
     privacy: "Prywatność",
     terms: "Warunki",
     contact: "Kontakt"
@@ -241,6 +256,7 @@ const COPY: Record<
     morsePicture: "Morse Afbeelding",
     audioDecoder: "Morse Audio",
     tools: "Tools",
+    blog: "Blog",
     privacy: "Privacy",
     terms: "Voorwaarden",
     contact: "Contact"
@@ -255,6 +271,7 @@ const COPY: Record<
     morsePicture: "मोर्स चित्र",
     audioDecoder: "मोर्स ऑडियो",
     tools: "उपकरण",
+    blog: "ब्लॉग",
     privacy: "गोपनीयता",
     terms: "शर्तें",
     contact: "संपर्क"
@@ -269,6 +286,7 @@ const COPY: Record<
     morsePicture: "Gambar Morse",
     audioDecoder: "Audio Morse",
     tools: "Alat",
+    blog: "Blog",
     privacy: "Privasi",
     terms: "Syarat",
     contact: "Kontak"
@@ -283,6 +301,7 @@ const COPY: Record<
     morsePicture: "Ảnh Morse",
     audioDecoder: "Âm thanh Morse",
     tools: "Công cụ",
+    blog: "Blog",
     privacy: "Quyền riêng tư",
     terms: "Điều khoản",
     contact: "Liên hệ"
@@ -297,6 +316,7 @@ const COPY: Record<
     morsePicture: "รูปภาพมอร์ส",
     audioDecoder: "เสียงมอร์ส",
     tools: "เครื่องมือ",
+    blog: "บล็อก",
     privacy: "ความเป็นส่วนตัว",
     terms: "ข้อกำหนด",
     contact: "ติดต่อ"
@@ -311,6 +331,7 @@ const COPY: Record<
     morsePicture: "Зображення Морзе",
     audioDecoder: "Аудіо Морзе",
     tools: "Інструменти",
+    blog: "Блог",
     privacy: "Конфіденційність",
     terms: "Умови",
     contact: "Контакт"
@@ -331,6 +352,7 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
   const isPrivacy = pathname === "/privacy";
   const isTerms = pathname === "/terms";
   const isContact = pathname === "/contact";
+  const isBlog = pathname === "/blog" || pathname.startsWith("/blog/");
   const isAnyTool = isTranslator || isPicture || isAudioDecoder;
   const [menuOpen, setMenuOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
@@ -445,6 +467,13 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
               {c.about}
             </Link>
             <Link
+              className={`${mobileNavItem} ${isBlog ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
+              href="/blog"
+              onClick={closeMenu}
+            >
+              {c.blog}
+            </Link>
+            <Link
               className={`${mobileNavItem} ${isPrivacy ? "bg-emerald-500/15 text-emerald-700 dark:bg-primary-container/20 dark:text-primary-container" : ""}`}
               href="/privacy"
               onClick={closeMenu}
@@ -556,6 +585,9 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
             )}
           </div>
 
+          <Link className={`${navLink} ${isBlog ? navActive : ""}`} href="/blog">
+            {c.blog}
+          </Link>
           <Link className={`${navLink} ${isAbout ? navActive : ""}`} href="/about">
             {c.about}
           </Link>
