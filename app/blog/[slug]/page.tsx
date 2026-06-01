@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 p-3 sm:p-5 lg:p-8">
-          <div className="mx-auto max-w-2xl">
+          <div className="mx-auto max-w-3xl">
 
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-5">
@@ -146,10 +146,10 @@ export default async function BlogPostPage({ params }: Props) {
                 </time>
               </div>
 
-              <h1 className="font-headline text-2xl font-black leading-tight tracking-tight text-neutral-900 sm:text-3xl dark:text-on-surface">
+              <h1 className="font-headline text-3xl font-black leading-[1.15] tracking-tight text-neutral-900 sm:text-4xl dark:text-on-surface">
                 {post.title}
               </h1>
-              <p className="mt-2 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              <p className="mt-4 font-body text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg sm:leading-[1.7]">
                 {post.description}
               </p>
 
@@ -167,7 +167,7 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {/* Article body */}
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-7 dark:border-outline-variant/20 dark:bg-surface-container">
+            <article className="blog-article-body rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
               <Content />
             </article>
 

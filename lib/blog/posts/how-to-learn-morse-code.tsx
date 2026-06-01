@@ -1,3 +1,8 @@
+import {
+  SectionHeading,
+  SectionHeadingSingle,
+  SubsectionHeading
+} from "@/components/blog/SectionHeading";
 import type { BlogPost } from "../types";
 
 export const post: BlogPost = {
@@ -18,121 +23,179 @@ export const post: BlogPost = {
     return (
       <div className="prose-content">
         <p>
-          Morse code looks intimidating at first — a wall of dots and dashes with no obvious pattern.
-          But with the right approach, most beginners can decode simple words within a week and read
-          basic sentences within a month. The key is choosing the right learning method from the start.
+          At first glance, Morse code looks like an intimidating wall of dots and dashes with no
+          apparent pattern. However, if you use the right approach from the start, most beginners can
+          crack a simple word within a week and read basic sentences within the first month. The
+          foundation you choose for learning makes all the difference.
         </p>
+        <br className="prose-gap" />
 
-        <h2>Method 1: Learn by Sound, Not by Eye</h2>
+        <SectionHeading label="Method 1" title="Learn by Sound, Not by Eye" />
         <p>
-          The single biggest mistake beginners make is memorizing Morse code visually — staring at a
-          chart of dots and dashes. Experienced operators never &ldquo;translate&rdquo; in their heads;
-          they hear the rhythm and understand the letter directly, the same way you hear a spoken word
-          without mentally spelling it.
+          The biggest mistake almost everyone new to Morse code makes is memorizing the visual
+          representation of dits and dahs — staring at a chart of dots and dashes. Seasoned operators
+          never &ldquo;translate&rdquo; in their heads. They hear the rhythm and grasp the letter the
+          same way you recognize a spoken word without mentally spelling it.
         </p>
+        <br className="prose-gap" />
         <p>
           Start listening to Morse code audio from day one. Use an app or tool that plays each letter
           as you learn it. When you hear <em>dit-dah</em>, your brain should jump straight to
-          &ldquo;A&rdquo; — not &ldquo;short-long&rdquo; then &ldquo;A&rdquo;.
+          &ldquo;A&rdquo; — not &ldquo;short-long&rdquo; and then &ldquo;A&rdquo;.
         </p>
+        <br className="prose-gap" />
 
-        <h2>Method 2: The Koch Method</h2>
+        <SectionHeading label="Method 2" title="The Koch Method" />
         <p>
-          Developed by German psychologist Ludwig Koch in 1930, the Koch method is the most proven
-          approach for learning Morse code:
+          The Koch method is the most established technique for learning Morse code without relying on
+          rote visual memory. German psychologist Ludwig Koch developed it in 1930:
         </p>
+        <br className="prose-gap" />
         <ol>
-          <li>Start with just two letters — traditionally K and M.</li>
-          <li>Practice at your <em>target</em> speed (e.g. 20 WPM), even though you can only copy
-            two letters.</li>
-          <li>When you can copy those two at 90% accuracy, add a third letter.</li>
+          <li>Start with only two letters — traditionally K and M.</li>
+          <li>
+            Practice at your <em>target</em> speed (for example, 20 WPM), even if you can copy only
+            those two letters so far.
+          </li>
+          <li>When you can copy those two at a 90% success rate, introduce a third letter.</li>
           <li>Continue adding one letter at a time.</li>
         </ol>
+        <br className="prose-gap" />
         <p>
-          The critical insight: practicing at full speed from the start trains your brain to hear
-          Morse as rhythm, not individual dots and dashes. Apps like <strong>LCWO</strong> (Learn CW
-          Online) implement this method for free.
+          The essential lesson is this: if you practice at full speed from the very beginning, you
+          train your brain to hear Morse as rhythm rather than as a stream of dots and dashes.{" "}
+          <strong>LCWO</strong> (Learn CW Online) uses this technique and is free.
         </p>
+        <br className="prose-gap" />
 
-        <h2>Method 3: Mnemonics for Visual Learners</h2>
+        <SectionHeading label="Method 3" title="Mnemonics for Visual Learners" />
         <p>
-          If you prefer a visual starting point, mnemonics can help you memorize the patterns quickly.
-          Each letter gets a memorable phrase whose syllables match the dit-dah rhythm:
+          If you want a visual starting point but still plan to learn quickly, mnemonics can help you
+          memorize the patterns. Each letter gets a memorable phrase whose syllables match the dit-dah
+          rhythm:
         </p>
+        <br className="prose-gap" />
         <ul>
-          <li><strong>A (·−)</strong>: &ldquo;a-GAIN&rdquo; — short then long</li>
-          <li><strong>E (·)</strong>: &ldquo;E&rdquo; — single short dit</li>
-          <li><strong>T (−)</strong>: &ldquo;TEA&rdquo; — single long dah</li>
-          <li><strong>S (···)</strong>: &ldquo;SIM-ple-dit&rdquo; — three shorts</li>
-          <li><strong>O (−−−)</strong>: &ldquo;OH-NO-WAIT&rdquo; — three longs</li>
+          <li>
+            <strong>A (·−)</strong>: &ldquo;a-GAIN&rdquo; — short then long
+          </li>
+          <li>
+            <strong>E (·)</strong>: &ldquo;E&rdquo; — single short dit
+          </li>
+          <li>
+            <strong>T (−)</strong>: &ldquo;TEA&rdquo; — single long dah
+          </li>
+          <li>
+            <strong>S (···)</strong>: &ldquo;SIM-ple-dit&rdquo; — three shorts
+          </li>
+          <li>
+            <strong>O (−−−)</strong>: &ldquo;OH-NO-WAIT&rdquo; — three longs
+          </li>
         </ul>
+        <br className="prose-gap" />
         <p>
-          Once you have a feel for the rhythm, abandon the mnemonics and go audio-only as quickly
-          as possible.
+          Once you understand the rhythm, ditch the mnemonics and switch to audio-only practice as
+          fast as possible.
         </p>
+        <br className="prose-gap" />
 
-        <h2>A Recommended 4-Week Practice Plan</h2>
+        <SectionHeadingSingle title="A Recommended 4-Week Practice Plan" />
 
-        <h3>Week 1: Letters A–M</h3>
+        <SubsectionHeading label="Week 1" title="Letters A–M" />
         <p>
-          Spend 10–15 minutes per day. Learn 2–3 new letters each day, reviewing all previous letters
-          in each session. Focus on the most common letters first: E, T, A, I, N, O, S, H, R.
+          Spend 10–15 minutes per day. Learn 2–3 new letters each day, and review every letter you have
+          already learned in each session. Learn the most common letters first: E, T, A, then I, N, O,
+          S, H, R.
         </p>
+        <br className="prose-gap" />
 
-        <h3>Week 2: Complete the Alphabet</h3>
+        <SubsectionHeading label="Week 2" title="Complete the Alphabet" />
         <p>
           Finish the remaining letters (N–Z). By the end of the week you should be able to decode any
           letter of the alphabet, even slowly. Add numbers 0–9.
         </p>
+        <br className="prose-gap" />
 
-        <h3>Week 3: Words and Sentences</h3>
+        <SubsectionHeading label="Week 3" title="Words and Sentences" />
         <p>
-          Start copying complete words. Use a Morse code trainer set to common English words.
-          Common short words to master first: THE, AND, IS, IN, OF, TO, IT, BE.
+          Start copying complete words. Train with a Morse code trainer set to common English words.
+          Easy words to master first include THE, AND, IS, IN, OF, TO, IT, and BE.
         </p>
+        <br className="prose-gap" />
 
-        <h3>Week 4: Speed and Punctuation</h3>
+        <SubsectionHeading label="Week 4" title="Speed and Punctuation" />
         <p>
-          Gradually increase speed. Add punctuation marks (period, comma, question mark). Try copying
-          practice texts from amateur radio QSO (conversation) training files.
+          Gradually increase your speed. Add punctuation marks — period, comma, and question mark. Try
+          copying practice texts from amateur radio QSO (conversation) training files.
         </p>
+        <br className="prose-gap" />
 
-        <h2>Practice Tools</h2>
+        <SectionHeadingSingle title="Practice Tools" />
         <ul>
-          <li><strong>morsecodeworld.org</strong> — encode/decode text, hear audio at adjustable WPM</li>
-          <li><strong>LCWO.net</strong> — Koch method trainer with detailed statistics</li>
-          <li><strong>Morse Trainer</strong> (iOS/Android) — structured lessons with gamification</li>
-          <li><strong>Ham Morse</strong> — used by amateur radio operators for speed training</li>
+          <li>
+            <strong>
+              <a href="https://morsecodeworld.org">morsecodeworld.org</a>
+            </strong>{" "}
+            — encode and decode text, listen to audio at any WPM
+          </li>
+          <li>
+            <strong>LCWO.net</strong> — Koch method trainer with detailed statistics
+          </li>
+          <li>
+            <strong>Morse Trainer</strong> (iOS/Android) — structured lessons with gamification
+          </li>
+          <li>
+            <strong>Ham Morse</strong> — speed training used by amateur radio operators
+          </li>
         </ul>
+        <br className="prose-gap" />
 
-        <h2>Tips That Actually Work</h2>
+        <SectionHeadingSingle title="Tips That Actually Work" />
         <ul>
-          <li><strong>Daily short sessions beat weekly marathons.</strong> 10 minutes every day beats
-            90 minutes once a week — Morse is a motor skill, and consistent practice builds the
-            reflex.</li>
-          <li><strong>Use real content.</strong> After the first two weeks, copy actual words and
-            sentences, not random letter drills. Your brain learns patterns from context.</li>
-          <li><strong>Don&apos;t slow down to &ldquo;see&rdquo; the dots.</strong> If you can&apos;t
-            keep up, it&apos;s better to miss a letter than to slow down — speed is a habit you build
-            from day one.</li>
-          <li><strong>Introduce the Farnsworth method.</strong> Farnsworth spacing plays each
-            character at full speed but adds extra space between letters, giving your brain time to
-            catch up without slowing the character timing.</li>
+          <li>
+            <strong>Daily short sessions beat weekly marathons.</strong> Morse is a motor skill. Ten
+            minutes every day beats ninety minutes once a week — consistent practice builds the
+            reflex.
+          </li>
+          <li>
+            <strong>Use real content.</strong> After the first two weeks, copy actual words and
+            sentences instead of random letter drills. Your brain learns patterns from context.
+          </li>
+          <li>
+            <strong>Don&apos;t slow down to &ldquo;see&rdquo; the dots.</strong> If you cannot keep up,
+            it is better to miss a letter than to slow down. Speed is a habit you build from day one.
+          </li>
+          <li>
+            <strong>Introduce the Farnsworth method.</strong> Farnsworth spacing plays every character
+            at full speed while adding extra space between letters, so your brain has time to catch up
+            without slowing the character timing.
+          </li>
         </ul>
+        <br className="prose-gap" />
 
-        <h2>How Long Does It Take?</h2>
+        <SectionHeadingSingle title="How Long Does It Take?" />
         <p>
-          With 15 minutes of daily practice using the Koch method:
+          With 15 minutes of daily practice using the Koch method, most learners can expect:
         </p>
+        <br className="prose-gap" />
         <ul>
-          <li><strong>1–2 weeks:</strong> Know all letters and numbers</li>
-          <li><strong>1 month:</strong> Copy simple sentences at 5–10 WPM</li>
-          <li><strong>3 months:</strong> Comfortable at 13–15 WPM (amateur radio basic standard)</li>
-          <li><strong>6–12 months:</strong> 20+ WPM (proficient operator)</li>
+          <li>
+            <strong>1–2 weeks:</strong> Learn all letters and numbers
+          </li>
+          <li>
+            <strong>1 month:</strong> Copy simple sentences at 5–10 WPM
+          </li>
+          <li>
+            <strong>3 months:</strong> Comfortable at 13–15 WPM (amateur radio basic standard)
+          </li>
+          <li>
+            <strong>6–12 months:</strong> 20+ WPM (proficient operator)
+          </li>
         </ul>
+        <br className="prose-gap" />
         <p>
-          The journey from zero to readable Morse is genuinely achievable in a few months — and once
-          you can do it, it&apos;s a skill you never forget.
+          Going from zero to readable Morse in a matter of months is genuinely attainable — and once
+          you can do it, it is a skill you will never forget.
         </p>
       </div>
     );
