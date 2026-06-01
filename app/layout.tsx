@@ -3,7 +3,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import { headers } from "next/headers";
-import Script from "next/script";
 import { GlobalAiSeoJsonLd } from "@/components/GlobalAiSeoJsonLd";
 import type { HomeLocale } from "@/lib/i18n/home";
 import { SITE_NAME } from "@/lib/site";
@@ -108,15 +107,6 @@ export default async function RootLayout({
     <html lang={locale} dir={dir} className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body className={`min-h-screen font-body ${manrope.className}`}>
         <GlobalAiSeoJsonLd />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-F8RWCSKDRZ" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-F8RWCSKDRZ');
-          `}
-        </Script>
         {children}
         <Analytics />
         <SpeedInsights />
