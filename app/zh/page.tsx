@@ -6,7 +6,8 @@ import { SITE_NAME } from "@/lib/site";
 
 const PAGE_TITLE = "摩斯電碼翻譯器 - 線上摩斯電碼轉文字";
 
-const PAGE_DESCRIPTION = "使用摩斯電碼翻譯器，快速將摩斯電碼轉成文字，也可把文字轉為摩斯電碼。免費、即時、跨裝置。";
+const PAGE_DESCRIPTION =
+  "使用免費線上摩斯電碼翻譯器，依國際摩斯電碼（ITU）標準即時將摩斯點劃轉為文字或把文字編碼成摩斯電碼，支援聲音播放、波形預覽、速度與音調調整、複製下載，無需註冊安裝，電腦與手機皆可使用，適合初學者、學生與業餘無線電愛好者學習練習與緊急溝通參考。";
 
 const WEB_APP_SCHEMA_ZH = {
   "@context": "https://schema.org",

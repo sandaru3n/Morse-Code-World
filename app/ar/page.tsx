@@ -5,7 +5,8 @@ import TranslatorShell from "@/components/TranslatorShell";
 import { SITE_NAME } from "@/lib/site";
 
 const PAGE_TITLE = "مترجم شفرة مورس - تحويل مورس الى نص اونلاين";
-const PAGE_DESCRIPTION = "استخدم مترجم شفرة مورس لتحويل مورس الى نص وتحويل النص الى مورس بسرعة ودقة عبر المتصفح.";
+const PAGE_DESCRIPTION =
+  "استخدم مترجم شفرة مورس المجاني لتحويل مورس الى نص والنص الى مورس فورا، مع تشغيل الصوت وتعديل السرعة. بدون تسجيل، يعمل على الهاتف والكمبيوتر للتعلم والتدريب.";
 
 const WEB_APP_SCHEMA_AR = {
   "@context": "https://schema.org",

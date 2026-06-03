@@ -7,7 +7,7 @@ import { SITE_NAME } from "@/lib/site";
 const PAGE_TITLE = "모스 부호 번역기 - 모스 부호를 텍스트로 변환";
 
 const PAGE_DESCRIPTION =
-  "모스 부호 번역기로 모스 부호를 텍스트로, 텍스트를 모스 부호로 빠르고 정확하게 변환하세요. 무료 온라인 도구입니다.";
+  "국제 모스 부호(ITU) 표준에 맞춰 모스 부호와 텍스트를 양방향으로 즉시 변환하는 무료 온라인 번역기입니다. 음성 재생, 파형 표시, 속도·음높이 조절, 복사를 지원하며 회원가입 없이 PC·스마트폰에서 학습·연습·아마추어 무선 통신 확인에 활용하세요.";
 
 const WEB_APP_SCHEMA_KO = {
   "@context": "https://schema.org",
