@@ -28,6 +28,7 @@ import {
 } from "@/components/SignalPulseIcons";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useMorseAudio } from "@/hooks/useMorseAudio";
+import { useScreenFlashOverlay } from "@/hooks/useScreenFlashOverlay";
 import { TRANSLATOR_UI_COPY, type HomeLocale } from "@/lib/i18n/home";
 import { audioDecoderPath, pictureTranslatorPath } from "@/lib/i18n/routes";
 import type { MorsePlaybackOptions } from "@/lib/audioEngine";
@@ -78,8 +79,9 @@ export default function TranslatorShell({
   }, [mode, debouncedInput]);
   const deferredOutput = useDeferredValue(output);
 
-  const { startPlayback, stop, pause, resume, isPlaying, isPaused, activeSymbolIndex, screenFlashPhase } =
-    useMorseAudio();
+  const { applyPhase: applyScreenFlash, setEnabled: setScreenFlashEnabled, overlayRef } =
+    useScreenFlashOverlay();
+  const { startPlayback, stop, pause, resume, isPlaying, isPaused, activeSymbolIndex } = useMorseAudio();
 
   const repeatRef = useRef(repeat);
   const playbackStateRef = useRef({
@@ -94,7 +96,13 @@ export default function TranslatorShell({
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", !lightTheme);
+    setScreenFlashEnabled(screenBlinkEnabled);
+  }, [screenBlinkEnabled, setScreenFlashEnabled]);
+
+  useEffect(() => {
+    startTransition(() => {
+      document.documentElement.classList.toggle("dark", !lightTheme);
+    });
   }, [lightTheme]);
 
   const beginPlaybackRef = useRef<() => void>(null);
@@ -108,13 +116,14 @@ export default function TranslatorShell({
       soundEnabled: s.soundOn,
       vibrateEnabled: s.vibrateOn,
       screenFlashEnabled: s.screenBlinkEnabled,
+      onScreenFlash: applyScreenFlash,
       onComplete: () => {
         if (repeatRef.current) {
           queueMicrotask(() => beginPlaybackRef.current?.());
         }
       }
     };
-  }, []);
+  }, [applyScreenFlash]);
 
   const beginPlayback = useCallback(() => {
     const s = playbackStateRef.current;
@@ -595,15 +604,12 @@ export default function TranslatorShell({
         </div>
       )}
 
-      {screenFlashPhase !== "off" && (
-        <div
-          className={`pointer-events-none fixed inset-0 z-[300] ${
-            screenFlashPhase === "white" ? "bg-white" : "bg-black"
-          }`}
-          style={{ opacity: screenFlashPhase === "white" ? 0.94 : 0.92 }}
-          aria-hidden
-        />
-      )}
+      <div
+        ref={overlayRef}
+        className="pointer-events-none fixed inset-0 z-[300] opacity-0"
+        style={{ visibility: "hidden" }}
+        aria-hidden
+      />
     </div>
   );
 }

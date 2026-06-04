@@ -36,7 +36,7 @@ export default function LiveInput({ onSymbol, onLetterGap }: LiveInputProps) {
       </h3>
       <button
         type="button"
-        className="min-h-[64px] w-full rounded-lg border border-outline-variant/30 bg-primary-container/90 py-3 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-all active:brightness-110 dark:border-outline-variant/30 dark:text-on-primary-container"
+        className="min-h-[64px] w-full rounded-lg border border-outline-variant/30 bg-primary-container/90 py-3 font-headline text-sm font-bold text-on-primary-container shadow-neon-primary transition-[filter] active:brightness-110 dark:border-outline-variant/30 dark:text-on-primary-container"
         onMouseDown={handlePressStart}
         onMouseUp={handlePressEnd}
         onMouseLeave={handlePressEnd}

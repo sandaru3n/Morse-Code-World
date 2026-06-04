@@ -374,9 +374,9 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
 
   useEffect(() => {
     if (!menuOpen) return;
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("menu-scroll-lock");
     return () => {
-      document.body.style.overflow = "";
+      document.body.classList.remove("menu-scroll-lock");
     };
   }, [menuOpen]);
 

@@ -6,6 +6,10 @@
   html {
     @apply antialiased;
   }
+
+  body.menu-scroll-lock {
+    overflow: hidden;
+  }
 }
 
 @layer utilities {
