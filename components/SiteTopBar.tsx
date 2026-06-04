@@ -510,7 +510,7 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
             className="group flex min-w-0 max-w-full items-center gap-2.5 transition-opacity hover:opacity-95 sm:gap-3"
           >
             <img
-              src="/favicon/android-chrome-192x192.png"
+              src="/favicon/android-chrome-192x192.webp"
               alt="Morse Code World logo"
               width={40}
               height={40}
