@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    /** Inline Tailwind in HTML to avoid render-blocking stylesheet on first paint. */
+    inlineCss: true
+  },
+
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
   },
