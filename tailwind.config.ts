@@ -34,9 +34,9 @@ const config: Config = {
         error: "#ffb4ab"
       },
       fontFamily: {
-        headline: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
-        body: ["var(--font-manrope)", "system-ui", "sans-serif"],
-        label: ["var(--font-manrope)", "system-ui", "sans-serif"]
+        headline: ['"Space Grotesk"', "system-ui", "sans-serif"],
+        body: ["Manrope", "system-ui", "sans-serif"],
+        label: ["Manrope", "system-ui", "sans-serif"]
       },
       borderRadius: {
         "3xl": "1.5rem"
