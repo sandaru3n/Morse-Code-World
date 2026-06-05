@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DeferredVercelScripts } from "@/components/DeferredVercelScripts";
+import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { GlobalAiSeoJsonLd } from "@/components/GlobalAiSeoJsonLd";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -7,6 +8,23 @@ import { SITE_NAME } from "@/lib/site";
 import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-Variable.woff2",
+  variable: "--font-space-grotesk",
+  display: "swap",
+  weight: "300 700",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"]
+});
+
+const manrope = localFont({
+  src: "./fonts/Manrope-Variable.woff2",
+  variable: "--font-manrope",
+  display: "swap",
+  weight: "200 800",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"]
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -91,13 +109,8 @@ export default async function RootLayout({
   const dir = (headersList.get("x-html-dir") ?? "ltr") as "ltr" | "rtl";
 
   return (
-    <html lang={locale} dir={dir} className="dark" suppressHydrationWarning>
-      <head>
-        {/* Preload fonts immediately at HTML parse time — prevents LCP render delay */}
-        <link rel="preload" href="/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/Manrope-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      </head>
-      <body className="min-h-screen font-body">
+    <html lang={locale} dir={dir} className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
+      <body className={`min-h-screen font-body ${manrope.className}`}>
         <GlobalAiSeoJsonLd />
         {children}
         <DeferredVercelScripts />
