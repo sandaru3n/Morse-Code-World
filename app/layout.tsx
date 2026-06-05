@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DeferredVercelScripts } from "@/components/DeferredVercelScripts";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { GlobalAiSeoJsonLd } from "@/components/GlobalAiSeoJsonLd";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -8,18 +8,22 @@ import { SITE_NAME } from "@/lib/site";
 import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-Variable.woff2",
+  variable: "--font-space-grotesk",
   display: "swap",
-  preload: false,
-  variable: "--font-space-grotesk"
+  weight: "300 700",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"]
 });
 
-const manrope = Manrope({
-  subsets: ["latin"],
+const manrope = localFont({
+  src: "./fonts/Manrope-Variable.woff2",
+  variable: "--font-manrope",
   display: "swap",
+  weight: "200 800",
   preload: true,
-  variable: "--font-manrope"
+  fallback: ["system-ui", "sans-serif"]
 });
 
 export const metadata: Metadata = {
