@@ -69,7 +69,7 @@ export default function TranslatorShell({
   const [vibrateOn, setVibrateOn] = useState(false);
   const [configureOpen, setConfigureOpen] = useState(false);
   const [screenFlashPanelOpen, setScreenFlashPanelOpen] = useState(false);
-  const [bulbClickGlow, setBulbClickGlow] = useState(false);
+  const bulbRef = useRef<HTMLButtonElement>(null);
   const [showLiveInput, setShowLiveInput] = useState(true);
 
   const debouncedInput = useDebounce(input, 300);
@@ -243,7 +243,7 @@ export default function TranslatorShell({
                     <div className="flex w-full items-stretch rounded-full bg-slate-100 p-1 dark:bg-surface-container-low sm:w-auto sm:p-0.5">
                       <button
                         type="button"
-                        onClick={() => setMode("encode")}
+                        onClick={() => startTransition(() => setMode("encode"))}
                         className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-colors sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "encode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
@@ -254,7 +254,7 @@ export default function TranslatorShell({
                       </button>
                       <button
                         type="button"
-                        onClick={() => setMode("decode")}
+                        onClick={() => startTransition(() => setMode("decode"))}
                         className={`min-h-[44px] flex-1 rounded-full px-3 py-2 text-sm font-bold transition-colors sm:min-h-0 sm:flex-none sm:px-3 sm:py-1 sm:text-[11px] ${
                           mode === "decode"
                             ? "bg-primary-container text-on-primary-container dark:text-on-primary-container"
@@ -267,7 +267,7 @@ export default function TranslatorShell({
                   </div>
                   <button
                     type="button"
-                    onClick={() => setInput("")}
+                    onClick={() => startTransition(() => setInput(""))}
                     className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-red-600 opacity-90 transition-opacity hover:opacity-100 dark:text-error"
                   >
                     <IconDelete className="h-3.5 w-3.5" />
@@ -365,7 +365,7 @@ export default function TranslatorShell({
                 <div className="hidden h-8 w-px bg-outline-variant/20 sm:mx-1 sm:block dark:bg-outline-variant/20" />
                 <button
                   type="button"
-                  onClick={() => setRepeat((r) => !r)}
+                  onClick={() => startTransition(() => setRepeat((r) => !r))}
                   className={`rounded-full p-2.5 transition-colors dark:bg-surface-container ${
                     repeat
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
@@ -377,7 +377,7 @@ export default function TranslatorShell({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setSoundOn((s) => !s)}
+                  onClick={() => startTransition(() => setSoundOn((s) => !s))}
                   className={`rounded-full p-2.5 transition-colors ${
                     soundOn
                       ? "bg-secondary-container text-on-secondary-container shadow-neon-secondary dark:text-on-secondary-container"
@@ -388,15 +388,17 @@ export default function TranslatorShell({
                   <IconVolume className="h-5 w-5" />
                 </button>
                 <button
+                  ref={bulbRef}
                   type="button"
                   onClick={() => {
-                    setBulbClickGlow(true);
-                    window.setTimeout(() => setBulbClickGlow(false), 700);
+                    const el = bulbRef.current;
+                    if (el) {
+                      el.classList.add("bulb-click-glow");
+                      el.addEventListener("animationend", () => el.classList.remove("bulb-click-glow"), { once: true });
+                    }
                     startTransition(() => setScreenFlashPanelOpen(true));
                   }}
                   className={`relative rounded-full p-2.5 transition-colors ${
-                    bulbClickGlow ? "bulb-click-glow" : ""
-                  } ${
                     screenBlinkEnabled
                       ? "bg-primary-container/25 text-emerald-700 shadow-neon-primary dark:text-primary-container"
                       : "bg-white text-slate-500 hover:text-neutral-800 dark:bg-surface-container dark:text-slate-500 dark:hover:text-on-surface"
@@ -407,7 +409,7 @@ export default function TranslatorShell({
                 </button>
                 <button
                   type="button"
-                  onClick={() => setVibrateOn((v) => !v)}
+                  onClick={() => startTransition(() => setVibrateOn((v) => !v))}
                   className={`rounded-full p-2.5 transition-colors ${
                     vibrateOn
                       ? "bg-primary-container/20 text-emerald-700 dark:text-primary-container"
