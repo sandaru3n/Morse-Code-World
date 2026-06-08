@@ -88,7 +88,8 @@ export const metadata: Metadata = {
     }
   },
   other: {
-    "ai-content-declaration": "human-authored, tool-generated-output-in-browser"
+    "ai-content-declaration": "human-authored, tool-generated-output-in-browser",
+    "google-adsense-account": "ca-pub-7227917768990151"
   }
 };
 
