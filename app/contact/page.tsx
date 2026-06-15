@@ -56,16 +56,26 @@ export default function ContactPage() {
 
             <div className="mt-10 rounded-2xl border border-slate-200/80 bg-white p-5 dark:border-white/10 dark:bg-surface-container sm:p-6">
               <h2 className="font-headline text-base font-bold text-neutral-900 dark:text-on-surface">
-                Other ways to reach us
+                About this site
               </h2>
               <p className="mt-2 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                For press or partnership inquiries you can also write to:
+                Morse Code World is an independent project built and maintained by a single developer based in{" "}
+                <strong className="text-neutral-800 dark:text-slate-200">Sri Lanka</strong>. The contact form
+                above is the primary way to reach us. We aim to respond within a few business days.
               </p>
-              <address className="mt-3 not-italic font-body text-sm text-slate-700 dark:text-slate-300">
-                <div className="font-semibold text-neutral-800 dark:text-slate-200">Morse Code Translator Media</div>
-                <div className="mt-1">Suite 400, 1420 Liberty Avenue</div>
-                <div>Pittsburgh, PA 15222, USA</div>
+              <address className="mt-4 not-italic rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 font-body text-sm leading-relaxed text-slate-700 dark:border-white/5 dark:bg-surface-container-lowest dark:text-slate-300">
+                <div className="font-semibold text-neutral-800 dark:text-slate-200">Morse Code World</div>
+                <div className="mt-1">13/3A, Gamunu Mawatha</div>
+                <div>Keselwaththa, Panadura</div>
+                <div>Sri Lanka</div>
               </address>
+              <p className="mt-2 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                For more background on the project and its editorial policies, see the{" "}
+                <Link href="/about" className="text-emerald-600 hover:underline dark:text-primary-container">
+                  About page
+                </Link>
+                .
+              </p>
             </div>
 
             <p className="mt-8 font-label text-xs uppercase tracking-widest text-slate-500 dark:text-slate-500">
