@@ -121,22 +121,6 @@ export default function AboutPage() {
               <div className="mt-1">Sri Lanka</div>
             </address>
 
-            {/* ── Advertising ── */}
-            <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
-              Advertising &amp; Monetisation
-            </h2>
-            <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              This site displays advertisements served by{" "}
-              <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> to cover hosting
-              and development costs. Ads are contextually matched to the page content and are served according
-              to Google&apos;s standard publisher policies. No personal data beyond what Google&apos;s own
-              consent mechanism collects is gathered for advertising purposes.
-            </p>
-            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Affiliate links or sponsored posts, if ever present, will be labelled clearly. There are currently
-              none on this site.
-            </p>
-
             {/* ── Content policy ── */}
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
               Content &amp; Editorial Policy
