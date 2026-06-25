@@ -3,16 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SiteAddress } from "@/components/SiteAddress";
+import { SITE_AUTHOR } from "@/lib/author";
 import { SITE_NAME, SITE_OPERATOR_NAME, SITE_POSTAL_ADDRESS_SCHEMA, absoluteUrl } from "@/lib/site";
 
-const DEVELOPER = {
-  name: "Sandaru Peiris",
-  profileImage: "/profile.jpeg",
-  profileImageAlt: "Portrait photo of Sandaru Peiris, founder of Morse Code World",
-  linkedIn: "https://www.linkedin.com/in/sandaru-peiris/",
-  github: "https://github.com/sandaru3n",
-  portfolio: "https://sandaru.vercel.app/"
-} as const;
+const DEVELOPER = SITE_AUTHOR;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },

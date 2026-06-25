@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
+import { BlogAuthor } from "@/components/blog/BlogAuthor";
 import { SiteTopBar } from "@/components/SiteTopBar";
+import { SITE_AUTHOR } from "@/lib/author";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
@@ -34,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.description,
       publishedTime: post.date,
+      authors: [SITE_AUTHOR.name],
       siteName: SITE_NAME,
       images: [
         {
@@ -87,9 +90,10 @@ export default async function BlogPostPage({ params }: Props) {
     keywords: post.tags.join(", "),
     publisher: { "@id": `${absoluteUrl("/")}#organization` },
     author: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: absoluteUrl("/")
+      "@type": "Person",
+      name: SITE_AUTHOR.name,
+      url: absoluteUrl("/about"),
+      image: absoluteUrl(SITE_AUTHOR.profileImage)
     },
     inLanguage: "en"
   };
@@ -191,6 +195,8 @@ export default async function BlogPostPage({ params }: Props) {
             <article className="blog-article-body rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
               <Content />
             </article>
+
+            <BlogAuthor />
 
             <BlogShare slug={post.slug} title={post.title} />
 
