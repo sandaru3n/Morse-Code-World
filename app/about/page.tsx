@@ -108,13 +108,13 @@ export default function AboutPage() {
             </p>
             <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
               I have long been interested in amateur radio and how Morse code still matters in communication
-              history and practice. When I looked for a straightforward online translator — one that sounded right,
-              worked on a phone, and did not need an account — I kept finding tools that were cluttered or hard to
+              history and practice. When I looked for a straightforward online translator - one that sounded right,
+              worked on a phone, and did not need an account - I kept finding tools that were cluttered or hard to
               use. I built Morse Code World to fill that gap: a clean, fast translator I would actually want to
               open myself.
             </p>
             <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Everything on this site — the code, the design, and the blog posts — is maintained by me. There is no
+              Everything on this site - the code, the design, and the blog posts - is maintained by me. There is no
               company behind it, just a personal project I keep improving in my spare time.
             </p>
 
