@@ -26,7 +26,7 @@ const BREADCRUMB_SCHEMA = {
   ]
 };
 
-const LAST_UPDATED = "June 16, 2026";
+const LAST_UPDATED = "June 17, 2026";
 
 const externalLinkClass =
   "text-emerald-600 underline underline-offset-2 hover:text-emerald-500 dark:text-primary-container";
@@ -47,7 +47,11 @@ export default function PrivacyPage() {
             </h1>
             <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
               This Privacy Policy describes how <strong className="text-neutral-800 dark:text-slate-200">{SITE_NAME}</strong> ("{SITE_URL}") collects,
-              uses, and shares information when you visit or use our Morse code translator tools.
+              uses, and shares information when you visit or use our Morse code translator tools. This site uses{" "}
+              <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> (publisher ID{" "}
+              <span className="font-mono text-xs">ca-pub-7227917768990151</span>) to show third-party ads. When ads
+              are served, Google and its partners may use cookies and similar technologies on your device, as described
+              in sections 2 and 3 below.
             </p>
 
             <Section title="1. Information We Collect">
@@ -74,10 +78,12 @@ export default function PrivacyPage() {
 
             <Section title="2. Cookies and Tracking">
               <p>
-                We do <strong className="text-neutral-800 dark:text-slate-200">not</strong> set our own advertising
-                cookies or cross-site tracking cookies beyond those placed by{" "}
-                <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> and its advertising
-                partners. See section 3 below for details.
+                When you visit pages that display advertisements, <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> and
+                its advertising partners may place <strong className="text-neutral-800 dark:text-slate-200">advertising cookies</strong> and{" "}
+                <strong className="text-neutral-800 dark:text-slate-200">cross-site tracking cookies</strong> on your browser or device. These
+                technologies are used to serve ads, show relevant ads based on your browsing history, limit how often you see the same ad, and
+                measure ad performance. We do not operate our own ad network; ad-related cookies are set by Google and its partners. See section 3
+                for full details and opt-out options.
               </p>
               <p className="mt-3">
                 We use <strong className="text-neutral-800 dark:text-slate-200">Vercel Analytics</strong> for
@@ -184,16 +190,22 @@ export default function PrivacyPage() {
 
             <Section title="6. Data Retention">
               <p>
-                Because we do not collect personal data, there is nothing to retain or delete on our end. Server access logs
-                maintained by Vercel are subject to their own data retention policy.
+                We do not store the text you type in our translator tools on our servers. Server access logs maintained
+                by Vercel are subject to their own data retention policy. Data collected through Google AdSense and other
+                third-party services is retained according to each provider&apos;s policies.
               </p>
             </Section>
 
             <Section title="7. Your Rights">
               <p>
                 Depending on your jurisdiction, you may have rights including access to, correction of, or deletion of personal
-                data. Since we collect no personal data, these rights are automatically satisfied. For questions about data
-                processed by our third-party providers (including Google AdSense), refer to their respective privacy policies.
+                data. We do not directly collect account or contact information when you use our tools, but third-party providers
+                such as <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> may process data for
+                advertising purposes. For questions about that processing, refer to{" "}
+                <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className={externalLinkClass}>
+                  Google&apos;s Advertising Privacy Policy
+                </a>{" "}
+                and the other third-party policies linked in section 4.
               </p>
             </Section>
 
