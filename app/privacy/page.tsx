@@ -26,7 +26,7 @@ const BREADCRUMB_SCHEMA = {
   ]
 };
 
-const LAST_UPDATED = "June 15, 2026";
+const LAST_UPDATED = "June 16, 2026";
 
 const externalLinkClass =
   "text-emerald-600 underline underline-offset-2 hover:text-emerald-500 dark:text-primary-container";
@@ -74,14 +74,15 @@ export default function PrivacyPage() {
 
             <Section title="2. Cookies and Tracking">
               <p>
+                We do <strong className="text-neutral-800 dark:text-slate-200">not</strong> set our own advertising
+                cookies or cross-site tracking cookies beyond those placed by{" "}
+                <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> and its advertising
+                partners. See section 3 below for details.
+              </p>
+              <p className="mt-3">
                 We use <strong className="text-neutral-800 dark:text-slate-200">Vercel Analytics</strong> for
                 privacy-friendly, aggregated site measurements. These analytics do not build individual user profiles
                 for our own purposes.
-              </p>
-              <p className="mt-3">
-                When you visit pages that show advertisements, <strong className="text-neutral-800 dark:text-slate-200">third-party advertising cookies</strong> may
-                be set on your device by Google and its partners. These cookies help serve ads, limit how often you see
-                the same ad, and measure ad performance. See section 3 below for details on Google AdSense.
               </p>
               <p className="mt-3">
                 Your browser may also store certain preferences (such as dark/light mode) in local storage. That data
@@ -91,14 +92,14 @@ export default function PrivacyPage() {
 
             <Section title="3. Google AdSense and Advertising">
               <p>
-                This site uses <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> to display
-                advertisements. Google and its advertising partners may use cookies and similar technologies to show you
-                ads based on your prior visits to this website or other websites on the Internet.
+                This site uses <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> to
+                display third-party advertisements. Google, as a third-party vendor, uses cookies (including the
+                DoubleClick cookie) to serve ads based on your prior visits to this site and other websites.
               </p>
               <p className="mt-3">
-                Third-party vendors, including Google, use cookies to serve ads based on a user&apos;s prior visits to
-                this website or other websites. Google&apos;s use of advertising cookies enables it and its partners to
-                serve ads based on visits to this site and/or other sites on the Internet.
+                Google&apos;s use of advertising cookies enables it and its partners to serve ads based on visits to
+                this site and/or other sites on the Internet. These cookies help serve ads, limit how often you see
+                the same ad, and measure ad performance.
               </p>
               <p className="mt-3">
                 You can learn how Google collects and uses data in advertising at{" "}
