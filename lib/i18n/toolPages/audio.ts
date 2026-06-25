@@ -20,6 +20,12 @@ export type AudioPageCopy = {
   steps: string[];
   tipsHeading: string;
   tips: string[];
+  technicalHeading: string;
+  technicalParagraphs: string[];
+  useCasesHeading: string;
+  useCases: string[];
+  limitationsHeading: string;
+  limitations: string[];
   faqHeading: string;
   faq: { q: string; a: string }[];
   linkTranslator: string;
@@ -46,11 +52,11 @@ const EN: AudioPageCopy = {
   breadcrumbTool: "Audio Morse Code Decoder",
   aboutHeading: "What is an audio Morse code decoder?",
   aboutP1:
-    "An audio Morse code decoder converts recordings of Morse beeps into readable text by analyzing timing patterns between tone and silence.",
+    "An audio Morse code decoder converts recordings of Morse beeps into readable text by analyzing timing patterns between tone and silence. Unlike typing dots and dashes by hand, you can start from a WAV or MP3 captured from a practice session, an on-air recording, or exported video audio.",
   aboutP2:
-    "This is useful for ham radio operators, learners, and researchers who need to decode Morse from audio quickly.",
+    "This tool is built for ham radio operators checking a short CW clip, students verifying homework, and anyone who already has Morse as sound rather than as written symbols. It follows International Morse Code (ITU) timing rules and runs entirely in your browser for the audio analysis step.",
   aboutP3:
-    "You can cross-check results in the main translator or use the picture translator when your source is an image.",
+    "After decoding, you can cross-check results in the main translator or use the picture translator when your source is a photo or screenshot instead of audio.",
   formatsHeading: "Supported audio formats",
   formatsP:
     "You can upload WAV, MP3, OGG, M4A, and most common audio formats. Use clean recordings with a single tone and minimal background noise.",
@@ -67,13 +73,66 @@ const EN: AudioPageCopy = {
     "Use consistent tone frequency (500–1000 Hz is often ideal).",
     "Avoid background noise, speech, and music.",
     "Shorter clips under two minutes decode more accurately.",
-    "Manually fix dots and dashes if output looks wrong."
+    "Manually fix dots and dashes if output looks wrong.",
+    "If letter spacing fails, try a cleaner recording with longer pauses between characters."
+  ],
+  technicalHeading: "How the decoder works technically",
+  technicalParagraphs: [
+    "When you upload a file, the decoder uses the browser Web Audio API to decode the file into a PCM waveform — no audio is uploaded to our servers for this step. The waveform is scanned in short frames (about 10 ms each). For every frame, the tool calculates RMS energy (a measure of loudness) to build an envelope of how strong the tone is over time.",
+    "That envelope is lightly smoothed, then compared to an adaptive threshold (roughly 30% of the peak level). Frames above the threshold count as “tone on”; frames below count as silence. The decoder merges consecutive frames into segments and measures how long each tone and each gap lasts in milliseconds.",
+    "Next, it estimates the dot length by looking at the shortest common tone durations in the recording. Durations near one dot unit become dots (.); durations near three dot units become dashes (-). Gaps are classified using standard ITU ratios: a short gap keeps building the same letter, a medium gap starts a new letter, and a long gap inserts a word break.",
+    "Before showing results, the tool checks whether the timing pattern actually looks like Morse (rather than speech or random noise). If timing is too irregular, it asks for a cleaner recording. The Morse string is then mapped to letters using the same International Morse table as the main translator. An optional AI organize step sends the decoded text to Google Gemini on the server to fix spacing and casing — only the text and Morse string are sent, not the original audio file."
+  ],
+  useCasesHeading: "Example use cases",
+  useCases: [
+    "Verify a short CW practice recording before a ham radio exam or club exercise.",
+    "Decode Morse exported from a YouTube demo, podcast clip, or archived training audio.",
+    "Check whether an old answering-machine-style tone sequence spells a callsign or phrase.",
+    "Study timing: compare the detected dot length and threshold against what you hear.",
+    "Turn a rough decode into readable sentences with AI organize, then edit manually."
+  ],
+  limitationsHeading: "Limitations you should know",
+  limitations: [
+    "Works best on single-tone Morse (one steady pitch). Music, speech, or multiple overlapping tones usually fail.",
+    "Heavy noise, clipping, or very fast/high-speed CW reduces accuracy; you may need to edit the Morse output by hand.",
+    "The decoder does not perform on-air signal processing — it analyzes files you already recorded.",
+    "AI organize requires a configured server API key and sends decoded text (not audio) to Google Gemini.",
+    "Extremely long files or dense symbol streams may be rejected to avoid nonsense output."
   ],
   faqHeading: "Frequently asked questions",
   faq: [
-    { q: "What audio formats are supported?", a: "WAV, MP3, OGG, M4A, and most common formats." },
-    { q: "Is this decoder free?", a: "Yes, completely free with no account required." },
-    { q: "Can I decode audio from a YouTube video?", a: "Export the audio to WAV or MP3, then upload it here." }
+    {
+      q: "What audio formats are supported?",
+      a: "WAV, MP3, OGG, M4A, and most common browser-playable formats. If the file plays in your browser, it can usually be analyzed."
+    },
+    {
+      q: "Is my audio uploaded to your servers?",
+      a: "No. Decoding runs locally in your browser with the Web Audio API. Only if you use AI organize is decoded text (not the audio file) sent to Google Gemini."
+    },
+    {
+      q: "Is this decoder free?",
+      a: "Yes, completely free with no account required for decoding. AI organize depends on server configuration."
+    },
+    {
+      q: "Can I decode audio from a YouTube video?",
+      a: "Export or download the audio as WAV or MP3, then upload it here. Avoid background music and commentary for best results."
+    },
+    {
+      q: "Why did decoding fail or look like gibberish?",
+      a: "Common causes are background noise, non-Morse audio, irregular timing, or missing pauses between letters. Try a shorter clip with a clear sidetone."
+    },
+    {
+      q: "What does AI organize do?",
+      a: "It sends the decoded Morse text to Google Gemini to add sensible word breaks, capitalization, and punctuation. You should still verify the result."
+    },
+    {
+      q: "Which Morse standard is used?",
+      a: "International Morse Code (ITU), the same standard as the main Morse Code World translator — not historical American railroad Morse."
+    },
+    {
+      q: "Can I edit the Morse before converting to plain text?",
+      a: "Yes. The Morse output field is fully editable so you can fix dots, dashes, and spaces before reading the decoded message."
+    }
   ],
   linkTranslator: "translator",
   linkPicture: "picture translator",

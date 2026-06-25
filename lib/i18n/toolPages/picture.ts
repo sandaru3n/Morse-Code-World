@@ -19,6 +19,12 @@ export type PicturePageCopy = {
   qualityHeading: string;
   qualityP1: string;
   qualityP2: string;
+  technicalHeading: string;
+  technicalParagraphs: string[];
+  useCasesHeading: string;
+  useCases: string[];
+  limitationsHeading: string;
+  limitations: string[];
   faqHeading: string;
   faq: { q: string; a: string }[];
   linkTranslator: string;
@@ -43,11 +49,11 @@ const EN: PicturePageCopy = {
   breadcrumbTool: "Morse Code Picture Translator",
   aboutHeading: "What is a Morse code picture translator?",
   aboutP1:
-    "A morse code picture translator helps you decode Morse from screenshots, documents, and photos instead of typing dots and dashes by hand.",
+    "A Morse code picture translator helps you decode Morse from screenshots, documents, flashcards, and photos instead of typing dots and dashes by hand. It is useful when the signal exists only as pixels — for example a textbook diagram, a museum display, or a message shared in a chat image.",
   aboutP2:
-    "This page uses Google Gemini to detect Morse symbols from images and convert them into editable Morse text, then decode to plain language.",
+    "This page sends your image to Google Gemini on our server, which reads dot and dash patterns visually and returns a single line of International Morse code. That Morse string is shown in an editable field and decoded to plain text locally in your browser using the same alphabet table as the main translator.",
   aboutP3:
-    "For typed Morse use the main translator; for audio recordings use the audio decoder.",
+    "For typed Morse use the main translator; for audio recordings use the audio decoder. Together, the three tools cover text, sound, and image sources.",
   stepsHeading: "How to decode Morse code from an image",
   steps: [
     "Take a clear photo or screenshot of the Morse code.",
@@ -59,12 +65,65 @@ const EN: PicturePageCopy = {
   qualityP1:
     "Use strong contrast, clear symbol spacing, and consistent orientation. Screenshots usually work better than photos.",
   qualityP2:
-    "Increase contrast and crop tightly if symbols are hard to read.",
+    "Increase contrast and crop tightly if symbols are hard to read. Avoid glare, motion blur, and low-resolution thumbnails.",
+  technicalHeading: "How the picture translator works technically",
+  technicalParagraphs: [
+    "You upload a JPG, PNG, WebP, or GIF image (up to 4 MB). The file is sent to our server API route, which forwards it to Google Gemini multimodal models. The model is instructed to trace the signal visually — treating short marks as dots, long marks as dashes, and respecting word spacing — rather than guessing English letters first.",
+    "Gemini returns a single line of Morse using only dots, dashes, slashes, and spaces. Our server normalizes that response and sends it back to your browser. A small client-side pass maps common OCR-style characters (such as bullets) to standard Morse symbols, then the editable Morse field is filled.",
+    "Plain-text decoding happens entirely in the browser: the Morse string is matched against the International Morse Code table, the same logic used on the home translator. You can correct the Morse manually before trusting the decoded message. If Gemini cannot find Morse in the image, it returns a sentinel value and the tool shows an error instead of inventing text.",
+    "Unlike the audio decoder, image reading requires a server round trip because vision models run on Google infrastructure. Images are used only for extraction and are not stored by Morse Code World after the request completes."
+  ],
+  useCasesHeading: "Example use cases",
+  useCases: [
+    "Decode Morse printed in a radio handbook, exam study guide, or classroom worksheet.",
+    "Read Morse from a screenshot of a practice app, social post, or messaging chat.",
+    "Transcribe dots and dashes drawn on a whiteboard or flashcard without typing them manually.",
+    "Quickly verify a visual puzzle, escape-room clue, or STEM activity that uses Morse symbols.",
+    "Start from a photo of historical telegraph material, then refine the Morse in the editor."
+  ],
+  limitationsHeading: "Limitations you should know",
+  limitations: [
+    "Accuracy depends on image quality, contrast, and how clearly symbols are separated — AI can misread faint or crowded marks.",
+    "Handwriting and stylized fonts work only when dots and dashes remain distinct; cursive or decorative scripts often fail.",
+    "Your image is transmitted to Google Gemini for analysis; do not upload sensitive or private photos you would not share with a third-party AI service.",
+    "Very large files above 4 MB are rejected. Animated GIFs may decode inconsistently depending on which frame the model focuses on.",
+    "The tool reads International Morse visually; it does not automatically handle proprietary pictogram codes or non-ITU variants.",
+    "Network or API outages can block extraction even though local Morse-to-text decoding still works once you have a string."
+  ],
   faqHeading: "Frequently asked questions",
   faq: [
-    { q: "Can I upload handwritten Morse?", a: "Yes, if dots and dashes are clearly separated." },
-    { q: "Is this tool free?", a: "Yes, no registration required." },
-    { q: "What AI reads the image?", a: "Google Gemini detects patterns and produces Morse output." }
+    {
+      q: "Can I upload handwritten Morse?",
+      a: "Yes, if dots and dashes are clearly separated and contrast well with the background. Messy or connected handwriting often needs manual correction after extraction."
+    },
+    {
+      q: "Is this tool free?",
+      a: "Yes, no registration is required. Extraction uses Google Gemini on our server, which incurs API costs we absorb for normal use."
+    },
+    {
+      q: "What AI reads the image?",
+      a: "Google Gemini multimodal models, with automatic fallback across several model versions if one is unavailable."
+    },
+    {
+      q: "Is my image stored on your servers?",
+      a: "No. The image is forwarded to Google for the extraction request and is not persisted by Morse Code World afterward."
+    },
+    {
+      q: "Which image formats are supported?",
+      a: "JPEG, PNG, WebP, and GIF up to 4 MB. Screenshots and phone photos work when symbols are sharp enough."
+    },
+    {
+      q: "Can I edit the Morse before decoding?",
+      a: "Yes. The Morse output field is fully editable so you can fix misread dots, dashes, or word breaks before reading the plain-text result."
+    },
+    {
+      q: "Why did extraction return nothing or an error?",
+      a: "The model may not see valid Morse, the file may be too large, or the API may be temporarily unavailable. Try cropping, increasing contrast, or using a screenshot instead of a photo."
+    },
+    {
+      q: "Does this work on American railroad Morse?",
+      a: "The tool targets International Morse Code (ITU). Historical American Morse uses different symbol timings; results may need manual adjustment."
+    }
   ],
   linkTranslator: "Morse code translator",
   linkAudio: "audio Morse code decoder"

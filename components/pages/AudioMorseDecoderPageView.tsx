@@ -114,10 +114,37 @@ export function AudioMorseDecoderPageView({ locale }: { locale: HomeLocale }) {
             </section>
 
             <section className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6">
+              <h2 className="font-headline text-lg font-bold sm:text-xl">{copy.technicalHeading}</h2>
+              <div className="mt-4 space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
+                {copy.technicalParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6">
+              <h2 className="font-headline text-lg font-bold sm:text-xl">{copy.useCasesHeading}</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
+                {copy.useCases.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6">
               <h2 className="font-headline text-lg font-bold sm:text-xl">{copy.tipsHeading}</h2>
               <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
                 {copy.tips.map((tip) => (
                   <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6">
+              <h2 className="font-headline text-lg font-bold sm:text-xl">{copy.limitationsHeading}</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
+                {copy.limitations.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </section>
