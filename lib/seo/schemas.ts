@@ -1,4 +1,4 @@
-import { absoluteUrl, SITE_DOMAIN, SITE_NAME } from "@/lib/site";
+import { absoluteUrl, SITE_DOMAIN, SITE_NAME, SITE_POSTAL_ADDRESS_SCHEMA } from "@/lib/site";
 
 const SITE_URL = `https://${SITE_DOMAIN}`;
 
@@ -32,6 +32,7 @@ export const SITE_ORGANIZATION_SCHEMA = {
   name: "Morse Code World",
   alternateName: ["Morse Code Translator", SITE_NAME],
   url: SITE_URL,
+  address: SITE_POSTAL_ADDRESS_SCHEMA,
   logo: {
     "@type": "ImageObject",
     url: `${SITE_URL}/favicon/android-chrome-512x512.png`,

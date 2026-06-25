@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteTopBar } from "@/components/SiteTopBar";
+import { SiteAddress } from "@/components/SiteAddress";
 import { ContactForm } from "@/components/ContactForm";
-import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { SITE_NAME, SITE_OPERATOR_NAME, SITE_POSTAL_ADDRESS_SCHEMA, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
@@ -33,7 +34,13 @@ const CONTACT_PAGE_SCHEMA = {
   name: "Contact Morse Code World",
   url: absoluteUrl("/contact"),
   description: "Contact form for morsecodeworld.org",
-  mainEntity: { "@id": `${absoluteUrl("/")}#organization` }
+  mainEntity: {
+    "@type": "Organization",
+    "@id": `${absoluteUrl("/")}#organization`,
+    name: SITE_OPERATOR_NAME,
+    url: absoluteUrl("/"),
+    address: SITE_POSTAL_ADDRESS_SCHEMA
+  }
 };
 
 export default function ContactPage() {
@@ -63,12 +70,7 @@ export default function ContactPage() {
                 <strong className="text-neutral-800 dark:text-slate-200">Sri Lanka</strong>. The contact form
                 above is the primary way to reach us. We aim to respond within a few business days.
               </p>
-              <address className="mt-4 not-italic rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 font-body text-sm leading-relaxed text-slate-700 dark:border-white/5 dark:bg-surface-container-lowest dark:text-slate-300">
-                <div className="font-semibold text-neutral-800 dark:text-slate-200">Morse Code World</div>
-                <div className="mt-1">13/3A, Gamunu Mawatha</div>
-                <div>Keselwaththa, Panadura</div>
-                <div>Sri Lanka</div>
-              </address>
+              <SiteAddress variant="inline" className="mt-4" />
               <p className="mt-2 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                 For more background on the project and its editorial policies, see the{" "}
                 <Link href="/about" className="text-emerald-600 hover:underline dark:text-primary-container">

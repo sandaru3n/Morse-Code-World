@@ -89,7 +89,7 @@ export default function TermsPage() {
             <Section title="4. Intellectual Property">
               <p>
                 All content on this site — including the design, code, text, and trade dress — is owned by or licensed
-                to Morse Code Translator Media unless otherwise noted.
+                to Morse Code World unless otherwise noted.
               </p>
               <p className="mt-3">
                 The <strong className="text-neutral-800 dark:text-slate-200">output you generate</strong> (translated text,
@@ -126,7 +126,7 @@ export default function TermsPage() {
 
             <Section title="7. Limitation of Liability">
               <p>
-                TO THE FULLEST EXTENT PERMITTED BY LAW, MORSE CODE TRANSLATOR MEDIA SHALL NOT BE LIABLE FOR ANY
+                TO THE FULLEST EXTENT PERMITTED BY LAW, MORSE CODE WORLD SHALL NOT BE LIABLE FOR ANY
                 INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF, OR
                 INABILITY TO USE, THE SERVICE — EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
               </p>
@@ -146,8 +146,8 @@ export default function TermsPage() {
 
             <Section title="9. Governing Law">
               <p>
-                These Terms shall be governed by and construed in accordance with the laws of the Commonwealth of
-                Pennsylvania, United States, without regard to its conflict of law provisions.
+                These Terms shall be governed by and construed in accordance with the laws of Sri Lanka,
+                without regard to its conflict of law provisions.
               </p>
             </Section>
 

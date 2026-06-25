@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteTopBar } from "@/components/SiteTopBar";
-import { SITE_NAME, absoluteUrl } from "@/lib/site";
+import { SiteAddress } from "@/components/SiteAddress";
+import { SITE_NAME, SITE_OPERATOR_NAME, SITE_POSTAL_ADDRESS_SCHEMA, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
@@ -43,18 +44,13 @@ const ABOUT_PAGE_SCHEMA = {
   description:
     "Morse Code World is a free online tool for translating, decoding, and learning International Morse Code. Built and maintained by an independent developer based in Sri Lanka.",
   mainEntity: { "@id": `${absoluteUrl("/")}#organization` },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${absoluteUrl("/")}#organization`,
-      name: "Morse Code World",
-      url: absoluteUrl("/"),
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "13/3A, Gamunu Mawatha, Keselwaththa",
-        addressLocality: "Panadura",
-        addressCountry: "LK"
-      }
-    },
+  publisher: {
+    "@type": "Organization",
+    "@id": `${absoluteUrl("/")}#organization`,
+    name: SITE_OPERATOR_NAME,
+    url: absoluteUrl("/"),
+    address: SITE_POSTAL_ADDRESS_SCHEMA
+  },
   inLanguage: "en",
   isAccessibleForFree: true
 };
@@ -114,12 +110,7 @@ export default function AboutPage() {
               organisation behind it — content decisions, code, and editorial choices are all made by the
               same individual who built the tool.
             </p>
-            <address className="mt-5 not-italic rounded-2xl border border-slate-200/80 bg-white p-5 font-body text-sm leading-relaxed text-slate-700 shadow-sm dark:border-white/10 dark:bg-surface-container dark:text-slate-300 sm:p-6 sm:text-base">
-              <div className="font-headline font-bold text-neutral-900 dark:text-on-surface">Morse Code World</div>
-              <div className="mt-2">13/3A, Gamunu Mawatha</div>
-              <div>Keselwaththa, Panadura</div>
-              <div className="mt-1">Sri Lanka</div>
-            </address>
+            <SiteAddress variant="card" className="mt-5" />
 
             {/* ── Content policy ── */}
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
@@ -137,8 +128,7 @@ export default function AboutPage() {
               Contact
             </h2>
             <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              For questions about the tool, accessibility issues, content corrections, or advertising enquiries,
-              please use the contact form:
+              For questions about the tool, accessibility issues, or content corrections, please use the contact form:
             </p>
             <div className="mt-5">
               <Link
