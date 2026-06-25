@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SiteAddress } from "@/components/SiteAddress";
@@ -6,6 +7,8 @@ import { SITE_NAME, SITE_OPERATOR_NAME, SITE_POSTAL_ADDRESS_SCHEMA, absoluteUrl 
 
 const DEVELOPER = {
   name: "Sandaru Peiris",
+  profileImage: "/profile.jpeg",
+  profileImageAlt: "Portrait photo of Sandaru Peiris, founder of Morse Code World",
   linkedIn: "https://www.linkedin.com/in/sandaru-peiris/",
   github: "https://github.com/sandaru3n",
   portfolio: "https://sandaru.vercel.app/"
@@ -27,7 +30,13 @@ export const metadata: Metadata = {
     url: "/about",
     title: "About Morse Code World",
     description:
-      "Morse Code World was built by Sandaru Peiris to help people convert text to Morse code and back — a free tool for students, hobbyists, and radio enthusiasts."
+      "Morse Code World was built by Sandaru Peiris to help people convert text to Morse code and back — a free tool for students, hobbyists, and radio enthusiasts.",
+    images: [
+      {
+        url: "/profile.jpeg",
+        alt: "Portrait photo of Sandaru Peiris, founder of Morse Code World"
+      }
+    ]
   },
   other: {
     "Content-Language": "en"
@@ -54,6 +63,7 @@ const ABOUT_PAGE_SCHEMA = {
   author: {
     "@type": "Person",
     name: DEVELOPER.name,
+    image: absoluteUrl(DEVELOPER.profileImage),
     url: DEVELOPER.portfolio,
     sameAs: [DEVELOPER.linkedIn, DEVELOPER.github, DEVELOPER.portfolio]
   },
@@ -66,6 +76,7 @@ const ABOUT_PAGE_SCHEMA = {
     founder: {
       "@type": "Person",
       name: DEVELOPER.name,
+      image: absoluteUrl(DEVELOPER.profileImage),
       url: DEVELOPER.portfolio
     }
   },
@@ -99,24 +110,36 @@ export default function AboutPage() {
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
               Who Built This
             </h2>
-            <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              My name is <strong className="text-neutral-800 dark:text-slate-200">{DEVELOPER.name}</strong>. I am
-              a software engineering student at{" "}
-              <strong className="text-neutral-800 dark:text-slate-200">SLIIT</strong> (Sri Lanka Institute of
-              Information Technology), based in Sri Lanka. I build web applications and enjoy working across the
-              full stack — from the interface you see to the logic that runs behind it.
-            </p>
-            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              I have long been interested in amateur radio and how Morse code still matters in communication
-              history and practice. When I looked for a straightforward online translator - one that sounded right,
-              worked on a phone, and did not need an account - I kept finding tools that were cluttered or hard to
-              use. I built Morse Code World to fill that gap: a clean, fast translator I would actually want to
-              open myself.
-            </p>
-            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Everything on this site - the code, the design, and the blog posts - is maintained by me. There is no
-              company behind it, just a personal project I keep improving in my spare time.
-            </p>
+            <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-start">
+              <Image
+                src={DEVELOPER.profileImage}
+                alt={DEVELOPER.profileImageAlt}
+                width={128}
+                height={128}
+                priority
+                className="h-28 w-28 shrink-0 rounded-full border-2 border-slate-200/80 object-cover shadow-sm dark:border-white/10 sm:h-32 sm:w-32"
+              />
+              <div className="min-w-0">
+                <p className="font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+                  My name is <strong className="text-neutral-800 dark:text-slate-200">{DEVELOPER.name}</strong>. I am
+                  a software engineering student at{" "}
+                  <strong className="text-neutral-800 dark:text-slate-200">SLIIT</strong> (Sri Lanka Institute of
+                  Information Technology), based in Sri Lanka. I build web applications and enjoy working across the
+                  full stack — from the interface you see to the logic that runs behind it.
+                </p>
+                <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+                  I have long been interested in amateur radio and how Morse code still matters in communication
+                  history and practice. When I looked for a straightforward online translator - one that sounded right,
+                  worked on a phone, and did not need an account - I kept finding tools that were cluttered or hard to
+                  use. I built Morse Code World to fill that gap: a clean, fast translator I would actually want to
+                  open myself.
+                </p>
+                <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+                  Everything on this site - the code, the design, and the blog posts - is maintained by me. There is no
+                  company behind it, just a personal project I keep improving in my spare time.
+                </p>
+              </div>
+            </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a
