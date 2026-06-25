@@ -4,15 +4,22 @@ import { SiteTopBar } from "@/components/SiteTopBar";
 import { SiteAddress } from "@/components/SiteAddress";
 import { SITE_NAME, SITE_OPERATOR_NAME, SITE_POSTAL_ADDRESS_SCHEMA, absoluteUrl } from "@/lib/site";
 
+const DEVELOPER = {
+  name: "Sandaru Peiris",
+  linkedIn: "https://www.linkedin.com/in/sandaru-peiris/",
+  github: "https://github.com/sandaru3n",
+  portfolio: "https://sandaru.vercel.app/"
+} as const;
+
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   title: "About Morse Code World — Free Online Morse Code Translator",
   description:
-    "Morse Code World is a free online tool for translating, decoding, and learning International Morse Code. Built and maintained by an independent developer based in Sri Lanka.",
+    "Morse Code World was built by Sandaru Peiris to help people convert text to Morse code and back — a free tool for students, hobbyists, and radio enthusiasts.",
   keywords: [
     "about morse code world",
     "morse code translator",
-    "morse code decoder",
+    "Sandaru Peiris",
     "International Morse Code"
   ],
   openGraph: {
@@ -20,7 +27,7 @@ export const metadata: Metadata = {
     url: "/about",
     title: "About Morse Code World",
     description:
-      "Morse Code World is a free online tool for translating, decoding, and learning International Morse Code. Built and maintained by an independent developer based in Sri Lanka."
+      "Morse Code World was built by Sandaru Peiris to help people convert text to Morse code and back — a free tool for students, hobbyists, and radio enthusiasts."
   },
   other: {
     "Content-Language": "en"
@@ -42,18 +49,32 @@ const ABOUT_PAGE_SCHEMA = {
   name: "About Morse Code World",
   url: absoluteUrl("/about"),
   description:
-    "Morse Code World is a free online tool for translating, decoding, and learning International Morse Code. Built and maintained by an independent developer based in Sri Lanka.",
+    "Morse Code World was built by Sandaru Peiris to help people convert text to Morse code and back.",
   mainEntity: { "@id": `${absoluteUrl("/")}#organization` },
+  author: {
+    "@type": "Person",
+    name: DEVELOPER.name,
+    url: DEVELOPER.portfolio,
+    sameAs: [DEVELOPER.linkedIn, DEVELOPER.github, DEVELOPER.portfolio]
+  },
   publisher: {
     "@type": "Organization",
     "@id": `${absoluteUrl("/")}#organization`,
     name: SITE_OPERATOR_NAME,
     url: absoluteUrl("/"),
-    address: SITE_POSTAL_ADDRESS_SCHEMA
+    address: SITE_POSTAL_ADDRESS_SCHEMA,
+    founder: {
+      "@type": "Person",
+      name: DEVELOPER.name,
+      url: DEVELOPER.portfolio
+    }
   },
   inLanguage: "en",
   isAccessibleForFree: true
 };
+
+const linkClass =
+  "text-emerald-600 underline decoration-emerald-600/40 underline-offset-[3px] transition-colors hover:text-emerald-700 hover:decoration-emerald-600 dark:text-primary-container dark:decoration-primary-container/40 dark:hover:text-primary-container/90";
 
 export default function AboutPage() {
   return (
@@ -63,72 +84,110 @@ export default function AboutPage() {
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-8">
           <div className="mx-auto max-w-3xl md:py-4">
-
-            {/* ── Page heading ── */}
             <h1 className="font-headline text-2xl font-bold tracking-tight text-neutral-900 dark:text-on-surface sm:text-3xl">
               About Morse Code World
             </h1>
             <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Morse Code World is a free, ad-supported web application for learning and practising{" "}
-              <strong className="text-neutral-800 dark:text-slate-200">International Morse Code</strong> — the
-              standard used in amateur radio, aviation, and maritime communication today. The tool lets you
-              encode text, decode Morse signals, hear realistic audio timing, and adjust speed and tone, all
-              without creating an account or installing software. It works on phones and desktops so you can
-              practise anywhere.
+              The main purpose of Morse Code World is simple: help people easily convert{" "}
+              <strong className="text-neutral-800 dark:text-slate-200">text into Morse code</strong> and{" "}
+              <strong className="text-neutral-800 dark:text-slate-200">Morse code into text</strong>. It is a
+              free tool you can use for education, learning communication methods, and keeping knowledge of Morse
+              code alive. Whether you are a student studying signalling, a hobbyist curious about dots and dashes,
+              or a radio enthusiast practising CW, this site is built for you.
             </p>
 
-            {/* ── What the site covers ── */}
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
-              What We Cover
+              Who Built This
             </h2>
             <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              All content focuses on <strong className="text-neutral-800 dark:text-slate-200">ITU International Morse Code</strong>.
-              This differs from historical American Morse (railroad and landline telegraph) in a number of characters and
-              timing rules. Where the distinction matters, we label it explicitly. If your goal is railroad-era transcription,
-              you will need a specialist reference; this tool follows the international mapping studied by radio licence
-              candidates worldwide.
+              My name is <strong className="text-neutral-800 dark:text-slate-200">{DEVELOPER.name}</strong>. I am
+              a software engineering student at{" "}
+              <strong className="text-neutral-800 dark:text-slate-200">SLIIT</strong> (Sri Lanka Institute of
+              Information Technology), based in Sri Lanka. I build web applications and enjoy working across the
+              full stack — from the interface you see to the logic that runs behind it.
             </p>
             <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Beyond the main translator the site includes an <strong className="text-neutral-800 dark:text-slate-200">audio
-              Morse decoder</strong> that analyses recordings, a <strong className="text-neutral-800 dark:text-slate-200">picture
-              Morse translator</strong> that reads images, and a growing{" "}
-              <Link href="/blog" className="text-emerald-600 hover:underline dark:text-primary-container">
-                learning blog
-              </Link>{" "}
-              covering Morse history, technique, and usage.
+              I have long been interested in amateur radio and how Morse code still matters in communication
+              history and practice. When I looked for a straightforward online translator — one that sounded right,
+              worked on a phone, and did not need an account — I kept finding tools that were cluttered or hard to
+              use. I built Morse Code World to fill that gap: a clean, fast translator I would actually want to
+              open myself.
+            </p>
+            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+              Everything on this site — the code, the design, and the blog posts — is maintained by me. There is no
+              company behind it, just a personal project I keep improving in my spare time.
             </p>
 
-            {/* ── Site owner / operator ── */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={DEVELOPER.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-4 py-2 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+              >
+                Portfolio
+              </a>
+              <a
+                href={DEVELOPER.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-4 py-2 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+              >
+                GitHub
+              </a>
+              <a
+                href={DEVELOPER.linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-4 py-2 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-bright"
+              >
+                LinkedIn
+              </a>
+            </div>
+
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
-              Who Runs This Site
+              What You Will Find Here
             </h2>
             <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              Morse Code World is an independent project built and maintained by a single developer based in{" "}
-              <strong className="text-neutral-800 dark:text-slate-200">Sri Lanka</strong>. The site is operated
-              under the brand name <strong className="text-neutral-800 dark:text-slate-200">Morse Code World</strong>{" "}
-              and the domain <span className="font-mono text-xs">morsecodeworld.org</span>. There is no large
-              organisation behind it — content decisions, code, and editorial choices are all made by the
-              same individual who built the tool.
+              The core tool is the{" "}
+              <Link href="/" className={linkClass}>
+                Morse code translator
+              </Link>
+              : type text and hear it played back with adjustable speed and pitch, or paste Morse and read the
+              decoded message. The site follows{" "}
+              <strong className="text-neutral-800 dark:text-slate-200">ITU International Morse Code</strong> — the
+              standard used in amateur radio today, not the older American railroad variant.
+            </p>
+            <p className="mt-4 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+              There is also an{" "}
+              <Link href="/audio-morse-code-decoder" className={linkClass}>
+                audio Morse decoder
+              </Link>
+              , a{" "}
+              <Link href="/morse-code-picture-translator" className={linkClass}>
+                picture Morse translator
+              </Link>
+              , and a{" "}
+              <Link href="/blog" className={linkClass}>
+                learning blog
+              </Link>{" "}
+              with guides on history, technique, and how Morse is still used.
+            </p>
+
+            <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
+              Location
+            </h2>
+            <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
+              Morse Code World is operated from Sri Lanka under the domain{" "}
+              <span className="font-mono text-xs">morsecodeworld.org</span>.
             </p>
             <SiteAddress variant="card" className="mt-5" />
 
-            {/* ── Content policy ── */}
-            <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
-              Content &amp; Editorial Policy
-            </h2>
-            <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              All translations are generated algorithmically from the ITU Morse code table. Blog articles are
-              written by the site owner and edited for clarity before publication. No AI-generated article text
-              is published without human review and significant editing. Technical accuracy is checked against
-              publicly available ITU and ARRL references.
-            </p>
-
-            {/* ── Contact ── */}
             <h2 className="mt-10 font-headline text-lg font-bold text-neutral-900 dark:text-on-surface sm:text-xl">
               Contact
             </h2>
             <p className="mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7">
-              For questions about the tool, accessibility issues, or content corrections, please use the contact form:
+              Questions, bug reports, or suggestions? I read every message and try to reply within a few days.
             </p>
             <div className="mt-5">
               <Link
@@ -139,13 +198,11 @@ export default function AboutPage() {
               </Link>
             </div>
 
-            {/* ── Footer nav ── */}
             <p className="mt-12 font-label text-xs uppercase tracking-widest text-slate-500 dark:text-slate-500">
               <Link href="/" className="text-emerald-600 hover:underline dark:text-primary-container">
                 ← Return to translator
               </Link>
             </p>
-
           </div>
         </main>
       </div>
