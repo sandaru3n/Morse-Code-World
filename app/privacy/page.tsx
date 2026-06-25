@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
   title: "Privacy Policy — Morse Code Translator",
   description:
-    "Privacy Policy for morsecodeworld.org. Learn how we handle data, cookies, and third-party services when you use our free Morse code translator.",
+    "Privacy Policy for morsecodeworld.org. Learn how we handle data, cookies, Google AdSense advertising, and third-party services.",
   openGraph: {
     type: "website",
     url: "/privacy",
@@ -26,7 +26,10 @@ const BREADCRUMB_SCHEMA = {
   ]
 };
 
-const LAST_UPDATED = "June 1, 2026";
+const LAST_UPDATED = "June 15, 2026";
+
+const externalLinkClass =
+  "text-emerald-600 underline underline-offset-2 hover:text-emerald-500 dark:text-primary-container";
 
 export default function PrivacyPage() {
   return (
@@ -71,37 +74,106 @@ export default function PrivacyPage() {
 
             <Section title="2. Cookies and Tracking">
               <p>
-                We do <strong className="text-neutral-800 dark:text-slate-200">not</strong> use advertising cookies or
-                cross-site tracking cookies. Our analytics (Vercel Analytics) use privacy-friendly, aggregated measurements
-                and do not build individual user profiles.
+                We use <strong className="text-neutral-800 dark:text-slate-200">Vercel Analytics</strong> for
+                privacy-friendly, aggregated site measurements. These analytics do not build individual user profiles
+                for our own purposes.
               </p>
               <p className="mt-3">
-                Your browser may store certain preferences (such as dark/light mode) in local storage. This data never leaves
-                your device.
+                When you visit pages that show advertisements, <strong className="text-neutral-800 dark:text-slate-200">third-party advertising cookies</strong> may
+                be set on your device by Google and its partners. These cookies help serve ads, limit how often you see
+                the same ad, and measure ad performance. See section 3 below for details on Google AdSense.
+              </p>
+              <p className="mt-3">
+                Your browser may also store certain preferences (such as dark/light mode) in local storage. That data
+                stays on your device and is not sent to our servers.
               </p>
             </Section>
 
-            <Section title="3. Third-Party Services">
+            <Section title="3. Google AdSense and Advertising">
+              <p>
+                This site uses <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> to display
+                advertisements. Google and its advertising partners may use cookies and similar technologies to show you
+                ads based on your prior visits to this website or other websites on the Internet.
+              </p>
+              <p className="mt-3">
+                Third-party vendors, including Google, use cookies to serve ads based on a user&apos;s prior visits to
+                this website or other websites. Google&apos;s use of advertising cookies enables it and its partners to
+                serve ads based on visits to this site and/or other sites on the Internet.
+              </p>
+              <p className="mt-3">
+                You can learn how Google collects and uses data in advertising at{" "}
+                <a
+                  href="https://policies.google.com/technologies/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={externalLinkClass}
+                >
+                  Google&apos;s Advertising Privacy Policy
+                </a>
+                . For broader information about how Google uses data from sites that use its services, see{" "}
+                <a
+                  href="https://policies.google.com/technologies/partner-sites"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={externalLinkClass}
+                >
+                  How Google uses information from sites or apps that use our services
+                </a>
+                .
+              </p>
+              <p className="mt-3">
+                You may opt out of personalised advertising by visiting{" "}
+                <a
+                  href="https://adssettings.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={externalLinkClass}
+                >
+                  Google Ads Settings
+                </a>
+                . Alternatively, you can opt out of third-party vendor use of cookies for personalised advertising by
+                visiting{" "}
+                <a
+                  href="https://www.aboutads.info/choices/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={externalLinkClass}
+                >
+                  www.aboutads.info
+                </a>
+                .
+              </p>
+            </Section>
+
+            <Section title="4. Third-Party Services">
               <p>We use the following third-party services, each with their own privacy practices:</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base">
                 <li>
-                  <strong className="text-neutral-800 dark:text-slate-200">Vercel</strong> — hosting and edge network.
-                  See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline underline-offset-2 dark:text-primary-container">Vercel Privacy Policy</a>.
+                  <strong className="text-neutral-800 dark:text-slate-200">Google AdSense</strong> — advertising.
+                  See{" "}
+                  <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className={externalLinkClass}>
+                    Google&apos;s Advertising Privacy Policy
+                  </a>
+                  .
                 </li>
                 <li>
-                  <strong className="text-neutral-800 dark:text-slate-200">Google Fonts</strong> — web fonts loaded over CDN.
-                  See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline underline-offset-2 dark:text-primary-container">Google Privacy Policy</a>.
+                  <strong className="text-neutral-800 dark:text-slate-200">Vercel</strong> — hosting and edge network.
+                  See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className={externalLinkClass}>Vercel Privacy Policy</a>.
+                </li>
+                <li>
+                  <strong className="text-neutral-800 dark:text-slate-200">Google Fonts</strong> — web fonts served from our domain.
+                  See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className={externalLinkClass}>Google Privacy Policy</a>.
                 </li>
                 <li>
                   <strong className="text-neutral-800 dark:text-slate-200">Google Gemini API</strong> — used only for the
-                  Morse picture translator feature (image → Morse text). Images you upload are sent to Google's API
+                  Morse picture translator feature (image → Morse text). Images you upload are sent to Google&apos;s API
                   solely to extract Morse code and are not stored by us.
-                  See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline underline-offset-2 dark:text-primary-container">Google Privacy Policy</a>.
+                  See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className={externalLinkClass}>Google Privacy Policy</a>.
                 </li>
               </ul>
             </Section>
 
-            <Section title="4. Children's Privacy">
+            <Section title="5. Children's Privacy">
               <p>
                 Our services are not directed to children under the age of 13. We do not knowingly collect personal information
                 from children. If you believe a child has provided us with personal information, please contact us and we will
@@ -109,22 +181,22 @@ export default function PrivacyPage() {
               </p>
             </Section>
 
-            <Section title="5. Data Retention">
+            <Section title="6. Data Retention">
               <p>
                 Because we do not collect personal data, there is nothing to retain or delete on our end. Server access logs
                 maintained by Vercel are subject to their own data retention policy.
               </p>
             </Section>
 
-            <Section title="6. Your Rights">
+            <Section title="7. Your Rights">
               <p>
                 Depending on your jurisdiction, you may have rights including access to, correction of, or deletion of personal
                 data. Since we collect no personal data, these rights are automatically satisfied. For questions about data
-                processed by our third-party providers, refer to their respective privacy policies.
+                processed by our third-party providers (including Google AdSense), refer to their respective privacy policies.
               </p>
             </Section>
 
-            <Section title="7. Changes to This Policy">
+            <Section title="8. Changes to This Policy">
               <p>
                 We may update this Privacy Policy from time to time. When we do, we will revise the "Last updated" date at
                 the top of this page. Continued use of the site after changes are posted constitutes your acceptance of the
@@ -132,7 +204,7 @@ export default function PrivacyPage() {
               </p>
             </Section>
 
-            <Section title="8. Contact">
+            <Section title="9. Contact">
               <p>
                 If you have questions about this Privacy Policy, please{" "}
                 <Link href="/contact" className="text-emerald-600 underline underline-offset-2 hover:text-emerald-500 dark:text-primary-container">
