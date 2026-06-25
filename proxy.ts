@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { shouldIndexLocale } from "@/lib/i18n/localeIndexing";
 import { htmlDirForLocale, localeFromPathname } from "@/lib/localeFromPath";
 import { isTrackingQueryParam } from "@/lib/trackingQueryParams";
 
@@ -26,6 +27,13 @@ function indexNowKeyResponse(request: NextRequest): NextResponse | null {
   });
 }
 
+function applyLocaleIndexingHeaders(response: NextResponse, locale: ReturnType<typeof localeFromPathname>) {
+  if (!shouldIndexLocale(locale)) {
+    response.headers.set("X-Robots-Tag", "noindex, follow");
+  }
+  return response;
+}
+
 /**
  * Permanently redirect URLs with marketing/tracking query params to the clean path.
  * Stops crawlers from treating ?ref=producthunt (etc.) as separate crawl targets.
@@ -45,12 +53,16 @@ export function proxy(request: NextRequest) {
   }
 
   const requestHeaders = withLocaleHeaders(request);
+  const locale = localeFromPathname(request.nextUrl.pathname);
 
   if (!removed) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    return applyLocaleIndexingHeaders(
+      NextResponse.next({ request: { headers: requestHeaders } }),
+      locale
+    );
   }
 
-  return NextResponse.redirect(url, 308);
+  return applyLocaleIndexingHeaders(NextResponse.redirect(url, 308), locale);
 }
 
 export const config = {

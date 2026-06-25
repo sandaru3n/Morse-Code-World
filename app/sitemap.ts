@@ -1,39 +1,40 @@
 import type { MetadataRoute } from "next";
-import { audioDecoderPath, homePath, NON_EN_LOCALES, pictureTranslatorPath } from "@/lib/i18n/routes";
+import { audioDecoderPath, pictureTranslatorPath } from "@/lib/i18n/routes";
+import { INDEXED_NON_EN_LOCALES } from "@/lib/i18n/localeIndexing";
 import { absoluteUrl } from "@/lib/site";
 import { getAllSlugs } from "@/lib/blog";
 
-/** Actual last-significant-modification dates per URL.
- *  Update these when content on the page genuinely changes.
- *  Never use new Date() — inaccurate freshness signals confuse Bing/Copilot. */
+/** Update when editorial content on a locale home page changes. */
+const LOCALE_HOME_DATES: Record<string, string> = {
+  es: "2026-06-15",
+  fr: "2026-06-15",
+  pt: "2026-06-15",
+  ja: "2026-06-15",
+  th: "2026-06-15",
+  vi: "2026-06-15",
+  ru: "2026-06-15",
+  it: "2026-06-15",
+  ko: "2026-06-15",
+  id: "2026-06-15"
+};
+
 const DATES = {
-  home:        "2026-05-22",
-  about:       "2026-04-15",
-  es:          "2026-05-22",
-  ko:          "2026-05-22",
-  zh:          "2026-05-22",
-  pt:          "2026-05-22",
-  ar:          "2026-05-22",
-  ja:          "2026-05-22",
-  ru:          "2026-05-22",
-  de:          "2026-05-22",
-  cs:          "2026-05-22",
+  home: "2026-06-15",
+  about: "2026-04-15",
   pictureTool: "2026-04-15",
-  audioTool:   "2026-04-15",
-  fr:          "2026-05-22",
-  it:          "2026-05-22",
-  tr:          "2026-05-22",
-  pl:          "2026-05-22",
-  nl:          "2026-05-22",
-  hi:          "2026-05-22",
-  id:          "2026-05-22",
-  vi:          "2026-05-22",
-  th:          "2026-05-22",
-  uk:          "2026-05-22",
+  audioTool: "2026-04-15"
 } as const;
 
+const localizedHomeEntries = (): MetadataRoute.Sitemap =>
+  INDEXED_NON_EN_LOCALES.map((lang) => ({
+    url: absoluteUrl(`/${lang}`),
+    lastModified: LOCALE_HOME_DATES[lang] ?? DATES.home,
+    changeFrequency: "weekly" as const,
+    priority: lang === "th" || lang === "vi" || lang === "id" || lang === "ko" ? 0.92 : 0.9
+  }));
+
 const localizedToolEntries = (): MetadataRoute.Sitemap =>
-  NON_EN_LOCALES.flatMap((lang) => [
+  INDEXED_NON_EN_LOCALES.flatMap((lang) => [
     {
       url: absoluteUrl(audioDecoderPath(lang)),
       lastModified: DATES.audioTool,
@@ -92,60 +93,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.65
     })),
-    {
-      url: absoluteUrl("/es"),
-      lastModified: DATES.es,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/ko"),
-      lastModified: DATES.ko,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/zh"),
-      lastModified: DATES.zh,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/pt"),
-      lastModified: DATES.pt,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/ar"),
-      lastModified: DATES.ar,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/ja"),
-      lastModified: DATES.ja,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/ru"),
-      lastModified: DATES.ru,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/de"),
-      lastModified: DATES.de,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/cs"),
-      lastModified: DATES.cs,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
+    ...localizedHomeEntries(),
     {
       url: absoluteUrl("/morse-code-picture-translator"),
       lastModified: DATES.pictureTool,
@@ -157,66 +105,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DATES.audioTool,
       changeFrequency: "monthly",
       priority: 0.75
-    },
-    {
-      url: absoluteUrl("/fr"),
-      lastModified: DATES.fr,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/it"),
-      lastModified: DATES.it,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/tr"),
-      lastModified: DATES.tr,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/pl"),
-      lastModified: DATES.pl,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/nl"),
-      lastModified: DATES.nl,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/hi"),
-      lastModified: DATES.hi,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/id"),
-      lastModified: DATES.id,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/vi"),
-      lastModified: DATES.vi,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/th"),
-      lastModified: DATES.th,
-      changeFrequency: "weekly",
-      priority: 0.9
-    },
-    {
-      url: absoluteUrl("/uk"),
-      lastModified: DATES.uk,
-      changeFrequency: "weekly",
-      priority: 0.9
     },
     {
       url: absoluteUrl("/llms.txt"),
