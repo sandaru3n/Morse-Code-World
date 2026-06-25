@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Contact — Morse Code Translator",
   description:
     "Get in touch with the Morse Code World team. Send us a message about the translator, accessibility, feedback, or any other question.",
+  keywords: ["contact morse code world", "morsecodeworld support", "morse code translator contact"],
   openGraph: {
     type: "website",
     url: "/contact",

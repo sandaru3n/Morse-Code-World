@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy — Morse Code Translator",
   description:
     "Privacy Policy for morsecodeworld.org. Learn how we handle data, cookies, Google AdSense advertising, and third-party services.",
+  keywords: ["privacy policy", "morsecodeworld privacy", "google adsense cookies"],
   openGraph: {
     type: "website",
     url: "/privacy",
