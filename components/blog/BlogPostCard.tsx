@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogPostCoverImage } from "@/components/blog/BlogPostCoverImage";
 import type { BlogPostMeta } from "@/lib/blog/types";
 
 const CATEGORY_STYLE: Record<string, { bar: string; label: string }> = {
@@ -55,9 +56,19 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
       <Link
         href={`/blog/${post.slug}`}
         className={`group block transition-colors hover:bg-slate-50 dark:hover:bg-surface-container-high ${
-          isFeatured ? "p-6 sm:p-8" : "flex h-full flex-col p-5"
+          isFeatured ? "" : "flex h-full flex-col"
         }`}
       >
+        {post.coverImage ? (
+          <BlogPostCoverImage
+            src={post.coverImage}
+            alt={post.coverImageAlt ?? post.title}
+            priority={isFeatured}
+            variant={isFeatured ? "featured" : "card"}
+          />
+        ) : null}
+
+        <div className={isFeatured ? "p-6 sm:p-8" : "flex flex-1 flex-col p-5"}>
         <div className={`flex flex-wrap items-center gap-x-3 gap-y-1 ${isFeatured ? "mb-4" : "mb-3"}`}>
           {isFeatured ? (
             <span className="border border-slate-300 px-2 py-0.5 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:border-white/20 dark:text-slate-400">
@@ -119,6 +130,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
         >
           Read article →
         </p>
+        </div>
       </Link>
     </article>
   );

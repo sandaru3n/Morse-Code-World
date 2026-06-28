@@ -10,6 +10,9 @@ export type BlogPostMeta = {
   coverEmoji: string;
   /** Tailwind gradient class string e.g. "from-emerald-500 to-teal-600" */
   coverGradient: string;
+  /** Optional cover image under /public, e.g. /blogimages/slug.webp */
+  coverImage?: string;
+  coverImageAlt?: string;
 };
 
 export type BlogPost = BlogPostMeta & {

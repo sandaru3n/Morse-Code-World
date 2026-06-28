@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
+import { BlogPostCoverImage } from "@/components/blog/BlogPostCoverImage";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SITE_AUTHOR } from "@/lib/author";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
@@ -24,6 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const url = absoluteUrl(`/blog/${post.slug}`);
   const keywords = post.tags.slice(0, MAX_META_KEYWORDS);
+  const ogImage = post.coverImage ?? OG_IMAGE;
+  const ogImageWidth = post.coverImage ? 1200 : 512;
+  const ogImageHeight = post.coverImage ? 630 : 512;
+  const ogImageAlt = post.coverImageAlt ?? post.title;
 
   return {
     alternates: { canonical: `/blog/${post.slug}` },
@@ -40,10 +45,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: SITE_NAME,
       images: [
         {
-          url: OG_IMAGE,
-          width: 512,
-          height: 512,
-          alt: post.title
+          url: ogImage,
+          width: ogImageWidth,
+          height: ogImageHeight,
+          alt: ogImageAlt
         }
       ],
       tags: keywords
@@ -52,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary",
       title: post.title,
       description: post.description,
-      images: [OG_IMAGE]
+      images: [ogImage]
     },
     other: { "Content-Language": "en" }
   };
@@ -88,6 +93,9 @@ export default async function BlogPostPage({ params }: Props) {
     datePublished: post.date,
     url: absoluteUrl(`/blog/${post.slug}`),
     keywords: post.tags.join(", "),
+    ...(post.coverImage
+      ? { image: absoluteUrl(post.coverImage) }
+      : {}),
     publisher: { "@id": `${absoluteUrl("/")}#organization` },
     author: {
       "@type": "Person",
@@ -145,14 +153,23 @@ export default async function BlogPostPage({ params }: Props) {
             </nav>
 
             {/* Post header */}
-            <header className="mb-8">
-              {/* Cover graphic */}
-              <div className={`mb-6 flex h-36 items-center justify-center rounded-2xl bg-gradient-to-br ${post.coverGradient} sm:h-44`}>
-                <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
-                  {post.coverEmoji}
-                </span>
-              </div>
+            <header className="mb-8 border border-slate-300 bg-white dark:border-white/15 dark:bg-surface-container">
+              {post.coverImage ? (
+                <BlogPostCoverImage
+                  src={post.coverImage}
+                  alt={post.coverImageAlt ?? post.title}
+                  priority
+                  variant="article"
+                />
+              ) : (
+                <div className={`flex h-36 items-center justify-center bg-gradient-to-br ${post.coverGradient} sm:h-44`}>
+                  <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
+                    {post.coverEmoji}
+                  </span>
+                </div>
+              )}
 
+              <div className="p-5 sm:p-6">
               {/* Category + reading time */}
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 <span
@@ -188,6 +205,7 @@ export default async function BlogPostPage({ params }: Props) {
                     {tag}
                   </span>
                 ))}
+              </div>
               </div>
             </header>
 

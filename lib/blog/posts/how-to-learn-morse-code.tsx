@@ -18,6 +18,8 @@ export const post: BlogPost = {
   tags: ["learn morse code", "beginner guide", "morse code practice"],
   coverEmoji: "🎓",
   coverGradient: "from-emerald-500 to-teal-600",
+  coverImage: "/blogimages/how-to-learn-morse-code.webp",
+  coverImageAlt: "Beginner learning Morse code with headphones, radio equipment, and practice notes",
 
   Content: function LearnContent() {
     return (
