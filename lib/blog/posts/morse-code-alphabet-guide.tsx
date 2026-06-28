@@ -14,6 +14,8 @@ export const post: BlogPost = {
   tags: ["morse code alphabet", "morse code chart", "ITU morse code"],
   coverEmoji: "🔤",
   coverGradient: "from-violet-500 to-purple-600",
+  coverImage: "/blogimages/morse-code-alphabet-guide.webp",
+  coverImageAlt: "International Morse code alphabet chart showing letters, numbers, and dot-dash patterns",
 
   Content: function AlphabetContent() {
     const letters = [
