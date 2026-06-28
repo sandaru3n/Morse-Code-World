@@ -14,6 +14,8 @@ export const post: BlogPost = {
   tags: ["morse code history", "Samuel Morse", "telegraph"],
   coverEmoji: "📡",
   coverGradient: "from-amber-500 to-orange-600",
+  coverImage: "/blogimages/The%20Complete%20History%20of%20Morse%20Code.webp",
+  coverImageAlt: "Vintage telegraph equipment and Morse code history — keys, wires, and early communication tools",
 
   Content: function HistoryContent() {
     return (
