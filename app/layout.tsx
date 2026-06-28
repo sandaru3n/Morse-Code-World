@@ -26,6 +26,8 @@ const manrope = localFont({
   fallback: ["system-ui", "sans-serif"]
 });
 
+const ADSENSE_CLIENT = "ca-pub-7227917768990151";
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   applicationName: SITE_NAME,
@@ -89,7 +91,7 @@ export const metadata: Metadata = {
   },
   other: {
     "ai-content-declaration": "human-authored, tool-generated-output-in-browser",
-    "google-adsense-account": "ca-pub-7227917768990151"
+    "google-adsense-account": ADSENSE_CLIENT
   }
 };
 
@@ -111,6 +113,13 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`min-h-screen font-body ${manrope.className}`}>
         <GlobalAiSeoJsonLd />
         {children}
