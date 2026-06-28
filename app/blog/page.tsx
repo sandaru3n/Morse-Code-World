@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
 import { BlogPostCard } from "@/components/blog/BlogPostCard";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { getAllPosts } from "@/lib/blog";
@@ -52,6 +53,7 @@ export default function BlogPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+      {featured?.coverImage ? <BlogCoverPreload href={featured.coverImage} /> : null}
       <SiteTopBar />
 
       <script

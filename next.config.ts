@@ -41,6 +41,15 @@ const nextConfig: NextConfig = {
         ]
       },
       {
+        source: "/blogimages/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
         /** Aggressive caching for static assets improves crawl efficiency */
         source: "/favicon/:path*",
         headers: [

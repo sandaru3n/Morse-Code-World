@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
-import { BlogPostCoverImage } from "@/components/blog/BlogPostCoverImage";
+import { BlogPostCoverImage, BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
 import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SITE_AUTHOR } from "@/lib/author";
@@ -104,6 +104,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+      {post.coverImage ? <BlogCoverPreload href={post.coverImage} /> : null}
       <SiteTopBar />
 
       <script
