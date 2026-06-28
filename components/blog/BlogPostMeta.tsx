@@ -50,34 +50,37 @@ export function BlogPostMeta({
 
   if (variant === "article") {
     return (
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span
-          className={`inline-block rounded-full px-2.5 py-0.5 font-label text-[11px] font-semibold ${
-            CATEGORY_BADGE[category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
-          }`}
-        >
-          {category}
-        </span>
-        <span className="font-label text-[11px] text-slate-400 dark:text-slate-500">
-          {readingTime} min read
-        </span>
-        <MetaDot />
-        <time dateTime={date} className="font-label text-[11px] text-slate-400 dark:text-slate-500">
-          {formatDate(date, dateStyle)}
-        </time>
-        <MetaDot />
-        {linkAuthor ? (
-          <Link
-            href="/about"
-            className="font-label text-[11px] font-semibold text-slate-600 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-emerald-700 dark:text-slate-300 dark:decoration-white/20 dark:hover:text-primary-container"
+      <div className="space-y-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <span
+            className={`inline-block shrink-0 rounded-full px-2.5 py-0.5 font-label text-[11px] font-semibold ${
+              CATEGORY_BADGE[category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+            }`}
           >
-            {SITE_AUTHOR.name}
-          </Link>
-        ) : (
-          <span className="font-label text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-            {SITE_AUTHOR.name}
+            {category}
           </span>
-        )}
+          <span className="font-label text-[11px] text-slate-400 dark:text-slate-500">
+            {readingTime} min read
+          </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <time dateTime={date} className="font-label text-[11px] text-slate-400 dark:text-slate-500">
+            {formatDate(date, dateStyle)}
+          </time>
+          <MetaDot />
+          {linkAuthor ? (
+            <Link
+              href="/about"
+              className="font-label text-[11px] font-semibold text-slate-600 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-emerald-700 dark:text-slate-300 dark:decoration-white/20 dark:hover:text-primary-container"
+            >
+              {SITE_AUTHOR.name}
+            </Link>
+          ) : (
+            <span className="font-label text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+              {SITE_AUTHOR.name}
+            </span>
+          )}
+        </div>
       </div>
     );
   }

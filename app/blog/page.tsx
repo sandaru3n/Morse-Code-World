@@ -51,7 +51,7 @@ export default function BlogPage() {
   const [featured, ...rest] = posts;
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       <SiteTopBar />
 
       <script
@@ -64,8 +64,8 @@ export default function BlogPage() {
       />
 
       <div className="flex flex-1 pt-[4.5rem]">
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-5xl">
+        <main className="flex-1 overflow-x-hidden px-4 py-4 sm:p-6 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-5xl">
             <header className="border border-slate-300 bg-white px-5 py-6 dark:border-white/15 dark:bg-surface-container sm:px-8 sm:py-8">
               <nav aria-label="Breadcrumb">
                 <ol className="flex items-center gap-2 font-label text-[11px] uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">

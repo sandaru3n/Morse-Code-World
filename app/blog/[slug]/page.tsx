@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       <SiteTopBar />
 
       <script
@@ -116,30 +116,34 @@ export default async function BlogPostPage({ params }: Props) {
       />
 
       <div className="flex flex-1 pt-[4.5rem]">
-        <main className="flex-1 p-3 sm:p-5 lg:p-8">
-          <div className="mx-auto max-w-3xl">
+        <main className="flex-1 overflow-x-hidden px-4 py-3 sm:p-5 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-3xl">
 
             {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-5">
-              <ol className="flex items-center gap-1.5 font-label text-xs text-slate-500 dark:text-slate-400">
-                <li>
+            <nav aria-label="Breadcrumb" className="mb-5 min-w-0">
+              <ol className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1 font-label text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                <li className="shrink-0">
                   <Link href="/" className="transition-colors hover:text-emerald-600 dark:hover:text-primary-container">
                     Home
                   </Link>
                 </li>
-                <li aria-hidden="true">/</li>
-                <li>
+                <li className="shrink-0" aria-hidden="true">
+                  /
+                </li>
+                <li className="shrink-0">
                   <Link href="/blog" className="transition-colors hover:text-emerald-600 dark:hover:text-primary-container">
                     Blog
                   </Link>
                 </li>
-                <li aria-hidden="true">/</li>
-                <li className="truncate text-neutral-900 dark:text-on-surface">{post.title}</li>
+                <li className="shrink-0" aria-hidden="true">
+                  /
+                </li>
+                <li className="min-w-0 break-words text-neutral-900 dark:text-on-surface">{post.title}</li>
               </ol>
             </nav>
 
             {/* Post header */}
-            <header className="mb-8 border border-slate-300 bg-white dark:border-white/15 dark:bg-surface-container">
+            <header className="mb-6 overflow-hidden border border-slate-300 bg-white sm:mb-8 dark:border-white/15 dark:bg-surface-container">
               {post.coverImage ? (
                 <BlogPostCoverImage
                   src={post.coverImage}
@@ -155,8 +159,8 @@ export default async function BlogPostPage({ params }: Props) {
                 </div>
               )}
 
-              <div className="p-5 sm:p-6">
-              <div className="mb-3">
+              <div className="p-4 sm:p-6">
+              <div className="mb-4">
                 <BlogPostMeta
                   category={post.category}
                   readingTime={post.readingTime}
@@ -166,19 +170,19 @@ export default async function BlogPostPage({ params }: Props) {
                 />
               </div>
 
-              <h1 className="font-headline text-3xl font-black leading-[1.15] tracking-tight text-neutral-900 sm:text-4xl dark:text-on-surface">
+              <h1 className="font-headline text-2xl font-black leading-[1.2] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-on-surface">
                 {post.title}
               </h1>
-              <p className="mt-4 font-body text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg sm:leading-[1.7]">
+              <p className="mt-3 font-body text-[15px] leading-relaxed text-slate-600 sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg md:leading-[1.7] dark:text-slate-400">
                 {post.description}
               </p>
 
               {/* Tags */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-slate-200/80 bg-white px-2.5 py-0.5 font-label text-[11px] text-slate-500 dark:border-outline-variant/20 dark:bg-surface-container dark:text-slate-400"
+                    className="border border-slate-200/80 bg-white px-2 py-0.5 font-label text-[10px] uppercase tracking-wide text-slate-500 dark:border-outline-variant/20 dark:bg-surface-container dark:text-slate-400"
                   >
                     {tag}
                   </span>
@@ -188,7 +192,7 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {/* Article body */}
-            <article className="blog-article-body rounded-2xl border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
+            <article className="blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
               <Content />
             </article>
 
@@ -197,16 +201,16 @@ export default async function BlogPostPage({ params }: Props) {
             <BlogShare slug={post.slug} title={post.title} />
 
             {/* Footer nav */}
-            <div className="mt-8 flex items-center justify-between">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200/80 bg-white px-4 py-2 font-label text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-outline-variant/20 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-container-high"
+                className="inline-flex items-center justify-center gap-1.5 border border-slate-200/80 bg-white px-4 py-2.5 font-label text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-outline-variant/20 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-container-high"
               >
                 ← All posts
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 font-label text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 dark:bg-primary-container dark:text-on-primary-container dark:hover:bg-primary-container/90"
+                className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 px-4 py-2.5 font-label text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 dark:bg-primary-container dark:text-on-primary-container dark:hover:bg-primary-container/90"
               >
                 Try the Translator ⠿
               </Link>
