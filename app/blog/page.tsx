@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BlogPostCard } from "@/components/blog/BlogPostCard";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { getAllPosts } from "@/lib/blog";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
@@ -45,23 +46,9 @@ const BREADCRUMB_SCHEMA = {
   ]
 };
 
-const CATEGORY_COLORS: Record<string, string> = {
-  History: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  Learning: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Reference: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
-  "Modern Uses": "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400"
-};
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
-}
-
 export default function BlogPage() {
   const posts = getAllPosts();
+  const [featured, ...rest] = posts;
 
   return (
     <div className="relative flex min-h-screen flex-col bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
@@ -77,79 +64,98 @@ export default function BlogPage() {
       />
 
       <div className="flex flex-1 pt-[4.5rem]">
-        <main className="flex-1 p-3 sm:p-5 lg:p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <div className="mx-auto max-w-5xl">
+            <header className="border border-slate-300 bg-white px-5 py-6 dark:border-white/15 dark:bg-surface-container sm:px-8 sm:py-8">
+              <nav aria-label="Breadcrumb">
+                <ol className="flex items-center gap-2 font-label text-[11px] uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                  <li>
+                    <Link
+                      href="/"
+                      className="transition-colors hover:text-emerald-700 dark:hover:text-primary-container"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li aria-hidden="true">/</li>
+                  <li className="text-neutral-900 dark:text-on-surface">Blog</li>
+                </ol>
+              </nav>
 
-            {/* Page header */}
-            <div className="mb-8 sm:mb-10">
-              <div className="mb-2 flex items-center gap-2 font-label text-xs text-slate-500 dark:text-slate-400">
-                <Link href="/" className="transition-colors hover:text-emerald-600 dark:hover:text-primary-container">Home</Link>
-                <span aria-hidden="true">/</span>
-                <span className="text-neutral-900 dark:text-on-surface">Blog</span>
+              <div className="mt-5 flex flex-col gap-4 border-t border-slate-200 pt-5 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h1 className="font-headline text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl dark:text-on-surface">
+                    Morse Code Blog
+                  </h1>
+                  <p className="mt-2 max-w-2xl font-body text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                    Guides, history, and practical articles on learning, decoding, and using Morse code today.
+                  </p>
+                </div>
+                <p className="shrink-0 border border-slate-200 px-3 py-2 font-label text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-600 dark:border-white/10 dark:text-slate-400">
+                  {posts.length} articles
+                </p>
               </div>
-              <h1 className="font-headline text-3xl font-black tracking-tight text-neutral-900 sm:text-4xl dark:text-on-surface">
-                Morse Code Blog
-              </h1>
-              <p className="mt-2 max-w-2xl font-body text-base text-slate-600 dark:text-slate-400">
-                Guides, history, and deep dives into the world of dots and dashes.
+            </header>
+
+            {featured ? (
+              <section className="mt-6" aria-labelledby="featured-post-heading">
+                <h2 id="featured-post-heading" className="sr-only">
+                  Featured article
+                </h2>
+                <BlogPostCard post={featured} variant="featured" />
+              </section>
+            ) : null}
+
+            {rest.length > 0 ? (
+              <section className="mt-6" aria-labelledby="all-posts-heading">
+                <div className="mb-4 flex items-center justify-between border-b border-slate-300 pb-3 dark:border-white/15">
+                  <h2
+                    id="all-posts-heading"
+                    className="font-label text-xs font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400"
+                  >
+                    All articles
+                  </h2>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {rest.map((post) => (
+                    <BlogPostCard key={post.slug} post={post} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            <aside className="mt-8 border border-slate-300 bg-white p-5 dark:border-white/15 dark:bg-surface-container sm:p-6">
+              <h2 className="font-headline text-lg font-bold text-neutral-900 dark:text-on-surface">
+                Practice while you read
+              </h2>
+              <p className="mt-2 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                Open the free translator to try what you learn in each article.
               </p>
-            </div>
-
-            {/* Posts grid */}
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
+              <div className="mt-4 flex flex-wrap gap-3">
                 <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg dark:border-outline-variant/20 dark:bg-surface-container"
+                  href="/"
+                  className="inline-flex items-center border border-emerald-700 bg-emerald-700 px-4 py-2 font-label text-xs font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-emerald-800 dark:border-primary-container dark:bg-primary-container dark:text-on-primary-container"
                 >
-                  {/* Card header with gradient */}
-                  <div className={`flex h-28 items-center justify-center bg-gradient-to-br ${post.coverGradient}`}>
-                    <span className="text-5xl drop-shadow-sm" role="img" aria-hidden="true">
-                      {post.coverEmoji}
-                    </span>
-                  </div>
-
-                  {/* Card body */}
-                  <div className="flex flex-1 flex-col gap-2.5 p-4">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`inline-block rounded-full px-2.5 py-0.5 font-label text-[11px] font-semibold ${CATEGORY_COLORS[post.category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"}`}
-                      >
-                        {post.category}
-                      </span>
-                      <span className="font-label text-[11px] text-slate-400 dark:text-slate-500">
-                        {post.readingTime} min read
-                      </span>
-                    </div>
-
-                    <h2 className="font-headline text-base font-bold leading-snug text-neutral-900 group-hover:text-emerald-600 dark:text-on-surface dark:group-hover:text-primary-container">
-                      {post.title}
-                    </h2>
-
-                    <p className="flex-1 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between pt-1">
-                      <time
-                        dateTime={post.date}
-                        className="font-label text-[11px] text-slate-400 dark:text-slate-500"
-                      >
-                        {formatDate(post.date)}
-                      </time>
-                      <span className="font-label text-xs font-semibold text-emerald-600 transition-colors group-hover:text-emerald-700 dark:text-primary-container dark:group-hover:text-primary-container/80">
-                        Read →
-                      </span>
-                    </div>
-                  </div>
+                  Morse translator
                 </Link>
-              ))}
-            </div>
-
+                <Link
+                  href="/audio-morse-code-decoder"
+                  className="inline-flex items-center border border-slate-300 px-4 py-2 font-label text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/15 dark:text-on-surface dark:hover:bg-surface-container-high"
+                >
+                  Audio decoder
+                </Link>
+              </div>
+            </aside>
           </div>
         </main>
       </div>
+
+      <footer className="mt-auto border-t border-slate-300 py-6 text-center dark:border-white/10">
+        <p className="font-label text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-600">
+          © 2026 {SITE_NAME}
+        </p>
+      </footer>
     </div>
   );
 }
