@@ -14,6 +14,8 @@ export const post: BlogPost = {
   tags: ["morse code uses", "amateur radio", "modern morse code"],
   coverEmoji: "⚡",
   coverGradient: "from-sky-500 to-blue-600",
+  coverImage: "/blogimages/uses-of-morse-code-today.webp",
+  coverImageAlt: "Modern uses of Morse code — radio, accessibility, and communication technology in the world today",
 
   Content: function UsesContent() {
     return (

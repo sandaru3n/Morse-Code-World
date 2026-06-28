@@ -17,6 +17,8 @@ export const post: BlogPost = {
   tags: ["international morse code", "american morse code", "morse comparison"],
   coverEmoji: "🌐",
   coverGradient: "from-rose-500 to-pink-600",
+  coverImage: "/blogimages/international-vs-american-morse-code.webp",
+  coverImageAlt: "Comparison of International Morse code and American Morse code symbols and timing",
 
   Content: function ComparisonContent() {
     const differences = [
