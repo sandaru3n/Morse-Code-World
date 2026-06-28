@@ -1,46 +1,24 @@
 import Link from "next/link";
 import { BlogPostCoverImage } from "@/components/blog/BlogPostCoverImage";
-import type { BlogPostMeta } from "@/lib/blog/types";
+import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
+import type { BlogPostMeta as BlogPostMetaType } from "@/lib/blog/types";
 
-const CATEGORY_STYLE: Record<string, { bar: string; label: string }> = {
-  History: {
-    bar: "bg-amber-500",
-    label: "text-amber-800 dark:text-amber-300"
-  },
-  Learning: {
-    bar: "bg-emerald-500",
-    label: "text-emerald-800 dark:text-emerald-300"
-  },
-  Reference: {
-    bar: "bg-violet-500",
-    label: "text-violet-800 dark:text-violet-300"
-  },
-  "Modern Uses": {
-    bar: "bg-sky-500",
-    label: "text-sky-800 dark:text-sky-300"
-  }
+const CATEGORY_BAR: Record<string, string> = {
+  History: "bg-amber-500",
+  Learning: "bg-emerald-500",
+  Reference: "bg-violet-500",
+  "Modern Uses": "bg-sky-500"
 };
 
-const FALLBACK_STYLE = {
-  bar: "bg-slate-400",
-  label: "text-slate-700 dark:text-slate-300"
-};
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-  });
-}
+const FALLBACK_BAR = "bg-slate-400";
 
 type BlogPostCardProps = {
-  post: BlogPostMeta;
+  post: BlogPostMetaType;
   variant?: "featured" | "default";
 };
 
 export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
-  const style = CATEGORY_STYLE[post.category] ?? FALLBACK_STYLE;
+  const barClass = CATEGORY_BAR[post.category] ?? FALLBACK_BAR;
   const isFeatured = variant === "featured";
 
   return (
@@ -51,7 +29,7 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
           : "border border-slate-300 bg-white dark:border-white/15 dark:bg-surface-container"
       }
     >
-      <div className={`h-1 w-full ${style.bar}`} aria-hidden="true" />
+      <div className={`h-1 w-full ${barClass}`} aria-hidden="true" />
 
       <Link
         href={`/blog/${post.slug}`}
@@ -69,29 +47,18 @@ export function BlogPostCard({ post, variant = "default" }: BlogPostCardProps) {
         ) : null}
 
         <div className={isFeatured ? "p-6 sm:p-8" : "flex flex-1 flex-col p-5"}>
-        <div className={`flex flex-wrap items-center gap-x-3 gap-y-1 ${isFeatured ? "mb-4" : "mb-3"}`}>
+        <div className={`${isFeatured ? "mb-4 flex flex-col gap-2" : "mb-3"} `}>
           {isFeatured ? (
-            <span className="border border-slate-300 px-2 py-0.5 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:border-white/20 dark:text-slate-400">
+            <span className="w-fit border border-slate-300 px-2 py-0.5 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:border-white/20 dark:text-slate-400">
               Featured
             </span>
           ) : null}
-          <span
-            className={`font-label text-[10px] font-bold uppercase tracking-[0.18em] ${style.label}`}
-          >
-            {post.category}
-          </span>
-          <span className="font-label text-[11px] text-slate-400 dark:text-slate-500" aria-hidden="true">
-            ·
-          </span>
-          <span className="font-label text-[11px] text-slate-500 dark:text-slate-400">
-            {post.readingTime} min read
-          </span>
-          <span className="font-label text-[11px] text-slate-400 dark:text-slate-500" aria-hidden="true">
-            ·
-          </span>
-          <time dateTime={post.date} className="font-label text-[11px] text-slate-500 dark:text-slate-400">
-            {formatDate(post.date)}
-          </time>
+          <BlogPostMeta
+            category={post.category}
+            readingTime={post.readingTime}
+            date={post.date}
+            variant="card"
+          />
         </div>
 
         <h2

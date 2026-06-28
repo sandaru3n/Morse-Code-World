@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
 import { BlogPostCoverImage } from "@/components/blog/BlogPostCoverImage";
+import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SITE_AUTHOR } from "@/lib/author";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
@@ -61,21 +62,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     other: { "Content-Language": "en" }
   };
-}
-
-const CATEGORY_COLORS: Record<string, string> = {
-  History: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  Learning: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  Reference: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
-  "Modern Uses": "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400"
-};
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -170,22 +156,14 @@ export default async function BlogPostPage({ params }: Props) {
               )}
 
               <div className="p-5 sm:p-6">
-              {/* Category + reading time */}
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span
-                  className={`inline-block rounded-full px-2.5 py-0.5 font-label text-[11px] font-semibold ${CATEGORY_COLORS[post.category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"}`}
-                >
-                  {post.category}
-                </span>
-                <span className="font-label text-[11px] text-slate-400 dark:text-slate-500">
-                  {post.readingTime} min read
-                </span>
-                <time
-                  dateTime={post.date}
-                  className="font-label text-[11px] text-slate-400 dark:text-slate-500"
-                >
-                  {formatDate(post.date)}
-                </time>
+              <div className="mb-3">
+                <BlogPostMeta
+                  category={post.category}
+                  readingTime={post.readingTime}
+                  date={post.date}
+                  variant="article"
+                  linkAuthor
+                />
               </div>
 
               <h1 className="font-headline text-3xl font-black leading-[1.15] tracking-tight text-neutral-900 sm:text-4xl dark:text-on-surface">
