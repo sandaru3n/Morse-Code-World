@@ -226,4 +226,65 @@
   .blog-article-body {
     @apply p-4 sm:p-7 sm:px-10 lg:p-12;
   }
+
+  /* Guide-style posts: FAQ, callouts, Morse highlights */
+  .prose-content--guide > p {
+    @apply text-[17px] leading-[1.9] sm:text-lg sm:leading-[1.95];
+  }
+
+  .blog-morse-highlight {
+    @apply my-8 border border-slate-300 bg-slate-50 px-4 py-6 text-center dark:border-white/15 dark:bg-surface-container-low;
+  }
+
+  .blog-morse-highlight-label {
+    @apply font-label text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400;
+  }
+
+  .blog-morse-highlight-pattern {
+    @apply mt-3 font-mono text-3xl font-bold tracking-[0.35em] text-emerald-700 sm:text-4xl dark:text-primary-container;
+  }
+
+  .blog-morse-highlight-caption {
+    @apply mt-3 font-body text-sm leading-relaxed text-slate-600 dark:text-slate-400;
+  }
+
+  .blog-faq {
+    @apply mt-10 border border-slate-300 bg-white dark:border-white/15 dark:bg-surface-container;
+  }
+
+  .blog-faq-heading {
+    @apply border-b border-slate-200 px-4 py-4 font-headline text-lg font-bold text-neutral-900 dark:border-white/10 dark:text-on-surface sm:px-6;
+  }
+
+  .blog-faq-list {
+    @apply divide-y divide-slate-200 dark:divide-white/10;
+  }
+
+  .blog-faq-item {
+    @apply px-4 py-4 sm:px-6 sm:py-5;
+  }
+
+  .blog-faq-question {
+    @apply font-headline text-base font-bold leading-snug text-neutral-900 dark:text-on-surface;
+  }
+
+  .blog-faq-answer {
+    @apply mt-2 font-body text-[15px] leading-relaxed text-slate-600 dark:text-slate-400 sm:text-base sm:leading-7;
+  }
+
+  .blog-key-takeaway {
+    @apply mt-10 border-l-4 border-emerald-600 bg-emerald-50/80 px-5 py-5 dark:border-primary-container dark:bg-primary-container/10 sm:px-6;
+  }
+
+  .blog-key-takeaway-title {
+    @apply font-label text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800 dark:text-primary-container;
+  }
+
+  .blog-key-takeaway-body {
+    @apply mt-3 font-body text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 sm:text-base sm:leading-7;
+  }
+
+  .blog-key-takeaway-body p {
+    @apply m-0;
+  }
 }

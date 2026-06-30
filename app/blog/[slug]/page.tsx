@@ -102,6 +102,22 @@ export default async function BlogPostPage({ params }: Props) {
     ]
   };
 
+  const faqSchema = post.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        inLanguage: "en",
+        mainEntity: post.faq.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a }
+        }))
+      }
+    : null;
+
+  const articleBodyClass =
+    "blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container";
+
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
       {post.coverImage ? <BlogCoverPreload href={post.coverImage} /> : null}
@@ -115,6 +131,9 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      ) : null}
 
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-x-hidden px-4 py-3 sm:p-5 lg:p-8">
@@ -193,7 +212,7 @@ export default async function BlogPostPage({ params }: Props) {
             </header>
 
             {/* Article body */}
-            <article className="blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container">
+            <article className={articleBodyClass}>
               <Content />
             </article>
 

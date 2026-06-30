@@ -3,9 +3,11 @@ import { post as learnPost } from "./posts/how-to-learn-morse-code";
 import { post as alphabetPost } from "./posts/morse-code-alphabet-guide";
 import { post as usesPost } from "./posts/uses-of-morse-code-today";
 import { post as comparisonPost } from "./posts/international-vs-american-morse-code";
+import { post as sosPost } from "./posts/what-is-sos-in-morse-code";
 import type { BlogPost, BlogPostMeta } from "./types";
 
 const ALL_POSTS: BlogPost[] = [
+  sosPost,
   learnPost,
   historyPost,
   alphabetPost,
