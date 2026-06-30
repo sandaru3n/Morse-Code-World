@@ -1,3 +1,5 @@
+import { absoluteUrl } from "@/lib/site";
+
 type BlogPostCoverImageProps = {
   src: string;
   alt: string;
@@ -52,7 +54,8 @@ export function BlogPostCoverImage({
   );
 }
 
-/** Head preload for blog cover LCP — hoist via App Router. */
+/** Head preload for blog cover LCP — absolute URL for early discovery in initial HTML. */
 export function BlogCoverPreload({ href }: { href: string }) {
-  return <link rel="preload" as="image" href={href} fetchPriority="high" />;
+  const url = href.startsWith("http") ? href : absoluteUrl(href);
+  return <link rel="preload" as="image" href={url} fetchPriority="high" />;
 }
