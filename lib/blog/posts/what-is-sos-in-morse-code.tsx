@@ -37,6 +37,8 @@ export const post: BlogPost = {
   tags: ["SOS morse code", "distress signal", "morse code SOS"],
   coverEmoji: "🆘",
   coverGradient: "from-red-600 to-orange-600",
+  coverImage: "/blogimages/what-is-sos-in-morse-code.webp",
+  coverImageAlt: "SOS Morse code distress signal — emergency flashlight and maritime rescue communication",
   layout: "guide",
   faq: [...SOS_FAQ],
 
