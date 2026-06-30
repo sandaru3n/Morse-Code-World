@@ -1,6 +1,8 @@
 export type BlogPostMeta = {
   slug: string;
   title: string;
+  /** Optional override for the document `<title>` only (H1 and OG keep `title`). */
+  metaTitle?: string;
   description: string;
   excerpt: string;
   date: string;

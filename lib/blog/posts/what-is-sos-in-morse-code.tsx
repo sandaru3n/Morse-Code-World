@@ -27,6 +27,7 @@ const SOS_FAQ = [
 export const post: BlogPost = {
   slug: "what-is-sos-in-morse-code",
   title: "What Is SOS in Morse Code? The Complete Guide",
+  metaTitle: "SOS in Morse Code: History and Why It Saves Lives | morsecodeworld.org",
   description:
     "Explore the history and importance of SOS in Morse code. Understand why this simple signal is vital for communication in crises.",
   excerpt:
