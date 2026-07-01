@@ -1,3 +1,4 @@
+import { post as aLetterPost } from "./posts/a-in-morse-code";
 import { post as historyPost } from "./posts/history-of-morse-code";
 import { post as learnPost } from "./posts/how-to-learn-morse-code";
 import { post as alphabetPost } from "./posts/morse-code-alphabet-guide";
@@ -7,6 +8,7 @@ import { post as sosPost } from "./posts/what-is-sos-in-morse-code";
 import type { BlogPost, BlogPostMeta } from "./types";
 
 const ALL_POSTS: BlogPost[] = [
+  aLetterPost,
   sosPost,
   learnPost,
   historyPost,
