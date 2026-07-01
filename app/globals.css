@@ -232,6 +232,60 @@
     @apply text-[17px] leading-[1.9] sm:text-lg sm:leading-[1.95];
   }
 
+  /* Editorial headings — compact, single-line sections (A in Morse post only) */
+  .prose-content--editorial > h2.blog-section-heading--editorial {
+    @apply mb-3 mt-10 flex scroll-mt-24 items-baseline gap-3 border-0 border-b border-slate-200/90 pb-2.5 pl-0 pt-0 sm:mb-3.5 sm:mt-11 dark:border-white/10;
+  }
+
+  .prose-content--editorial > h2.blog-section-heading--editorial:first-of-type {
+    @apply mt-8 sm:mt-9;
+  }
+
+  .prose-content--editorial .blog-section-heading-num {
+    @apply shrink-0 font-mono text-xs font-medium tabular-nums tracking-wide text-slate-400 dark:text-slate-500 sm:text-sm;
+  }
+
+  .prose-content--editorial .blog-section-heading-text {
+    @apply min-w-0 font-headline text-lg font-bold leading-snug tracking-tight text-neutral-900 dark:text-on-surface sm:text-xl;
+  }
+
+  .prose-content--editorial > h3.blog-subsection-heading--editorial {
+    @apply mb-2 mt-6 flex flex-wrap items-baseline gap-x-2 border-0 pl-0 sm:mt-7;
+  }
+
+  .prose-content--editorial .blog-subsection-label {
+    @apply font-label text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400;
+  }
+
+  .prose-content--editorial .blog-subsection-label::after {
+    content: "·";
+    @apply ml-2 text-slate-300 dark:text-slate-600;
+  }
+
+  .prose-content--editorial .blog-subsection-title {
+    @apply font-headline text-base font-semibold leading-snug text-neutral-900 dark:text-on-surface sm:text-lg;
+  }
+
+  .prose-content--editorial > h2 + p,
+  .prose-content--editorial > h3 + p {
+    @apply mb-5 mt-0 sm:mb-6;
+  }
+
+  .prose-content--editorial > h2 + table,
+  .prose-content--editorial > h3 + table {
+    @apply mt-1;
+  }
+
+  .prose-content--editorial br.prose-gap {
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .prose-content--editorial br.prose-gap {
+      margin-bottom: 1.125rem;
+    }
+  }
+
   .blog-morse-highlight {
     @apply my-8 border border-slate-300 bg-slate-50 px-4 py-6 text-center dark:border-white/15 dark:bg-surface-container-low;
   }

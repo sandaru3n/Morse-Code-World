@@ -55,7 +55,7 @@ export const post: BlogPost = {
 
   Content: function AInMorseContent() {
     return (
-      <div className="prose-content prose-content--guide">
+      <div className="prose-content prose-content--guide prose-content--editorial">
         <p>
           The letter A in Morse code is one dot followed by one dash:{" "}
           <span className="prose-emphasis">· −</span>
@@ -67,7 +67,7 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
-        <SectionHeading label="01" title="What does A look like in Morse code?" />
+        <SectionHeading variant="editorial" label="01" title="What does A look like in Morse code?" />
         <p>
           A in Morse code is written as <span className="prose-emphasis">dot-dash</span> (· −). When you
           tap it out, it sounds like a short beep followed by a long beep: dit-dah. Once they memorized it,
@@ -93,8 +93,8 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <BlogMorseHighlight
           pattern="· −"
-          label="Letter A — International Morse Code"
-          caption="One short signal, then one long signal — no pause between them."
+          label="Letter A - International Morse Code"
+          caption="One short signal, then one long signal - no pause between them."
         />
         <p>
           This pattern shows up everywhere once you know it. Ships have flashed it with lights. Soldiers
@@ -102,7 +102,7 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
-        <SectionHeading label="02" title="Why is A just one dot and one dash?" />
+        <SectionHeading variant="editorial" label="02" title="Why is A just one dot and one dash?" />
         <p>
           The code was designed around frequency. Morse and his assistant Alfred Vail followed a principle
           similar to Huffman coding: more frequently used letters received shorter codes.{" "}
@@ -112,27 +112,27 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
         <p>
-          This was not guesswork. Letter counts were reportedly based on printer type cases — whichever bins
+          This was not guesswork. Letter counts were reportedly based on printer type cases - whichever bins
           ran empty fastest told them which characters to compress. That is how the efficiency of the code
           came about.
         </p>
         <br className="prose-gap" />
 
-        <SectionHeading label="03" title="How to remember A in Morse code" />
+        <SectionHeading variant="editorial" label="03" title="How to remember A in Morse code" />
         <p>
           Most people learn Morse through rhythm, not rote memorization. For A, say{" "}
           <span className="prose-emphasis">“about”</span> aloud and emphasize the second syllable: short,
           then long. That is the dit-dah pattern.
         </p>
         <br className="prose-gap" />
-        <SubsectionHeading label="Tip" title="Visual memory aid" />
+        <SubsectionHeading variant="editorial" label="Tip" title="Visual memory aid" />
         <p>
           Think of the letter A itself — a short stroke and a long slanted line. Repetition is what makes it
           permanent, whatever method sticks. Fifty taps and you will not forget it.
         </p>
         <br className="prose-gap" />
 
-        <SectionHeading label="04" title="A in Morse code vs other letters" />
+        <SectionHeading variant="editorial" label="04" title="A in Morse code vs other letters" />
         <p>It helps to see A next to letters it is easy to confuse:</p>
         <br className="prose-gap" />
         <table>
@@ -181,7 +181,7 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
-        <SectionHeading label="05" title="Where A in Morse code is used today" />
+        <SectionHeading variant="editorial" label="05" title="Where A in Morse code is used today" />
         <p>Morse code is not dead. This mode can travel farther and is still used because weak signals are easier to decode than voice:</p>
         <br className="prose-gap" />
         <ul>
@@ -195,7 +195,7 @@ export const post: BlogPost = {
         </ul>
         <br className="prose-gap" />
 
-        <SectionHeading label="06" title="Quick reference chart" />
+        <SectionHeading variant="editorial" label="06" title="Quick reference chart" />
         <table>
           <thead>
             <tr>
@@ -227,7 +227,7 @@ export const post: BlogPost = {
           <p>
             In Morse code, <strong>A</strong> is two symbols: a dot and a dash. It is one of the first
             letters you learn because it is short and easy to remember. Once you nail it, letters like N, W,
-            and U fall into place faster — they all follow the same dot-dash logic Morse and Vail worked out
+            and U fall into place faster - they all follow the same dot-dash logic Morse and Vail worked out
             almost 200 years ago.
           </p>
         </BlogKeyTakeaway>
