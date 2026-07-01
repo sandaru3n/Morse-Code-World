@@ -50,6 +50,8 @@ export const post: BlogPost = {
   tags: ["A in morse code", "letter A morse code", "dit dah", "morse code chart"],
   coverEmoji: "🅰️",
   coverGradient: "from-blue-600 to-indigo-700",
+  coverImage: "/blogimages/a-in-morse-code.webp",
+  coverImageAlt: "Letter A in Morse code — dot-dash pattern chart with dit-dah rhythm guide",
   layout: "guide",
   faq: [...A_FAQ],
 
