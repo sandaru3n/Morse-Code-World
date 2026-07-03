@@ -3,6 +3,7 @@
 import { startTransition, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AdsenseHorizontalBanner } from "@/components/AdsenseHorizontalBanner";
 import SignalControls from "@/components/SignalControls";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import PulseWaveform from "@/components/PulseWaveform";
@@ -233,6 +234,7 @@ export default function TranslatorShell({
                 {t.configure}
               </button>
             </div>
+            <AdsenseHorizontalBanner className="lg:col-span-12" />
             <div className="space-y-5 lg:col-span-8">
               <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl dark:border-transparent dark:bg-surface-container sm:p-5">
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

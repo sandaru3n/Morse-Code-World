@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdsenseHorizontalBanner } from "@/components/AdsenseHorizontalBanner";
 import PictureMorseTranslator from "@/components/PictureMorseTranslator";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -70,6 +71,8 @@ export function PictureMorseTranslatorPageView({ locale }: { locale: HomeLocale 
                 {copy.summaryBody}
               </p>
             </section>
+
+            <AdsenseHorizontalBanner className="mt-6" />
 
             <div className="mt-6">
               <PictureMorseTranslator />
