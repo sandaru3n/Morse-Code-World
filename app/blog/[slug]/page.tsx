@@ -117,10 +117,17 @@ export default async function BlogPostPage({ params }: Props) {
     : null;
 
   const articleBodyClass =
-    "blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container";
+    post.layout === "white"
+      ? "blog-article-body blog-article-body--white"
+      : "blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container";
+
+  const pageBgClass =
+    post.layout === "white"
+      ? "bg-white text-[#1A1F36] selection:bg-violet-200 selection:text-[#1A1F36] dark:bg-white dark:text-[#1A1F36]"
+      : "bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface";
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface">
+    <div className={`relative flex min-h-screen flex-col overflow-x-hidden ${pageBgClass}`}>
       {post.coverImage ? <BlogCoverPreload href={post.coverImage} /> : null}
       <SiteTopBar />
 

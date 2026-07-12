@@ -17,8 +17,8 @@ export type BlogPostMeta = {
   coverImageAlt?: string;
   /** Optional FAQ for JSON-LD and guide-style posts */
   faq?: { q: string; a: string }[];
-  /** `guide` enables wider readable layout blocks (FAQ, callouts). */
-  layout?: "classic" | "guide";
+  /** `guide` = FAQ/callouts; `white` = clean white editorial layout with accent headings. */
+  layout?: "classic" | "guide" | "white";
 };
 
 export type BlogPost = BlogPostMeta & {

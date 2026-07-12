@@ -341,4 +341,99 @@
   .blog-key-takeaway-body p {
     @apply m-0;
   }
+
+  /* White editorial layout — screenshot-style clean blog */
+  .blog-article-body--white {
+    @apply border border-slate-200/60 bg-white shadow-sm dark:border-slate-200/20 dark:bg-white;
+  }
+
+  .prose-content--white {
+    @apply font-body text-base leading-[1.65] text-[#4A5568] sm:text-[17px] sm:leading-[1.7];
+  }
+
+  .prose-content--white > p {
+    @apply mb-5 max-w-none text-[#4A5568] sm:mb-6;
+  }
+
+  .prose-content--white > p:first-of-type {
+    @apply text-[17px] leading-[1.7] text-[#374151] sm:text-lg;
+  }
+
+  .prose-content--white > p:last-child {
+    @apply mb-0;
+  }
+
+  .prose-content--white a {
+    @apply font-medium text-blue-600 underline decoration-blue-600/50 underline-offset-2 transition-colors hover:text-blue-700;
+  }
+
+  .prose-content--white > ul,
+  .prose-content--white > ol {
+    @apply mb-6 ml-0 list-outside space-y-3 pl-6 sm:mb-7 sm:pl-7;
+  }
+
+  .prose-content--white > ul {
+    @apply list-disc;
+  }
+
+  .prose-content--white > ol {
+    @apply list-decimal;
+  }
+
+  .prose-content--white li {
+    @apply pl-1 text-base leading-[1.65] text-[#4A5568] sm:text-[17px] sm:leading-[1.7];
+  }
+
+  .prose-content--white li::marker {
+    @apply text-violet-500;
+  }
+
+  .prose-content--white > h2 + p,
+  .prose-content--white > h3 + p {
+    @apply mt-0;
+  }
+
+  .prose-content--white br.prose-gap {
+    margin-bottom: 1rem;
+  }
+
+  .blog-white-heading {
+    @apply mb-4 mt-9 flex scroll-mt-24 items-stretch gap-3 sm:mb-5 sm:mt-10;
+  }
+
+  .blog-white-heading-accent {
+    @apply w-1 shrink-0 rounded-full bg-gradient-to-b from-blue-500 to-violet-500;
+  }
+
+  .blog-white-heading-text {
+    @apply font-headline text-xl font-bold leading-snug tracking-tight text-[#1A1F36] sm:text-2xl;
+  }
+
+  .prose-content--white .blog-morse-highlight {
+    @apply my-6 border border-slate-200 bg-slate-50/80 sm:my-7;
+  }
+
+  .prose-content--white .blog-morse-highlight-pattern {
+    @apply text-violet-700;
+  }
+
+  .prose-content--white .blog-faq {
+    @apply border-slate-200 bg-white;
+  }
+
+  .prose-content--white .blog-faq-heading {
+    @apply text-[#1A1F36];
+  }
+
+  .prose-content--white .blog-faq-question {
+    @apply text-[#1A1F36];
+  }
+
+  .prose-content--white .blog-faq-answer {
+    @apply text-[#4A5568];
+  }
+
+  .prose-content--white .blog-key-takeaway {
+    @apply border-l-violet-500 bg-violet-50/60;
+  }
 }
