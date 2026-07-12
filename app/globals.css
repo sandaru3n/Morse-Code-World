@@ -494,6 +494,10 @@
     @apply font-semibold text-violet-600;
   }
 
+  .prose-content--white.prose-content--purple .prose-morse-term {
+    @apply font-medium text-red-600;
+  }
+
   .prose-content--white.prose-content--purple a {
     @apply font-medium text-violet-600 underline decoration-violet-400/60 underline-offset-2 transition-colors hover:text-violet-700;
   }

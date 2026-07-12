@@ -51,7 +51,7 @@ export const post: BlogPost = {
         <p className="prose-lead">
           Saying <span className="prose-emphasis-dark">I love you</span> in Morse code is one of the
           most romantic ways to use this old telegraph language. Three short words become a rhythm of dots and
-          dashes you can tap on a table, flash with a phone light, or whisper as dit-dah sounds.
+          dashes you can tap on a table, flash with a phone light, or whisper as <span className="prose-morse-term">dit-dah</span> sounds.
         </p>
         <br className="prose-gap" />
         <p className="prose-muted">
@@ -64,8 +64,8 @@ export const post: BlogPost = {
 
         <BlogWhiteHeading title="What Is &ldquo;I Love You&rdquo; in Morse Code?" />
         <p>
-          In International Morse code, every letter is a unique pattern of dots (<em>dit</em>) and dashes (
-          <em>dah</em>). A dash lasts about three times longer than a dot. Letters are separated by a short
+          In International Morse code, every letter is a unique pattern of dots (<span className="prose-morse-term">dit</span>) and dashes (
+          <span className="prose-morse-term">dah</span>). A dash lasts about three times longer than a dot. Letters are separated by a short
           pause; words like <span className="prose-keyword">love</span> and <span className="prose-keyword">you</span> get a slightly longer gap.
         </p>
         <br className="prose-gap" />
@@ -89,28 +89,28 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <ul>
           <li>
-            <span className="prose-keyword">I</span> = · · (dit-dit)
+            <span className="prose-keyword">I</span> = · · <span className="prose-morse-term">(dit-dit)</span>
           </li>
           <li>
-            <span className="prose-keyword">L</span> = · − · · (dit-dah-dit-dit)
+            <span className="prose-keyword">L</span> = · − · · <span className="prose-morse-term">(dit-dah-dit-dit)</span>
           </li>
           <li>
-            <span className="prose-keyword">O</span> = − − − (dah-dah-dah)
+            <span className="prose-keyword">O</span> = − − − <span className="prose-morse-term">(dah-dah-dah)</span>
           </li>
           <li>
-            <span className="prose-keyword">V</span> = · · · − (dit-dit-dit-dah)
+            <span className="prose-keyword">V</span> = · · · − <span className="prose-morse-term">(dit-dit-dit-dah)</span>
           </li>
           <li>
-            <span className="prose-keyword">E</span> = · (dit)
+            <span className="prose-keyword">E</span> = · <span className="prose-morse-term">(dit)</span>
           </li>
           <li>
-            <span className="prose-keyword">Y</span> = − · − − (dah-dit-dah-dah)
+            <span className="prose-keyword">Y</span> = − · − − <span className="prose-morse-term">(dah-dit-dah-dah)</span>
           </li>
           <li>
-            <span className="prose-keyword">O</span> = − − − (dah-dah-dah)
+            <span className="prose-keyword">O</span> = − − − <span className="prose-morse-term">(dah-dah-dah)</span>
           </li>
           <li>
-            <span className="prose-keyword">U</span> = · · − (dit-dit-dah)
+            <span className="prose-keyword">U</span> = · · − <span className="prose-morse-term">(dit-dit-dah)</span>
           </li>
         </ul>
         <br className="prose-gap" />
@@ -129,13 +129,13 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <ol className="blog-white-rhythm-list">
           <li>
-            <span className="prose-keyword">I</span> — &ldquo;dit-dit&rdquo;
+            <span className="prose-keyword">I</span> — <span className="prose-morse-term">&ldquo;dit-dit&rdquo;</span>
           </li>
           <li>
-            <span className="prose-keyword">LOVE</span> — &ldquo;dit-dah-dit-dit, dah-dah-dah, dit-dit-dit-dah, dit&rdquo;
+            <span className="prose-keyword">LOVE</span> — <span className="prose-morse-term">&ldquo;dit-dah-dit-dit, dah-dah-dah, dit-dit-dit-dah, dit&rdquo;</span>
           </li>
           <li>
-            <span className="prose-keyword">YOU</span> — &ldquo;dah-dit-dah-dah, dah-dah-dah, dit-dit-dah&rdquo;
+            <span className="prose-keyword">YOU</span> — <span className="prose-morse-term">&ldquo;dah-dit-dah-dah, dah-dah-dah, dit-dit-dah&rdquo;</span>
           </li>
         </ol>
         <br className="prose-gap" />
