@@ -342,21 +342,33 @@
     @apply m-0;
   }
 
-  /* White editorial layout — screenshot-style clean blog */
+  /* White editorial layout — soft gray palette, no black text */
   .blog-article-body--white {
     @apply border border-slate-200/60 bg-white shadow-sm dark:border-slate-200/20 dark:bg-white;
   }
 
   .prose-content--white {
-    @apply font-body text-base leading-[1.65] text-[#4A5568] sm:text-[17px] sm:leading-[1.7];
+    @apply font-body text-base leading-[1.65] text-[#64748B] sm:text-[17px] sm:leading-[1.7];
   }
 
   .prose-content--white > p {
-    @apply mb-5 max-w-none text-[#4A5568] sm:mb-6;
+    @apply mb-5 max-w-none text-[#64748B] sm:mb-6;
   }
 
-  .prose-content--white > p:first-of-type {
-    @apply text-[17px] leading-[1.7] text-[#374151] sm:text-lg;
+  .prose-content--white > p.prose-lead {
+    @apply text-[#CBD5E1] sm:text-[#D1D5DB];
+  }
+
+  .prose-content--white > p.prose-muted {
+    @apply text-[#6B7280];
+  }
+
+  .prose-content--white .prose-emphasis-dark {
+    @apply font-semibold text-[#374151];
+  }
+
+  .prose-content--white .prose-keyword {
+    @apply font-semibold text-[#A5B4FC];
   }
 
   .prose-content--white > p:last-child {
@@ -364,7 +376,15 @@
   }
 
   .prose-content--white a {
-    @apply font-medium text-blue-600 underline decoration-blue-600/50 underline-offset-2 transition-colors hover:text-blue-700;
+    @apply font-medium text-blue-500 underline decoration-blue-400/60 underline-offset-2 transition-colors hover:text-blue-600;
+  }
+
+  .prose-content--white em {
+    @apply text-[#94A3B8] not-italic;
+  }
+
+  .prose-content--white strong {
+    @apply font-semibold text-[#475569];
   }
 
   .prose-content--white > ul,
@@ -380,12 +400,20 @@
     @apply list-decimal;
   }
 
-  .prose-content--white li {
-    @apply pl-1 text-base leading-[1.65] text-[#4A5568] sm:text-[17px] sm:leading-[1.7];
+  .prose-content--white > ol.blog-white-rhythm-list li::marker {
+    @apply font-semibold text-emerald-400;
   }
 
-  .prose-content--white li::marker {
-    @apply text-violet-500;
+  .prose-content--white li {
+    @apply pl-1 text-base leading-[1.65] text-[#64748B] sm:text-[17px] sm:leading-[1.7];
+  }
+
+  .prose-content--white > ul li::marker {
+    @apply text-violet-400;
+  }
+
+  .prose-content--white > ol:not(.blog-white-rhythm-list) li::marker {
+    @apply text-violet-400;
   }
 
   .prose-content--white > h2 + p,
@@ -402,19 +430,27 @@
   }
 
   .blog-white-heading-accent {
-    @apply w-1 shrink-0 rounded-full bg-gradient-to-b from-blue-500 to-violet-500;
+    @apply w-1 shrink-0 rounded-full bg-gradient-to-b from-blue-400 to-violet-400;
   }
 
   .blog-white-heading-text {
-    @apply font-headline text-xl font-bold leading-snug tracking-tight text-[#1A1F36] sm:text-2xl;
+    @apply font-headline text-xl font-bold leading-snug tracking-tight text-[#475569] sm:text-2xl;
   }
 
   .prose-content--white .blog-morse-highlight {
     @apply my-6 border border-slate-200 bg-slate-50/80 sm:my-7;
   }
 
+  .prose-content--white .blog-morse-highlight-label {
+    @apply text-[#94A3B8];
+  }
+
   .prose-content--white .blog-morse-highlight-pattern {
-    @apply text-violet-700;
+    @apply text-violet-500;
+  }
+
+  .prose-content--white .blog-morse-highlight-caption {
+    @apply text-[#94A3B8];
   }
 
   .prose-content--white .blog-faq {
@@ -422,18 +458,43 @@
   }
 
   .prose-content--white .blog-faq-heading {
-    @apply text-[#1A1F36];
+    @apply bg-[#EFF6FF] text-[#475569];
   }
 
   .prose-content--white .blog-faq-question {
-    @apply text-[#1A1F36];
+    @apply text-[#475569];
   }
 
   .prose-content--white .blog-faq-answer {
-    @apply text-[#4A5568];
+    @apply text-[#64748B];
   }
 
   .prose-content--white .blog-key-takeaway {
-    @apply border-l-violet-500 bg-violet-50/60;
+    @apply border-l-violet-400 bg-violet-50/50;
+  }
+
+  .prose-content--white .blog-key-takeaway-body {
+    @apply text-[#64748B];
+  }
+
+  .prose-content--white .blog-key-takeaway-title {
+    @apply text-violet-500;
+  }
+
+  /* White-layout post header — dark tag bar */
+  .blog-white-tags-bar {
+    @apply flex flex-wrap gap-2 border-t border-slate-600/30 bg-[#1e293b] px-4 py-3 sm:px-6;
+  }
+
+  .blog-white-tag {
+    @apply border border-slate-500/50 px-2.5 py-1 font-label text-[10px] uppercase tracking-wide text-slate-300;
+  }
+
+  .blog-header--white .blog-header-title {
+    @apply text-[#475569] dark:text-[#475569];
+  }
+
+  .blog-header--white .blog-header-desc {
+    @apply text-[#6B7280] dark:text-[#6B7280];
   }
 }

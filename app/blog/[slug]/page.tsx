@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   const pageBgClass =
     post.layout === "white"
-      ? "bg-white text-[#1A1F36] selection:bg-violet-200 selection:text-[#1A1F36] dark:bg-white dark:text-[#1A1F36]"
+      ? "bg-white text-[#64748B] selection:bg-violet-200 selection:text-[#475569] dark:bg-white dark:text-[#64748B]"
       : "bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface";
 
   return (
@@ -172,7 +172,9 @@ export default async function BlogPostPage({ params }: Props) {
             </nav>
 
             {/* Post header */}
-            <header className="mb-6 overflow-hidden border border-slate-300 bg-white sm:mb-8 dark:border-white/15 dark:bg-surface-container">
+            <header
+              className={`mb-6 overflow-hidden border border-slate-300 bg-white sm:mb-8 dark:border-white/15 dark:bg-surface-container ${post.layout === "white" ? "blog-header--white" : ""}`}
+            >
               {post.coverImage ? (
                 <BlogPostCoverImage
                   src={post.coverImage}
@@ -199,14 +201,15 @@ export default async function BlogPostPage({ params }: Props) {
                 />
               </div>
 
-              <h1 className="font-headline text-2xl font-black leading-[1.2] tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-on-surface">
+              <h1 className={`font-headline text-2xl font-black leading-[1.2] tracking-tight sm:text-3xl md:text-4xl ${post.layout === "white" ? "blog-header-title" : "text-neutral-900 dark:text-on-surface"}`}>
                 {post.title}
               </h1>
-              <p className="mt-3 font-body text-[15px] leading-relaxed text-slate-600 sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg md:leading-[1.7] dark:text-slate-400">
+              <p className={`mt-3 font-body text-[15px] leading-relaxed sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg md:leading-[1.7] ${post.layout === "white" ? "blog-header-desc" : "text-slate-600 dark:text-slate-400"}`}>
                 {post.description}
               </p>
 
-              {/* Tags */}
+              {/* Tags (classic layout only) */}
+              {post.layout !== "white" ? (
               <div className="mt-4 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <span
@@ -217,7 +220,18 @@ export default async function BlogPostPage({ params }: Props) {
                   </span>
                 ))}
               </div>
+              ) : null}
               </div>
+
+              {post.layout === "white" ? (
+                <div className="blog-white-tags-bar">
+                  {post.tags.map((tag) => (
+                    <span key={tag} className="blog-white-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </header>
 
             {/* Article body */}

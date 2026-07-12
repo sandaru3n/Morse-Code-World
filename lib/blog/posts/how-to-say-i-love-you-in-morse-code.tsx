@@ -48,13 +48,13 @@ export const post: BlogPost = {
   Content: function ILoveYouMorseContent() {
     return (
       <div className="prose-content prose-content--white">
-        <p>
-          Saying <span className="font-semibold text-[#1A1F36]">I love you</span> in Morse code is one of the
+        <p className="prose-lead">
+          Saying <span className="prose-emphasis-dark">I love you</span> in Morse code is one of the
           most romantic ways to use this old telegraph language. Three short words become a rhythm of dots and
           dashes you can tap on a table, flash with a phone light, or whisper as dit-dah sounds.
         </p>
         <br className="prose-gap" />
-        <p>
+        <p className="prose-muted">
           You do not need radio equipment or years of practice. Once you know how each letter is encoded, the
           full phrase takes less than a minute to send — and it is memorable enough to surprise someone special.
         </p>
@@ -76,7 +76,7 @@ export const post: BlogPost = {
         />
         <p>
           In plain text form, the same message is often written as{" "}
-          <span className="font-mono text-sm text-violet-700 sm:text-base">
+          <span className="font-mono text-sm text-violet-400 sm:text-base">
             .. .-.. --- ...- . -.-- --- ..-
           </span>
           . Try it in our{" "}
@@ -85,7 +85,7 @@ export const post: BlogPost = {
         <br className="prose-gap" />
 
         <BlogWhiteHeading title="Letter-by-Letter Breakdown" />
-        <p>Here is how each letter in <strong>I love you</strong> is built:</p>
+        <p>Here is how each letter in <span className="prose-keyword">I love you</span> is built:</p>
         <br className="prose-gap" />
         <ul>
           <li>
@@ -123,19 +123,19 @@ export const post: BlogPost = {
 
         <BlogWhiteHeading title="How to Say It Out Loud" />
         <p>
-          Morse operators do not spell letter names — they speak the rhythm. For <strong>I love you</strong>,
-          practice like this:
+          Morse operators do not spell letter names — they speak the rhythm. For{" "}
+          <span className="prose-keyword">I love you</span>, practice like this:
         </p>
         <br className="prose-gap" />
-        <ol>
+        <ol className="blog-white-rhythm-list">
           <li>
-            <strong>I</strong> — &ldquo;dit-dit&rdquo;
+            <span className="prose-keyword">I</span> — &ldquo;dit-dit&rdquo;
           </li>
           <li>
-            <strong>LOVE</strong> — &ldquo;dit-dah-dit-dit, dah-dah-dah, dit-dit-dit-dah, dit&rdquo;
+            <span className="prose-keyword">LOVE</span> — &ldquo;dit-dah-dit-dit, dah-dah-dah, dit-dit-dit-dah, dit&rdquo;
           </li>
           <li>
-            <strong>YOU</strong> — &ldquo;dah-dit-dah-dah, dah-dah-dah, dit-dit-dah&rdquo;
+            <span className="prose-keyword">YOU</span> — &ldquo;dah-dit-dah-dah, dah-dah-dah, dit-dit-dah&rdquo;
           </li>
         </ol>
         <br className="prose-gap" />
@@ -165,7 +165,7 @@ export const post: BlogPost = {
 
         <BlogWhiteHeading title="Fun Ways to Use It" />
         <p>
-          Beyond flashlights, people have tapped <strong>I love you</strong> in Morse on a car horn, a metal
+          Beyond flashlights, people have tapped <span className="prose-keyword">I love you</span> in Morse on a car horn, a metal
           ring on a railing, or even a necklace with dot-and-dash beads. Other ideas:
         </p>
         <br className="prose-gap" />
@@ -188,8 +188,8 @@ export const post: BlogPost = {
 
         <BlogKeyTakeaway>
           <p>
-            <strong>I love you</strong> in Morse code is{" "}
-            <strong>·· ·−·· −−− ···− ·   −·−− −−− ··−</strong> — a rhythm anyone can learn in one evening.
+            <span className="prose-keyword">I love you</span> in Morse code is{" "}
+            <span className="font-mono text-violet-400">·· ·−·· −−− ···− ·   −·−− −−− ··−</span> — a rhythm anyone can learn in one evening.
             Flash it, tap it, or type it in our{" "}
             <Link href="/">free translator</Link>. It is a small pattern with a big meaning, carried the same
             way telegraph operators sent urgent news more than a century ago — one dot and dash at a time.
