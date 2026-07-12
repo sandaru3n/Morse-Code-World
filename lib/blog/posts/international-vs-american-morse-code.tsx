@@ -47,6 +47,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeadingSingle title="Origins: Two Different Inventors" />
         <p>
           In the 1830s–40s, Samuel Morse and Alfred Vail developed American Morse Code for use with the
@@ -135,8 +137,6 @@ export const post: BlogPost = {
           </table>
         </div>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="Which Should You Learn?" />
         <p>

@@ -83,6 +83,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeadingSingle title="The Morse Code Alphabet (A–Z)" />
         <p>
           There are shorter and longer codes for each letter, with the more common letters (E, T, A, I,
@@ -132,8 +134,6 @@ export const post: BlogPost = {
           ))}
         </div>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="Punctuation & Prosigns" />
         <p>

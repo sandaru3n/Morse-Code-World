@@ -30,6 +30,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeading label="1" title="Accessibility and Assistive Technology" />
         <p>
           Morse code is still used in a few varieties today, most notably for helping folks with motor
@@ -78,8 +80,6 @@ export const post: BlogPost = {
           organizations like FEMA and ARES (Amateur Radio Emergency Service).
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeading label="6" title="Covert and Intelligence Operations" />
         <p>

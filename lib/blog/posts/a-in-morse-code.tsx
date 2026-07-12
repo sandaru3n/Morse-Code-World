@@ -70,6 +70,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeading variant="editorial" label="01" title="What does A look like in Morse code?" />
         <p>
           A in Morse code is written as <span className="prose-emphasis">dot-dash</span> (· −). When you
@@ -134,8 +136,6 @@ export const post: BlogPost = {
           permanent, whatever method sticks. Fifty taps and you will not forget it.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeading variant="editorial" label="04" title="A in Morse code vs other letters" />
         <p>It helps to see A next to letters it is easy to confuse:</p>

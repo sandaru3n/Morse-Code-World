@@ -32,6 +32,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeadingSingle title="The Issue That Morse Was Trying to Solve" />
         <p>
           In the early 1800s, horses were used to rapidly convey news. The US didn&apos;t have a national
@@ -73,8 +75,6 @@ export const post: BlogPost = {
           globe today, including by amateur radio operators.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="The Transatlantic Cable" />
         <p>

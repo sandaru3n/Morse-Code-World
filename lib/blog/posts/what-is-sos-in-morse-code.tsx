@@ -60,6 +60,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeadingSingle title="The SOS pattern" />
         <p>
           Morse code turns letters into short and long signals. A dot is short. A dash is long. SOS works
@@ -148,8 +150,6 @@ export const post: BlogPost = {
           blast.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="Where SOS came from" />
         <p>

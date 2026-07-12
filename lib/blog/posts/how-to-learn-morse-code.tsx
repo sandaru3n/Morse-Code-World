@@ -33,6 +33,8 @@ export const post: BlogPost = {
         </p>
         <br className="prose-gap" />
 
+        <BlogInArticleAd />
+
         <SectionHeading label="Method 1" title="Learn by Sound, Not by Eye" />
         <p>
           The biggest mistake almost everyone new to Morse code makes is memorizing the visual
@@ -101,8 +103,6 @@ export const post: BlogPost = {
           fast as possible.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="A Recommended 4-Week Practice Plan" />
 
