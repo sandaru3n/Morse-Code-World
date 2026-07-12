@@ -116,18 +116,23 @@ export default async function BlogPostPage({ params }: Props) {
       }
     : null;
 
+  const isWhiteLayout = post.layout === "white";
+  const whiteAppearance = isWhiteLayout ? "white" as const : "default" as const;
+
   const articleBodyClass =
-    post.layout === "white"
+    isWhiteLayout
       ? "blog-article-body blog-article-body--white"
       : "blog-article-body border border-slate-200/80 bg-white shadow-sm dark:border-outline-variant/20 dark:bg-surface-container";
 
-  const pageBgClass =
-    post.layout === "white"
-      ? "bg-white text-[#64748B] selection:bg-violet-200 selection:text-[#475569] dark:bg-white dark:text-[#64748B]"
-      : "bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface";
+  const pageBgClass = isWhiteLayout
+    ? "blog-page--white bg-white text-[#475569]"
+    : "bg-neutral-100 text-neutral-900 selection:bg-primary-container selection:text-on-primary-container dark:bg-surface-container-lowest dark:text-on-surface";
 
   return (
-    <div className={`relative flex min-h-screen flex-col overflow-x-hidden ${pageBgClass}`}>
+    <div
+      className={`relative flex min-h-screen flex-col overflow-x-hidden ${pageBgClass}`}
+      {...(isWhiteLayout ? { "data-blog-theme": "white" } : {})}
+    >
       {post.coverImage ? <BlogCoverPreload href={post.coverImage} /> : null}
       <SiteTopBar />
 
@@ -146,13 +151,22 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-x-hidden px-4 py-3 sm:p-5 lg:p-8">
           <div className="mx-auto w-full min-w-0 max-w-3xl">
-            <AdsenseHorizontalBanner className="mb-5 sm:mb-6" />
+            <AdsenseHorizontalBanner className="mb-5 sm:mb-6" appearance={whiteAppearance} />
 
             {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-5 min-w-0">
-              <ol className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1 font-label text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+            <nav aria-label="Breadcrumb" className="blog-breadcrumb mb-5 min-w-0">
+              <ol
+                className={`flex flex-wrap items-baseline gap-x-1.5 gap-y-1 font-label text-xs leading-relaxed ${isWhiteLayout ? "text-[#94A3B8]" : "text-slate-500 dark:text-slate-400"}`}
+              >
                 <li className="shrink-0">
-                  <Link href="/" className="transition-colors hover:text-emerald-600 dark:hover:text-primary-container">
+                  <Link
+                    href="/"
+                    className={
+                      isWhiteLayout
+                        ? "transition-colors hover:text-violet-600"
+                        : "transition-colors hover:text-emerald-600 dark:hover:text-primary-container"
+                    }
+                  >
                     Home
                   </Link>
                 </li>
@@ -160,20 +174,35 @@ export default async function BlogPostPage({ params }: Props) {
                   /
                 </li>
                 <li className="shrink-0">
-                  <Link href="/blog" className="transition-colors hover:text-emerald-600 dark:hover:text-primary-container">
+                  <Link
+                    href="/blog"
+                    className={
+                      isWhiteLayout
+                        ? "transition-colors hover:text-violet-600"
+                        : "transition-colors hover:text-emerald-600 dark:hover:text-primary-container"
+                    }
+                  >
                     Blog
                   </Link>
                 </li>
                 <li className="shrink-0" aria-hidden="true">
                   /
                 </li>
-                <li className="min-w-0 break-words text-neutral-900 dark:text-on-surface">{post.title}</li>
+                <li
+                  className={`min-w-0 break-words ${isWhiteLayout ? "text-[#475569]" : "text-neutral-900 dark:text-on-surface"}`}
+                >
+                  {post.title}
+                </li>
               </ol>
             </nav>
 
             {/* Post header */}
             <header
-              className={`mb-6 overflow-hidden border border-slate-300 bg-white sm:mb-8 dark:border-white/15 dark:bg-surface-container ${post.layout === "white" ? "blog-header--white" : ""}`}
+              className={`blog-header-card mb-6 overflow-hidden rounded-2xl border sm:mb-8 ${
+                isWhiteLayout
+                  ? "blog-header--white border-slate-200 bg-white shadow-sm"
+                  : "border-slate-300 bg-white dark:border-white/15 dark:bg-surface-container"
+              }`}
             >
               {post.coverImage ? (
                 <BlogPostCoverImage
@@ -198,13 +227,18 @@ export default async function BlogPostPage({ params }: Props) {
                   date={post.date}
                   variant="article"
                   linkAuthor
+                  appearance={whiteAppearance}
                 />
               </div>
 
-              <h1 className={`font-headline text-2xl font-black leading-[1.2] tracking-tight sm:text-3xl md:text-4xl ${post.layout === "white" ? "blog-header-title" : "text-neutral-900 dark:text-on-surface"}`}>
+              <h1
+                className={`font-headline text-2xl font-bold leading-[1.2] tracking-tight sm:text-3xl md:text-4xl ${isWhiteLayout ? "blog-header-title text-[#334155]" : "font-black text-neutral-900 dark:text-on-surface"}`}
+              >
                 {post.title}
               </h1>
-              <p className={`mt-3 font-body text-[15px] leading-relaxed sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg md:leading-[1.7] ${post.layout === "white" ? "blog-header-desc" : "text-slate-600 dark:text-slate-400"}`}>
+              <p
+                className={`mt-3 font-body text-[15px] leading-relaxed sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg md:leading-[1.7] ${isWhiteLayout ? "blog-header-desc text-[#64748B]" : "text-slate-600 dark:text-slate-400"}`}
+              >
                 {post.description}
               </p>
 
@@ -239,21 +273,29 @@ export default async function BlogPostPage({ params }: Props) {
               <Content />
             </article>
 
-            <BlogAuthor />
+            <BlogAuthor appearance={whiteAppearance} />
 
-            <BlogShare slug={post.slug} title={post.title} />
+            <BlogShare slug={post.slug} title={post.title} appearance={whiteAppearance} />
 
             {/* Footer nav */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Link
                 href="/blog"
-                className="inline-flex items-center justify-center gap-1.5 border border-slate-200/80 bg-white px-4 py-2.5 font-label text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-outline-variant/20 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-container-high"
+                className={
+                  isWhiteLayout
+                    ? "inline-flex items-center justify-center gap-1.5 border border-slate-200 bg-white px-4 py-2.5 font-label text-sm font-semibold text-[#64748B] shadow-sm transition-colors hover:bg-slate-50 hover:text-[#475569]"
+                    : "inline-flex items-center justify-center gap-1.5 border border-slate-200/80 bg-white px-4 py-2.5 font-label text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-outline-variant/20 dark:bg-surface-container dark:text-on-surface dark:hover:bg-surface-container-high"
+                }
               >
                 ← All posts
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 px-4 py-2.5 font-label text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 dark:bg-primary-container dark:text-on-primary-container dark:hover:bg-primary-container/90"
+                className={
+                  isWhiteLayout
+                    ? "inline-flex items-center justify-center gap-1.5 bg-violet-600 px-4 py-2.5 font-label text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-700"
+                    : "inline-flex items-center justify-center gap-1.5 bg-emerald-600 px-4 py-2.5 font-label text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 dark:bg-primary-container dark:text-on-primary-container dark:hover:bg-primary-container/90"
+                }
               >
                 Try the Translator ⠿
               </Link>

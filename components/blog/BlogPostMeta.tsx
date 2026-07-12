@@ -23,9 +23,12 @@ function formatDate(iso: string, style: "short" | "long") {
   });
 }
 
-function MetaDot() {
+function MetaDot({ muted }: { muted?: boolean }) {
   return (
-    <span className="font-label text-[11px] text-slate-400 dark:text-slate-500" aria-hidden="true">
+    <span
+      className={`font-label text-[11px] ${muted ? "text-[#CBD5E1]" : "text-slate-400 dark:text-slate-500"}`}
+      aria-hidden="true"
+    >
       ·
     </span>
   );
@@ -37,6 +40,7 @@ type BlogPostMetaProps = {
   date: string;
   variant?: "card" | "article";
   linkAuthor?: boolean;
+  appearance?: "default" | "white";
 };
 
 export function BlogPostMeta({
@@ -44,9 +48,11 @@ export function BlogPostMeta({
   readingTime,
   date,
   variant = "card",
-  linkAuthor = false
+  linkAuthor = false,
+  appearance = "default"
 }: BlogPostMetaProps) {
   const dateStyle = variant === "article" ? "long" : "short";
+  const isWhite = appearance === "white";
 
   if (variant === "article") {
     return (
@@ -54,29 +60,40 @@ export function BlogPostMeta({
         <div className="flex flex-wrap items-center gap-2">
           <span
             className={`inline-block shrink-0 rounded-full px-2.5 py-0.5 font-label text-[11px] font-semibold ${
-              CATEGORY_BADGE[category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+              isWhite
+                ? "bg-emerald-50 text-emerald-700"
+                : CATEGORY_BADGE[category] ?? "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
             }`}
           >
             {category}
           </span>
-          <span className="font-label text-[11px] text-slate-400 dark:text-slate-500">
+          <span className={`font-label text-[11px] ${isWhite ? "text-[#94A3B8]" : "text-slate-400 dark:text-slate-500"}`}>
             {readingTime} min read
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <time dateTime={date} className="font-label text-[11px] text-slate-400 dark:text-slate-500">
+          <time
+            dateTime={date}
+            className={`font-label text-[11px] ${isWhite ? "text-[#94A3B8]" : "text-slate-400 dark:text-slate-500"}`}
+          >
             {formatDate(date, dateStyle)}
           </time>
-          <MetaDot />
+          <MetaDot muted={isWhite} />
           {linkAuthor ? (
             <Link
               href="/about"
-              className="font-label text-[11px] font-semibold text-slate-600 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-emerald-700 dark:text-slate-300 dark:decoration-white/20 dark:hover:text-primary-container"
+              className={
+                isWhite
+                  ? "font-label text-[11px] font-semibold text-[#64748B] underline decoration-slate-300 underline-offset-2 transition-colors hover:text-violet-600"
+                  : "font-label text-[11px] font-semibold text-slate-600 underline decoration-slate-300 underline-offset-2 transition-colors hover:text-emerald-700 dark:text-slate-300 dark:decoration-white/20 dark:hover:text-primary-container"
+              }
             >
               {SITE_AUTHOR.name}
             </Link>
           ) : (
-            <span className="font-label text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+            <span
+              className={`font-label text-[11px] font-semibold ${isWhite ? "text-[#64748B]" : "text-slate-600 dark:text-slate-300"}`}
+            >
               {SITE_AUTHOR.name}
             </span>
           )}

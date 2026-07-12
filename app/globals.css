@@ -344,7 +344,7 @@
 
   /* White editorial layout — soft gray palette, no black text */
   .blog-article-body--white {
-    @apply border border-slate-200/60 bg-white shadow-sm dark:border-slate-200/20 dark:bg-white;
+    @apply rounded-2xl border border-slate-200/60 bg-white shadow-sm dark:border-slate-200/60 dark:bg-white;
   }
 
   .prose-content--white {
@@ -356,19 +356,19 @@
   }
 
   .prose-content--white > p.prose-lead {
-    @apply text-[#CBD5E1] sm:text-[#D1D5DB];
+    @apply font-light text-[#6B7280] sm:text-[17px] sm:leading-[1.75];
   }
 
   .prose-content--white > p.prose-muted {
-    @apply text-[#6B7280];
+    @apply text-[#64748B];
   }
 
   .prose-content--white .prose-emphasis-dark {
-    @apply font-semibold text-[#374151];
+    @apply font-semibold text-[#334155];
   }
 
   .prose-content--white .prose-keyword {
-    @apply font-semibold text-[#A5B4FC];
+    @apply font-medium text-[#8B9CF6];
   }
 
   .prose-content--white > p:last-child {
@@ -434,7 +434,7 @@
   }
 
   .blog-white-heading-text {
-    @apply font-headline text-xl font-bold leading-snug tracking-tight text-[#475569] sm:text-2xl;
+    @apply font-headline text-xl font-bold leading-snug tracking-tight text-[#334155] sm:text-2xl;
   }
 
   .prose-content--white .blog-morse-highlight {
@@ -481,20 +481,40 @@
     @apply text-violet-500;
   }
 
-  /* White-layout post header — dark tag bar */
+  /* White-layout post header — light tag bar */
   .blog-white-tags-bar {
-    @apply flex flex-wrap gap-2 border-t border-slate-600/30 bg-[#1e293b] px-4 py-3 sm:px-6;
+    @apply flex flex-wrap gap-2 border-t border-slate-200 bg-slate-50 px-4 py-3 sm:px-6;
   }
 
   .blog-white-tag {
-    @apply border border-slate-500/50 px-2.5 py-1 font-label text-[10px] uppercase tracking-wide text-slate-300;
+    @apply border border-slate-300 bg-white px-2.5 py-1 font-label text-[10px] uppercase tracking-wide text-[#64748B];
   }
 
   .blog-header--white .blog-header-title {
-    @apply text-[#475569] dark:text-[#475569];
+    @apply text-[#334155];
   }
 
   .blog-header--white .blog-header-desc {
-    @apply text-[#6B7280] dark:text-[#6B7280];
+    @apply text-[#64748B];
+  }
+
+  /* Force full white theme even when site html has .dark */
+  [data-blog-theme="white"] {
+    color-scheme: light;
+  }
+
+  [data-blog-theme="white"] .blog-header-card,
+  [data-blog-theme="white"] .blog-article-body--white,
+  [data-blog-theme="white"] .blog-author-card,
+  [data-blog-theme="white"] .blog-share-card {
+    @apply border-slate-200 bg-white dark:border-slate-200 dark:bg-white;
+  }
+
+  [data-blog-theme="white"] .blog-white-tags-bar {
+    @apply border-slate-200 bg-slate-50 dark:border-slate-200 dark:bg-slate-50;
+  }
+
+  [data-blog-theme="white"] .blog-white-tag {
+    @apply border-slate-300 bg-white text-[#64748B] dark:border-slate-300 dark:bg-white dark:text-[#64748B];
   }
 }
