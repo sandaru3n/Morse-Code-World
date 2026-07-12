@@ -482,7 +482,14 @@
   }
 
   /* Purple accent — I love you post only */
-  .prose-content--white.prose-content--purple .prose-emphasis-dark,
+  .prose-content--white.prose-content--purple > p.prose-lead {
+    @apply text-violet-600;
+  }
+
+  .prose-content--white.prose-content--purple > p.prose-lead .prose-emphasis-dark {
+    @apply font-semibold text-[#475569];
+  }
+
   .prose-content--white.prose-content--purple .prose-keyword {
     @apply font-semibold text-violet-600;
   }
