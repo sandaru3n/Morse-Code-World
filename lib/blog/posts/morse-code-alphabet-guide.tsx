@@ -1,4 +1,5 @@
 import { SectionHeadingSingle } from "@/components/blog/SectionHeading";
+import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import type { BlogPost } from "../types";
 
 export const post: BlogPost = {
@@ -131,6 +132,8 @@ export const post: BlogPost = {
           ))}
         </div>
         <br className="prose-gap" />
+
+        <BlogInArticleAd />
 
         <SectionHeadingSingle title="Punctuation & Prosigns" />
         <p>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BlogFaq } from "@/components/blog/BlogFaq";
+import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import { BlogKeyTakeaway } from "@/components/blog/BlogKeyTakeaway";
 import { BlogMorseHighlight } from "@/components/blog/BlogMorseHighlight";
 import { SectionHeading, SubsectionHeading } from "@/components/blog/SectionHeading";
@@ -133,6 +134,8 @@ export const post: BlogPost = {
           permanent, whatever method sticks. Fifty taps and you will not forget it.
         </p>
         <br className="prose-gap" />
+
+        <BlogInArticleAd />
 
         <SectionHeading variant="editorial" label="04" title="A in Morse code vs other letters" />
         <p>It helps to see A next to letters it is easy to confuse:</p>

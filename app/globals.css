@@ -286,6 +286,10 @@
     }
   }
 
+  .blog-in-article-ad {
+    @apply clear-both;
+  }
+
   .blog-morse-highlight {
     @apply my-8 border border-slate-300 bg-slate-50 px-4 py-6 text-center dark:border-white/15 dark:bg-surface-container-low;
   }
