@@ -477,8 +477,42 @@
     @apply text-[#64748B];
   }
 
-  .prose-content--white .blog-key-takeaway-title {
+  .prose-content--white .prose-key-takeaway-title {
     @apply text-violet-500;
+  }
+
+  /* Purple accent — I love you post only */
+  .prose-content--white.prose-content--purple .prose-emphasis-dark,
+  .prose-content--white.prose-content--purple .prose-keyword {
+    @apply font-semibold text-violet-600;
+  }
+
+  .prose-content--white.prose-content--purple a {
+    @apply font-medium text-violet-600 underline decoration-violet-400/60 underline-offset-2 transition-colors hover:text-violet-700;
+  }
+
+  .prose-content--white.prose-content--purple .blog-morse-highlight-pattern {
+    @apply text-violet-600;
+  }
+
+  .prose-content--white.prose-content--purple .blog-white-heading-text {
+    @apply text-violet-700;
+  }
+
+  .prose-content--white.prose-content--purple .blog-white-heading-accent {
+    @apply bg-gradient-to-b from-violet-500 to-purple-600;
+  }
+
+  .prose-content--white.prose-content--purple > ol.blog-white-rhythm-list li::marker {
+    @apply text-violet-500;
+  }
+
+  .prose-content--white.prose-content--purple > ul li::marker {
+    @apply text-violet-500;
+  }
+
+  .prose-content--white.prose-content--purple .blog-key-takeaway {
+    @apply border-l-violet-500 bg-violet-50/60;
   }
 
   /* White-layout post header — light tag bar */

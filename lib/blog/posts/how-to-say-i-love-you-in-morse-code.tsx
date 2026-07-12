@@ -47,7 +47,7 @@ export const post: BlogPost = {
 
   Content: function ILoveYouMorseContent() {
     return (
-      <div className="prose-content prose-content--white">
+      <div className="prose-content prose-content--white prose-content--purple">
         <p className="prose-lead">
           Saying <span className="prose-emphasis-dark">I love you</span> in Morse code is one of the
           most romantic ways to use this old telegraph language. Three short words become a rhythm of dots and
@@ -66,7 +66,7 @@ export const post: BlogPost = {
         <p>
           In International Morse code, every letter is a unique pattern of dots (<em>dit</em>) and dashes (
           <em>dah</em>). A dash lasts about three times longer than a dot. Letters are separated by a short
-          pause; words like <em>love</em> and <em>you</em> get a slightly longer gap.
+          pause; words like <span className="prose-keyword">love</span> and <span className="prose-keyword">you</span> get a slightly longer gap.
         </p>
         <br className="prose-gap" />
         <BlogMorseHighlight
@@ -76,7 +76,7 @@ export const post: BlogPost = {
         />
         <p>
           In plain text form, the same message is often written as{" "}
-          <span className="font-mono text-sm text-violet-400 sm:text-base">
+          <span className="font-mono text-sm text-violet-600 sm:text-base">
             .. .-.. --- ...- . -.-- --- ..-
           </span>
           . Try it in our{" "}
@@ -89,35 +89,35 @@ export const post: BlogPost = {
         <br className="prose-gap" />
         <ul>
           <li>
-            <strong>I</strong> = · · (dit-dit)
+            <span className="prose-keyword">I</span> = · · (dit-dit)
           </li>
           <li>
-            <strong>L</strong> = · − · · (dit-dah-dit-dit)
+            <span className="prose-keyword">L</span> = · − · · (dit-dah-dit-dit)
           </li>
           <li>
-            <strong>O</strong> = − − − (dah-dah-dah)
+            <span className="prose-keyword">O</span> = − − − (dah-dah-dah)
           </li>
           <li>
-            <strong>V</strong> = · · · − (dit-dit-dit-dah)
+            <span className="prose-keyword">V</span> = · · · − (dit-dit-dit-dah)
           </li>
           <li>
-            <strong>E</strong> = · (dit)
+            <span className="prose-keyword">E</span> = · (dit)
           </li>
           <li>
-            <strong>Y</strong> = − · − − (dah-dit-dah-dah)
+            <span className="prose-keyword">Y</span> = − · − − (dah-dit-dah-dah)
           </li>
           <li>
-            <strong>O</strong> = − − − (dah-dah-dah)
+            <span className="prose-keyword">O</span> = − − − (dah-dah-dah)
           </li>
           <li>
-            <strong>U</strong> = · · − (dit-dit-dah)
+            <span className="prose-keyword">U</span> = · · − (dit-dit-dah)
           </li>
         </ul>
         <br className="prose-gap" />
         <p>
-          Notice that <strong>O</strong> appears twice — three dashes each time. <strong>V</strong> is the
+          Notice that <span className="prose-keyword">O</span> appears twice — three dashes each time. <span className="prose-keyword">V</span> is the
           trickiest letter in the phrase because it uses four symbols. Say the whole word{" "}
-          <em>love</em> as one flowing rhythm before you pause for <em>you</em>.
+          <span className="prose-keyword">love</span> as one flowing rhythm before you pause for <span className="prose-keyword">you</span>.
         </p>
         <br className="prose-gap" />
 
@@ -189,7 +189,7 @@ export const post: BlogPost = {
         <BlogKeyTakeaway>
           <p>
             <span className="prose-keyword">I love you</span> in Morse code is{" "}
-            <span className="font-mono text-violet-400">·· ·−·· −−− ···− ·   −·−− −−− ··−</span> — a rhythm anyone can learn in one evening.
+            <span className="font-mono text-violet-600">·· ·−·· −−− ···− ·   −·−− −−− ··−</span> — a rhythm anyone can learn in one evening.
             Flash it, tap it, or type it in our{" "}
             <Link href="/">free translator</Link>. It is a small pattern with a big meaning, carried the same
             way telegraph operators sent urgent news more than a century ago — one dot and dash at a time.
