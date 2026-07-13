@@ -8,6 +8,7 @@ import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SITE_AUTHOR } from "@/lib/author";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import { toSchemaDateTime } from "@/lib/blog/dates";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 const MAX_META_KEYWORDS = 5;
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       title: post.title,
       description: post.description,
-      publishedTime: post.date,
+      publishedTime: toSchemaDateTime(post.date),
       authors: [SITE_AUTHOR.name],
       siteName: SITE_NAME,
       images: [
@@ -77,7 +78,7 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "Article",
     headline: post.title,
     description: post.description,
-    datePublished: post.date,
+    datePublished: toSchemaDateTime(post.date),
     url: absoluteUrl(`/blog/${post.slug}`),
     keywords: post.tags.join(", "),
     ...(post.coverImage

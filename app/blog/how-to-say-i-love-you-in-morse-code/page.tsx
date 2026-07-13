@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { SITE_AUTHOR } from "@/lib/author";
 import { ILoveYouMorsePageBody, post } from "@/lib/blog/posts/how-to-say-i-love-you-in-morse-code";
+import { toSchemaDateTime } from "@/lib/blog/dates";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
 const OG_IMAGE = "/favicon/android-chrome-512x512.png";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     url: absoluteUrl(`/blog/${post.slug}`),
     title: post.title,
     description: post.description,
-    publishedTime: post.date,
+    publishedTime: toSchemaDateTime(post.date),
     authors: [SITE_AUTHOR.name],
     siteName: SITE_NAME,
     images: [{ url: OG_IMAGE, width: 512, height: 512, alt: post.title }],
@@ -36,7 +37,7 @@ const articleSchema = {
   "@type": "Article",
   headline: post.title,
   description: post.description,
-  datePublished: post.date,
+  datePublished: toSchemaDateTime(post.date),
   url: absoluteUrl(`/blog/${post.slug}`),
   keywords: post.tags.join(", "),
   publisher: { "@id": `${absoluteUrl("/")}#organization` },
