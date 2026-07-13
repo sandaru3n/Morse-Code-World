@@ -502,7 +502,7 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
   return (
     <>
       <header
-        className={`fixed top-0 flex h-[4.5rem] w-full items-center justify-between gap-3 bg-neutral-100/80 px-4 shadow-[0_16px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_16px_32px_rgba(0,0,0,0.38)] md:px-8 ${menuOpen ? "z-[100]" : "z-50"}`}
+        className={`fixed top-0 flex h-[4.5rem] w-full items-center justify-between gap-3 bg-neutral-100/80 px-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] backdrop-blur-xl dark:bg-[#0A0E17]/80 dark:shadow-[0_2px_8px_rgba(0,0,0,0.18)] md:px-8 ${menuOpen ? "z-[100]" : "z-50"}`}
       >
         <div className="flex min-w-0 flex-1 items-center md:flex-none">
           <Link
