@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BlogHorizontal728Ad } from "@/components/blog/BlogHorizontal728Ad";
+import { LoveMorseRectangleAd } from "./how-to-say-i-love-you-in-morse-code-ad";
 import type { BlogPostMeta } from "../types";
 
 const LOVE_FAQ = [
@@ -209,7 +209,7 @@ export function ILoveYouMorsePageBody() {
                 </p>
                 <br className="prose-gap" />
 
-                <BlogHorizontal728Ad />
+                <LoveMorseRectangleAd />
 
                 <WhiteHeading title="What Is &ldquo;I Love You&rdquo; in Morse Code?" />
                 <p>
@@ -235,6 +235,8 @@ export function ILoveYouMorsePageBody() {
                   instantly.
                 </p>
                 <br className="prose-gap" />
+
+                <LoveMorseRectangleAd />
 
                 <WhiteHeading title="Letter-by-Letter Breakdown" />
                 <p>
@@ -283,7 +285,7 @@ export function ILoveYouMorsePageBody() {
                 </p>
                 <br className="prose-gap" />
 
-                <BlogHorizontal728Ad />
+                <LoveMorseRectangleAd />
 
                 <WhiteHeading title="How to Say It Out Loud" />
                 <p>
@@ -315,8 +317,6 @@ export function ILoveYouMorsePageBody() {
                   makes the pattern recognizable.
                 </p>
                 <br className="prose-gap" />
-
-                <BlogHorizontal728Ad />
 
                 <WhiteHeading title="How to Send It with a Flashlight or Phone" />
                 <p>A flashlight turns Morse code into a visible love note. Use these rules:</p>

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export function BlogHorizontal728Ad() {
+export function LoveMorseRectangleAd() {
   useEffect(() => {
     try {
       const w = window as Window & { adsbygoogle?: Record<string, unknown>[] };
@@ -17,9 +17,9 @@ export function BlogHorizontal728Ad() {
     <div className="not-prose my-6 flex justify-center overflow-x-auto sm:my-8" aria-label="Advertisement">
       <ins
         className="adsbygoogle"
-        style={{ display: "inline-block", width: "728px", height: "90px" }}
+        style={{ display: "inline-block", width: "400px", height: "220px" }}
         data-ad-client="ca-pub-7227917768990151"
-        data-ad-slot="9097324023"
+        data-ad-slot="2904550842"
       />
     </div>
   );
