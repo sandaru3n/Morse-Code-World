@@ -1,4 +1,5 @@
 import { post as lovePostMeta } from "./posts/how-to-say-i-love-you-in-morse-code";
+import { post as thankYouPostMeta } from "./posts/morse-code-for-thank-you";
 import { post as aLetterPost } from "./posts/a-in-morse-code";
 import { post as historyPost } from "./posts/history-of-morse-code";
 import { post as learnPost } from "./posts/how-to-learn-morse-code";
@@ -8,7 +9,7 @@ import { post as comparisonPost } from "./posts/international-vs-american-morse-
 import { post as sosPost } from "./posts/what-is-sos-in-morse-code";
 import type { BlogPost, BlogPostMeta } from "./types";
 
-const STANDALONE_POSTS: BlogPostMeta[] = [lovePostMeta];
+const STANDALONE_POSTS: BlogPostMeta[] = [thankYouPostMeta, lovePostMeta];
 
 const ALL_POSTS: BlogPost[] = [
   aLetterPost,
