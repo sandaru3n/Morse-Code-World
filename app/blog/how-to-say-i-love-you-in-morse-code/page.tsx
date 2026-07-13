@@ -5,7 +5,10 @@ import { ILoveYouMorsePageBody, post } from "@/lib/blog/posts/how-to-say-i-love-
 import { toSchemaDateTime } from "@/lib/blog/dates";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
 
-const OG_IMAGE = "/favicon/android-chrome-512x512.png";
+const ogImage = post.coverImage ?? "/favicon/android-chrome-512x512.png";
+const ogImageWidth = post.coverImage ? 1200 : 512;
+const ogImageHeight = post.coverImage ? 630 : 512;
+const ogImageAlt = post.coverImageAlt ?? post.title;
 
 export const metadata: Metadata = {
   alternates: { canonical: `/blog/${post.slug}` },
@@ -20,14 +23,14 @@ export const metadata: Metadata = {
     publishedTime: toSchemaDateTime(post.date),
     authors: [SITE_AUTHOR.name],
     siteName: SITE_NAME,
-    images: [{ url: OG_IMAGE, width: 512, height: 512, alt: post.title }],
+    images: [{ url: ogImage, width: ogImageWidth, height: ogImageHeight, alt: ogImageAlt }],
     tags: post.tags
   },
   twitter: {
     card: "summary",
     title: post.title,
     description: post.description,
-    images: [OG_IMAGE]
+    images: [ogImage]
   },
   other: { "Content-Language": "en" }
 };
@@ -40,6 +43,7 @@ const articleSchema = {
   datePublished: toSchemaDateTime(post.date),
   url: absoluteUrl(`/blog/${post.slug}`),
   keywords: post.tags.join(", "),
+  ...(post.coverImage ? { image: absoluteUrl(post.coverImage) } : {}),
   publisher: { "@id": `${absoluteUrl("/")}#organization` },
   author: {
     "@type": "Person",
@@ -74,6 +78,9 @@ const faqSchema = {
 export default function HowToSayILoveYouInMorseCodePage() {
   return (
     <>
+      {post.coverImage ? (
+        <link rel="preload" as="image" href={absoluteUrl(post.coverImage)} fetchPriority="high" />
+      ) : null}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

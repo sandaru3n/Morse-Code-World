@@ -37,6 +37,8 @@ export const post: BlogPostMeta & { standalone: true } = {
   tags: ["i love you morse code", "morse code love", "romantic morse code", "dit dah"],
   coverEmoji: "❤️",
   coverGradient: "from-rose-500 to-pink-600",
+  coverImage: "/blogimages/How%20to%20Say%20I%20Love%20You%20in%20Morse%20Code.webp",
+  coverImageAlt: "How to say I love you in Morse code — romantic dot-dash pattern guide with heart and telegraph theme",
   layout: "white",
   faq: [...LOVE_FAQ],
   standalone: true
@@ -139,13 +141,28 @@ export function ILoveYouMorsePageBody() {
             </nav>
 
             <header className="blog-header-card blog-header--white mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm sm:mb-8">
-              <div
-                className={`flex h-36 items-center justify-center bg-gradient-to-br ${post.coverGradient} sm:h-44`}
-              >
-                <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
-                  {post.coverEmoji}
-                </span>
-              </div>
+              {post.coverImage ? (
+                <div className="overflow-hidden border-b border-slate-200 bg-slate-100">
+                  <img
+                    src={post.coverImage}
+                    alt={post.coverImageAlt ?? post.title}
+                    width={1200}
+                    height={630}
+                    decoding="async"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="aspect-[21/9] w-full max-w-full object-cover sm:aspect-[2.2/1]"
+                  />
+                </div>
+              ) : (
+                <div
+                  className={`flex h-36 items-center justify-center bg-gradient-to-br ${post.coverGradient} sm:h-44`}
+                >
+                  <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
+                    {post.coverEmoji}
+                  </span>
+                </div>
+              )}
 
               <div className="p-4 sm:p-6">
                 <div className="mb-4 space-y-2">
