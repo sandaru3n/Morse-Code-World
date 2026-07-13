@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BlogFaq } from "@/components/blog/BlogFaq";
+import { BlogHorizontal728Ad } from "@/components/blog/BlogHorizontal728Ad";
 import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import { BlogKeyTakeaway } from "@/components/blog/BlogKeyTakeaway";
 import { BlogMorseHighlight } from "@/components/blog/BlogMorseHighlight";
@@ -48,6 +49,8 @@ export const post: BlogPost = {
   Content: function ILoveYouMorseContent() {
     return (
       <div className="prose-content prose-content--white prose-content--purple">
+        <BlogHorizontal728Ad />
+
         <p className="prose-lead">
           Saying <span className="prose-emphasis-dark">I love you</span> in Morse code is one of the
           most romantic ways to use this old telegraph language. Three short words become a rhythm of dots and
