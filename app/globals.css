@@ -559,6 +559,10 @@
     @apply border-slate-200 bg-slate-50 dark:border-slate-200 dark:bg-slate-50;
   }
 
+  .blog-sidebar-ad {
+    @apply min-h-[250px] w-full overflow-hidden;
+  }
+
   [data-blog-theme="white"] .blog-white-tag {
     @apply border-slate-300 bg-white text-[#64748B] dark:border-slate-300 dark:bg-white dark:text-[#64748B];
   }
