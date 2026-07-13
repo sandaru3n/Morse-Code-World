@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AdsenseHorizontalBanner } from "@/components/AdsenseHorizontalBanner";
 import { BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
 import { BlogPostCard } from "@/components/blog/BlogPostCard";
-import { BlogSidebarsLayout } from "@/components/blog/BlogSidebarsLayout";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import { getAllPosts } from "@/lib/blog";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
@@ -67,9 +67,9 @@ export default function BlogPage() {
       />
 
       <div className="flex flex-1 pt-[4.5rem]">
-        <main className="flex-1 overflow-x-hidden">
-          <BlogSidebarsLayout contentClassName="max-w-5xl">
-          <div className="mx-auto w-full min-w-0">
+        <main className="flex-1 overflow-x-hidden px-4 py-4 sm:p-6 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-5xl">
+            <AdsenseHorizontalBanner className="mb-5 sm:mb-6" />
 
             <header className="border border-slate-300 bg-white px-5 py-6 dark:border-white/15 dark:bg-surface-container sm:px-8 sm:py-8">
               <nav aria-label="Breadcrumb">
@@ -153,7 +153,6 @@ export default function BlogPage() {
               </div>
             </aside>
           </div>
-          </BlogSidebarsLayout>
         </main>
       </div>
 

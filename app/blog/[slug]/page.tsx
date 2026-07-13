@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
-import { BlogSidebarsLayout } from "@/components/blog/BlogSidebarsLayout";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
 import { BlogPostCoverImage, BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
 import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
@@ -71,6 +70,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const { Content } = post;
+  if (!Content) notFound();
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -149,9 +149,8 @@ export default async function BlogPostPage({ params }: Props) {
       ) : null}
 
       <div className="flex flex-1 pt-[4.5rem]">
-        <main className="flex-1 overflow-x-hidden">
-          <BlogSidebarsLayout>
-          <div className="mx-auto w-full min-w-0">
+        <main className="flex-1 overflow-x-hidden px-4 py-3 sm:p-5 lg:p-8">
+          <div className="mx-auto w-full min-w-0 max-w-3xl">
 
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="blog-breadcrumb mb-5 min-w-0">
@@ -302,7 +301,6 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
 
           </div>
-          </BlogSidebarsLayout>
         </main>
       </div>
     </div>

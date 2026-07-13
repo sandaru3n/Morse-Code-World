@@ -17,10 +17,12 @@ export type BlogPostMeta = {
   coverImageAlt?: string;
   /** Optional FAQ for JSON-LD and guide-style posts */
   faq?: { q: string; a: string }[];
-  /** `guide` = FAQ/callouts; `white` = clean white editorial layout with accent headings. */
+  /** `white` = clean white editorial layout with accent headings. */
   layout?: "classic" | "guide" | "white";
+  /** Uses a dedicated route page instead of the shared [slug] template. */
+  standalone?: boolean;
 };
 
 export type BlogPost = BlogPostMeta & {
-  Content: () => React.JSX.Element;
+  Content?: () => React.JSX.Element;
 };
