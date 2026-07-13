@@ -3,7 +3,6 @@ import {
   SectionHeadingSingle,
   SubsectionHeading
 } from "@/components/blog/SectionHeading";
-import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import type { BlogPost } from "../types";
 
 export const post: BlogPost = {
@@ -32,8 +31,6 @@ export const post: BlogPost = {
           foundation you choose for learning makes all the difference.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeading label="Method 1" title="Learn by Sound, Not by Eye" />
         <p>

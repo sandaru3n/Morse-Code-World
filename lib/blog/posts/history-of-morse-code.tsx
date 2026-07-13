@@ -1,5 +1,4 @@
 import { SectionHeadingSingle } from "@/components/blog/SectionHeading";
-import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import type { BlogPost } from "../types";
 
 export const post: BlogPost = {
@@ -31,8 +30,6 @@ export const post: BlogPost = {
           long-distance communication.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="The Issue That Morse Was Trying to Solve" />
         <p>

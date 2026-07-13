@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { AdsenseHorizontalBanner } from "@/components/AdsenseHorizontalBanner";
 import { BlogShare } from "@/components/blog/BlogShare";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
 import { BlogPostCoverImage, BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
@@ -151,7 +150,6 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="flex flex-1 pt-[4.5rem]">
         <main className="flex-1 overflow-x-hidden px-4 py-3 sm:p-5 lg:p-8">
           <div className="mx-auto w-full min-w-0 max-w-3xl">
-            <AdsenseHorizontalBanner className="mb-5 sm:mb-6" appearance={whiteAppearance} />
 
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="blog-breadcrumb mb-5 min-w-0">

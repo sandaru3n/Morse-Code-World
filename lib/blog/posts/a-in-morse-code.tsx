@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BlogFaq } from "@/components/blog/BlogFaq";
-import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import { BlogKeyTakeaway } from "@/components/blog/BlogKeyTakeaway";
 import { BlogMorseHighlight } from "@/components/blog/BlogMorseHighlight";
 import { SectionHeading, SubsectionHeading } from "@/components/blog/SectionHeading";
@@ -69,8 +68,6 @@ export const post: BlogPost = {
           from why Samuel Morse and Alfred Vail designed it that way to how you can still use it today.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeading variant="editorial" label="01" title="What does A look like in Morse code?" />
         <p>

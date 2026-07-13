@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BlogFaq } from "@/components/blog/BlogFaq";
-import { BlogInArticleAd } from "@/components/blog/BlogInArticleAd";
 import { BlogKeyTakeaway } from "@/components/blog/BlogKeyTakeaway";
 import { BlogMorseHighlight } from "@/components/blog/BlogMorseHighlight";
 import { SectionHeadingSingle, SubsectionHeading } from "@/components/blog/SectionHeading";
@@ -59,8 +58,6 @@ export const post: BlogPost = {
           letters ended up saving lives.
         </p>
         <br className="prose-gap" />
-
-        <BlogInArticleAd />
 
         <SectionHeadingSingle title="The SOS pattern" />
         <p>
