@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LoveMorseRectangleAd } from "./how-to-say-i-love-you-in-morse-code-ad";
+import { LoveMorseMultiplexAd, LoveMorseRectangleAd } from "./how-to-say-i-love-you-in-morse-code-ad";
 import type { BlogPostMeta } from "../types";
 
 const LOVE_FAQ = [
@@ -353,6 +353,8 @@ export function ILoveYouMorsePageBody() {
                   <Link href="/blog/a-in-morse-code">the letter A</Link> — one of the shortest codes in the system.
                 </p>
                 <br className="prose-gap" />
+
+                <LoveMorseMultiplexAd />
 
                 <FaqSection heading="FAQ: I love you in Morse code" items={[...LOVE_FAQ]} />
                 <br className="prose-gap" />
