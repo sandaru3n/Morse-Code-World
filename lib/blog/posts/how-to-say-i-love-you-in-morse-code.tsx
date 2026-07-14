@@ -234,7 +234,7 @@ export function ILoveYouMorsePageBody() {
                   . Try it in our <Link href="/">Morse code translator</Link> — type the words and hear the rhythm
                   instantly.
                 </p>
-                <br className="prose-gap" />
+                
 
                 <LoveMorseRectangleAd />
 
