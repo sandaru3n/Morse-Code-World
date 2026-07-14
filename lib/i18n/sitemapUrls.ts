@@ -1,5 +1,11 @@
 import { absoluteUrl } from "@/lib/site";
-import { audioDecoderPath, homePath, NON_EN_LOCALES, pictureTranslatorPath } from "@/lib/i18n/routes";
+import {
+  audioDecoderPath,
+  homePath,
+  NON_EN_LOCALES,
+  pictureTranslatorPath,
+  vocalRemoverPath
+} from "@/lib/i18n/routes";
 
 const HOME_LANGS = ["en", ...NON_EN_LOCALES] as const;
 
@@ -10,11 +16,13 @@ export function getAllIndexablePaths(): string[] {
     "/about",
     "/morse-code-picture-translator",
     "/audio-morse-code-decoder",
+    "/vocal-remover",
     "/llms.txt",
     ...NON_EN_LOCALES.flatMap((lang) => [
       homePath(lang),
       audioDecoderPath(lang),
-      pictureTranslatorPath(lang)
+      pictureTranslatorPath(lang),
+      vocalRemoverPath(lang)
     ])
   ];
 

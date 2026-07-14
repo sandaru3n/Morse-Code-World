@@ -6,7 +6,7 @@ import { startTransition, useCallback, useEffect, useId, useRef, useState } from
 import { createPortal } from "react-dom";
 import { IconClose, IconMenu } from "@/components/SignalPulseIcons";
 import type { HomeLocale } from "@/lib/i18n/home";
-import { audioDecoderPath, homePath, pictureTranslatorPath, TOOL_SLUGS } from "@/lib/i18n/routes";
+import { audioDecoderPath, homePath, pictureTranslatorPath, TOOL_SLUGS, vocalRemoverPath } from "@/lib/i18n/routes";
 import { localeFromPathname } from "@/lib/localeFromPath";
 
 const navLink =
@@ -345,15 +345,17 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
   const hp = homePath(locale);
   const audioHref = audioDecoderPath(locale);
   const pictureHref = pictureTranslatorPath(locale);
+  const vocalRemoverHref = vocalRemoverPath(locale);
   const isTranslator = pathname === hp;
   const isAbout = pathname === "/about";
   const isPicture = pathname === pictureHref || pathname.endsWith(TOOL_SLUGS.picture);
   const isAudioDecoder = pathname === audioHref || pathname.endsWith(TOOL_SLUGS.audio);
+  const isVocalRemover = pathname === vocalRemoverHref || pathname.endsWith(TOOL_SLUGS.vocalRemover);
   const isPrivacy = pathname === "/privacy";
   const isTerms = pathname === "/terms";
   const isContact = pathname === "/contact";
   const isBlog = pathname === "/blog" || pathname.startsWith("/blog/");
-  const isAnyTool = isTranslator || isPicture || isAudioDecoder;
+  const isAnyTool = isTranslator || isPicture || isAudioDecoder || isVocalRemover;
   const [menuOpen, setMenuOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -457,6 +459,14 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-md bg-sky-100 text-base dark:bg-sky-900/30">🎧</span>
                 {c.audioDecoder}
+              </Link>
+              <Link
+                className={`flex items-center gap-3 rounded-xl px-4 pb-2.5 pt-2.5 font-headline text-sm font-bold text-neutral-800 transition-colors hover:bg-emerald-500/10 dark:text-on-surface dark:hover:bg-primary-container/10 ${isVocalRemover ? "text-emerald-700 dark:text-primary-container" : ""}`}
+                href={vocalRemoverHref}
+                onClick={closeMenu}
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-rose-100 text-base dark:bg-rose-900/30">🎤</span>
+                Vocal Remover
               </Link>
             </div>
             <Link
@@ -578,6 +588,17 @@ export function SiteTopBar({ locale: localeProp }: { locale?: TopBarLocale }) {
                     <div>
                       <div className="font-headline text-sm font-bold text-neutral-900 dark:text-on-surface">{c.audioDecoder}</div>
                       <div className="mt-0.5 font-label text-[11px] text-slate-500 dark:text-slate-400">Upload audio file → decode Morse</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href={vocalRemoverHref}
+                    onClick={closeTools}
+                    className={`flex items-start gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-emerald-50 dark:hover:bg-primary-container/10 ${isVocalRemover ? "bg-emerald-50 dark:bg-primary-container/15" : ""}`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-xl dark:bg-rose-900/30">🎤</span>
+                    <div>
+                      <div className="font-headline text-sm font-bold text-neutral-900 dark:text-on-surface">Vocal Remover</div>
+                      <div className="mt-0.5 font-label text-[11px] text-slate-500 dark:text-slate-400">Split a song into vocals + instrumental</div>
                     </div>
                   </Link>
                 </div>

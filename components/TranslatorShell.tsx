@@ -31,7 +31,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useMorseAudio } from "@/hooks/useMorseAudio";
 import { useScreenFlashOverlay } from "@/hooks/useScreenFlashOverlay";
 import { TRANSLATOR_UI_COPY, type HomeLocale } from "@/lib/i18n/home";
-import { audioDecoderPath, pictureTranslatorPath } from "@/lib/i18n/routes";
+import { audioDecoderPath, pictureTranslatorPath, vocalRemoverPath } from "@/lib/i18n/routes";
 import type { MorsePlaybackOptions } from "@/lib/audioEngine";
 import { decodeFromMorse } from "@/lib/decoder";
 import { encodeToMorse } from "@/lib/encoder";
@@ -481,6 +481,13 @@ export default function TranslatorShell({
             title="Audio Morse code decoder"
           >
             {t.footerAudioDecoder}
+          </Link>
+          <Link
+            className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
+            href={vocalRemoverPath(locale)}
+            title="AI vocal remover"
+          >
+            Vocal Remover
           </Link>
           <Link
             className="font-label text-[10px] tracking-tighter text-slate-500 hover:text-emerald-500 dark:text-slate-600 dark:hover:text-emerald-400"
