@@ -30,7 +30,7 @@ export function LoveMorseRectangleAd() {
   return (
     <div
       ref={containerRef}
-      className="not-prose my-6 flex justify-center overflow-x-auto sm:my-8"
+      className="not-prose my-6 flex h-[220px] w-full max-w-full items-center justify-center overflow-hidden sm:my-8"
       aria-label="Advertisement"
     />
   );
