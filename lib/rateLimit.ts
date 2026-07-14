@@ -55,3 +55,14 @@ export async function checkDailyLimit(ip: string): Promise<DailyLimitResult> {
   const { success, remaining } = await ratelimit.limit(ip);
   return { allowed: success, remaining: Math.max(0, remaining), limit: VOCAL_REMOVER_DAILY_LIMIT, configured: true };
 }
+
+/** Read-only peek at the remaining quota — does not consume a request. Used to show the hint on page load. */
+export async function peekDailyLimit(ip: string): Promise<Omit<DailyLimitResult, "allowed">> {
+  const ratelimit = getRatelimit();
+  if (!ratelimit) {
+    return { remaining: VOCAL_REMOVER_DAILY_LIMIT, limit: VOCAL_REMOVER_DAILY_LIMIT, configured: false };
+  }
+
+  const { remaining, limit } = await ratelimit.getRemaining(ip);
+  return { remaining: Math.max(0, remaining), limit, configured: true };
+}

@@ -176,6 +176,22 @@ export function VocalRemover() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Show "X of N left today" as soon as the page loads, before any run.
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/vocal-remover-quota");
+        const data = (await res.json()) as { remaining?: number; limit?: number; configured?: boolean };
+        if (res.ok && typeof data.remaining === "number" && typeof data.limit === "number") {
+          setRemaining(data.remaining);
+          setDailyLimit(data.limit);
+        }
+      } catch {
+        // Quota is a soft hint — silently ignore failures.
+      }
+    })();
+  }, []);
+
   const reset = () => {
     stopTimers();
     clearPersistedJob();
