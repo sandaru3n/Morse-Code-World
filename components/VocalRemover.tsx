@@ -8,11 +8,23 @@ const MAX_DURATION_SECONDS = 10 * 60;
 const POLL_INTERVAL_MS = 3000;
 const ACCEPTED_EXTENSIONS = [".mp3", ".wav", ".flac", ".ogg"];
 
+/** localStorage key used to survive a page refresh while a job is running or just finished. */
+const STORAGE_KEY = "vocalRemoverJob";
+/** Replicate output URLs aren't kept forever — don't try to resume/restore anything older than this. */
+const PERSISTED_JOB_MAX_AGE_MS = 50 * 60 * 1000;
+
 type Stage = "idle" | "validating" | "uploading" | "processing" | "done" | "error";
 
 type SeparationResult = {
   vocals: string | null;
   instrumental: string | null;
+};
+
+type PersistedJob = {
+  predictionId?: string;
+  stage: "processing" | "done";
+  result?: SeparationResult;
+  startedAt: number;
 };
 
 function formatBytes(bytes: number): string {
@@ -23,6 +35,37 @@ function formatElapsed(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function readPersistedJob(): PersistedJob | null {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PersistedJob;
+    if (!parsed?.startedAt || Date.now() - parsed.startedAt > PERSISTED_JOB_MAX_AGE_MS) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writePersistedJob(job: PersistedJob) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(job));
+  } catch {
+    // Ignore storage failures (private mode, quota, etc). Losing persistence is non-fatal.
+  }
+}
+
+function clearPersistedJob() {
+  try {
+    window.localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Ignore.
+  }
 }
 
 /** Reads an audio file's duration in the browser without uploading it. */
@@ -59,33 +102,25 @@ export function VocalRemover() {
   const [stage, setStage] = useState<Stage>("idle");
   const [file, setFile] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [rateLimited, setRateLimited] = useState(false);
   const [uploadPct, setUploadPct] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
   const [result, setResult] = useState<SeparationResult | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [dailyLimit, setDailyLimit] = useState<number | null>(null);
+  const [restoring, setRestoring] = useState(true);
 
   const pollTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const elapsedTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (pollTimerRef.current) clearInterval(pollTimerRef.current);
-      if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
-    };
-  }, []);
-
-  const reset = () => {
+  const stopTimers = () => {
     if (pollTimerRef.current) clearInterval(pollTimerRef.current);
     if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
-    setStage("idle");
-    setFile(null);
-    setErrorMsg("");
-    setUploadPct(0);
-    setElapsedSec(0);
-    setResult(null);
   };
 
-  const startPolling = (predictionId: string) => {
+  const startPolling = (predictionId: string, resumeElapsedSec = 0) => {
+    setElapsedSec(resumeElapsedSec);
     elapsedTimerRef.current = setInterval(() => {
       setElapsedSec((s) => s + 1);
     }, 1000);
@@ -104,10 +139,10 @@ export function VocalRemover() {
         }
 
         if (data.status === "succeeded" && data.output) {
-          if (pollTimerRef.current) clearInterval(pollTimerRef.current);
-          if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
+          stopTimers();
           setResult(data.output);
           setStage("done");
+          writePersistedJob({ predictionId, stage: "done", result: data.output, startedAt: Date.now() });
           return;
         }
 
@@ -116,16 +151,46 @@ export function VocalRemover() {
         }
         // Otherwise still starting / processing — keep polling.
       } catch (e) {
-        if (pollTimerRef.current) clearInterval(pollTimerRef.current);
-        if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
+        stopTimers();
+        clearPersistedJob();
         setErrorMsg(e instanceof Error ? e.message : "Separation failed.");
         setStage("error");
       }
     }, POLL_INTERVAL_MS);
   };
 
+  // Restore an in-progress or just-finished job after a page refresh.
+  useEffect(() => {
+    const job = readPersistedJob();
+    if (job?.stage === "done" && job.result) {
+      setResult(job.result);
+      setStage("done");
+    } else if (job?.stage === "processing" && job.predictionId) {
+      setStage("processing");
+      const resumeElapsedSec = Math.max(0, Math.round((Date.now() - job.startedAt) / 1000));
+      startPolling(job.predictionId, resumeElapsedSec);
+    }
+    setRestoring(false);
+
+    return () => stopTimers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const reset = () => {
+    stopTimers();
+    clearPersistedJob();
+    setStage("idle");
+    setFile(null);
+    setErrorMsg("");
+    setRateLimited(false);
+    setUploadPct(0);
+    setElapsedSec(0);
+    setResult(null);
+  };
+
   const processFile = async (candidate: File) => {
     setErrorMsg("");
+    setRateLimited(false);
     setResult(null);
     setStage("validating");
 
@@ -168,18 +233,34 @@ export function VocalRemover() {
       });
 
       setStage("processing");
-      setElapsedSec(0);
 
       const res = await fetch("/api/separate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ audioUrl: blob.url })
       });
-      const data = (await res.json()) as { id?: string; error?: string };
+      const data = (await res.json()) as {
+        id?: string;
+        error?: string;
+        code?: string;
+        remaining?: number;
+        limit?: number;
+      };
+
+      if (typeof data.limit === "number") setDailyLimit(data.limit);
+      if (typeof data.remaining === "number") setRemaining(data.remaining);
+
+      if (res.status === 429 || data.code === "RATE_LIMITED") {
+        setRateLimited(true);
+        throw new Error(data.error || "Daily limit reached. Please try again tomorrow.");
+      }
+
       if (!res.ok || !data.id) {
         throw new Error(data.error || "Could not start separation job.");
       }
 
+      const startedAt = Date.now();
+      writePersistedJob({ predictionId: data.id, stage: "processing", startedAt });
       startPolling(data.id);
     } catch (e) {
       setErrorMsg(e instanceof Error ? e.message : "Upload failed. Please try again.");
@@ -193,6 +274,14 @@ export function VocalRemover() {
   };
 
   const busy = stage === "validating" || stage === "uploading" || stage === "processing";
+
+  if (restoring) {
+    return (
+      <div className="rounded-2xl border border-slate-200/80 bg-white p-6 text-center dark:border-outline-variant/30 dark:bg-surface-container">
+        <p className="font-label text-xs text-slate-500 dark:text-slate-500">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -238,17 +327,35 @@ export function VocalRemover() {
         </div>
       ) : null}
 
+      {remaining !== null && dailyLimit !== null && stage !== "processing" ? (
+        <p className="font-label text-xs text-slate-500 dark:text-slate-500">
+          {remaining > 0
+            ? `${remaining} of ${dailyLimit} free separations left today.`
+            : "You've used all your free separations for today."}
+        </p>
+      ) : null}
+
       {stage === "error" && errorMsg ? (
-        <div className="rounded-2xl border border-red-300/70 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">
-          <p className="font-headline text-sm font-bold">Something went wrong</p>
+        <div
+          className={`rounded-2xl border p-4 text-sm ${
+            rateLimited
+              ? "border-amber-300/70 bg-amber-50 text-amber-800 dark:border-amber-900/40 dark:bg-amber-950/30 dark:text-amber-300"
+              : "border-red-300/70 bg-red-50 text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300"
+          }`}
+        >
+          <p className="font-headline text-sm font-bold">
+            {rateLimited ? "Daily limit reached" : "Something went wrong"}
+          </p>
           <p className="mt-1">{errorMsg}</p>
-          <button
-            type="button"
-            onClick={reset}
-            className="mt-3 rounded-lg bg-red-600 px-3 py-1.5 font-label text-xs font-bold text-white transition-colors hover:bg-red-700"
-          >
-            Try again
-          </button>
+          {!rateLimited ? (
+            <button
+              type="button"
+              onClick={reset}
+              className="mt-3 rounded-lg bg-red-600 px-3 py-1.5 font-label text-xs font-bold text-white transition-colors hover:bg-red-700"
+            >
+              Try again
+            </button>
+          ) : null}
         </div>
       ) : null}
 
@@ -278,6 +385,9 @@ export function VocalRemover() {
               <p className="mt-1 font-label text-xs text-sky-700 dark:text-sky-300">
                 Elapsed: {formatElapsed(elapsedSec)} — this usually takes 1-3 minutes.
                 {elapsedSec > 60 ? " The first run after a while can be slower (model cold start)." : ""}
+              </p>
+              <p className="mt-1 font-label text-[11px] text-sky-600/80 dark:text-sky-400/80">
+                You can refresh this page — progress is saved and will pick back up.
               </p>
             </div>
           </div>

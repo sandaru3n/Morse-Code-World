@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DEMUCS_MODEL_VERSION, getReplicateClient } from "@/lib/replicate";
+import { checkDailyLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -11,6 +12,20 @@ export const maxDuration = 30;
  * instead of waiting here.
  */
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req);
+  const rate = await checkDailyLimit(ip);
+  if (!rate.allowed) {
+    return NextResponse.json(
+      {
+        error: `Daily limit reached (${rate.limit} vocal separations per IP per day). Please try again tomorrow.`,
+        code: "RATE_LIMITED",
+        remaining: 0,
+        limit: rate.limit
+      },
+      { status: 429 }
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -47,7 +62,12 @@ export async function POST(req: NextRequest) {
       }
     });
 
-    return NextResponse.json({ id: prediction.id, status: prediction.status });
+    return NextResponse.json({
+      id: prediction.id,
+      status: prediction.status,
+      remaining: rate.remaining,
+      limit: rate.limit
+    });
   } catch (e) {
     const message = e instanceof Error ? e.message : "Failed to start separation job.";
     return NextResponse.json({ error: message }, { status: 502 });
