@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogMultiplexAd } from "@/components/blog/BlogMultiplexAd";
 import type { BlogPostMeta } from "../types";
 
 const THANK_YOU_FAQ = [
@@ -385,6 +386,8 @@ export function ThankYouMorsePageBody() {
                   or start tiny with <Link href="/blog/a-in-morse-code">the letter A</Link>.
                 </p>
                 <br className="prose-gap" />
+
+                <BlogMultiplexAd />
 
                 <FaqSection heading="Quick Answers" items={[...THANK_YOU_FAQ]} />
                 <br className="prose-gap" />

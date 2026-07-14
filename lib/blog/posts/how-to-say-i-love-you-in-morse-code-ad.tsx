@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { BlogMultiplexAd } from "@/components/blog/BlogMultiplexAd";
 
 /** Exact AdSense unit code — do not edit the snippet below. */
 const ADSENSE_RECTANGLE_HTML = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7227917768990151"
@@ -13,18 +14,7 @@ const ADSENSE_RECTANGLE_HTML = `<script async src="https://pagead2.googlesyndica
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>`;
 
-/** Exact AdSense multiplex unit code — do not edit the snippet below. */
-const ADSENSE_MULTIPLEX_HTML = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7227917768990151"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:inline-block;width:360px;height:400px"
-     data-ad-client="ca-pub-7227917768990151"
-     data-ad-slot="6671942444"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>`;
-
-function useExactAdsenseHtml(html: string) {
+export function LoveMorseRectangleAd() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,14 +25,8 @@ function useExactAdsenseHtml(html: string) {
     // createContextualFragment runs <script> tags; innerHTML does not.
     const range = document.createRange();
     range.selectNode(el);
-    el.appendChild(range.createContextualFragment(html));
-  }, [html]);
-
-  return containerRef;
-}
-
-export function LoveMorseRectangleAd() {
-  const containerRef = useExactAdsenseHtml(ADSENSE_RECTANGLE_HTML);
+    el.appendChild(range.createContextualFragment(ADSENSE_RECTANGLE_HTML));
+  }, []);
 
   return (
     <div
@@ -53,14 +37,5 @@ export function LoveMorseRectangleAd() {
   );
 }
 
-export function LoveMorseMultiplexAd() {
-  const containerRef = useExactAdsenseHtml(ADSENSE_MULTIPLEX_HTML);
-
-  return (
-    <div
-      ref={containerRef}
-      className="not-prose my-6 flex h-[400px] w-full max-w-full items-center justify-center overflow-hidden sm:my-8"
-      aria-label="Advertisement"
-    />
-  );
-}
+/** Shared multiplex unit for this post. */
+export { BlogMultiplexAd as LoveMorseMultiplexAd };

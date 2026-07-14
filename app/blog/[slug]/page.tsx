@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { BlogShare } from "@/components/blog/BlogShare";
 import { BlogAuthor } from "@/components/blog/BlogAuthor";
+import { BlogMultiplexAd } from "@/components/blog/BlogMultiplexAd";
 import { BlogPostCoverImage, BlogCoverPreload } from "@/components/blog/BlogPostCoverImage";
 import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { SiteTopBar } from "@/components/SiteTopBar";
@@ -271,6 +272,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Article body */}
             <article className={articleBodyClass}>
               <Content />
+              <BlogMultiplexAd />
             </article>
 
             <BlogAuthor appearance={whiteAppearance} />
