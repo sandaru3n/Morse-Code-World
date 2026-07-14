@@ -71,14 +71,15 @@ export function VocalRemoverPageView({ locale }: { locale: HomeLocale }) {
               </p>
             </section>
 
-            <AdsenseHorizontalBanner className="mt-6" />
 
             <div className="mt-6">
               <VocalRemover />
             </div>
 
+            <AdsenseHorizontalBanner className="mt-8" />
+
             <section
-              className="mt-12 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6"
+              className="mt-8 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6"
               aria-labelledby="vocal-remover-about"
             >
               <h2 id="vocal-remover-about" className="font-headline text-lg font-bold sm:text-xl">
