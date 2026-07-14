@@ -39,6 +39,9 @@ export const post: BlogPostMeta & { standalone: true } = {
   ],
   coverEmoji: "🙏",
   coverGradient: "from-teal-500 to-emerald-600",
+  coverImage: "/blogimages/Morse%20Code%20for%20Thank%20You.webp",
+  coverImageAlt:
+    "Morse code for thank you — full dot-dash pattern and TU operator shortcut guide",
   layout: "white",
   faq: [...THANK_YOU_FAQ],
   standalone: true
