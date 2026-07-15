@@ -3,6 +3,7 @@ import type { HomeLocale } from "@/lib/i18n/home";
 import { getAudioPageCopy } from "@/lib/i18n/toolPages/audio";
 import { getPicturePageCopy } from "@/lib/i18n/toolPages/picture";
 import { getVocalRemoverPageCopy } from "@/lib/i18n/toolPages/vocalRemover";
+import { getMp3CutterPageCopy } from "@/lib/i18n/toolPages/mp3Cutter";
 import { SITE_NAME } from "@/lib/site";
 import { buildToolAlternates, buildToolOpenGraph } from "@/lib/seo/toolAlternates";
 
@@ -48,6 +49,23 @@ export function buildVocalRemoverMetadata(locale: HomeLocale): Metadata {
     alternates: buildToolAlternates(locale, "vocalRemover"),
     keywords: [...copy.keywords, SITE_NAME],
     openGraph: buildToolOpenGraph(locale, "vocalRemover", copy.title, copy.description),
+    twitter: {
+      card: "summary",
+      title: copy.title,
+      description: copy.description
+    },
+    other: { "Content-Language": locale }
+  };
+}
+
+export function buildMp3CutterMetadata(locale: HomeLocale): Metadata {
+  const copy = getMp3CutterPageCopy(locale);
+  return {
+    title: copy.title,
+    description: copy.description,
+    alternates: buildToolAlternates(locale, "mp3Cutter"),
+    keywords: [...copy.keywords, SITE_NAME],
+    openGraph: buildToolOpenGraph(locale, "mp3Cutter", copy.title, copy.description),
     twitter: {
       card: "summary",
       title: copy.title,

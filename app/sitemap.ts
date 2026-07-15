@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { audioDecoderPath, pictureTranslatorPath, vocalRemoverPath } from "@/lib/i18n/routes";
+import { audioDecoderPath, mp3CutterPath, pictureTranslatorPath, vocalRemoverPath } from "@/lib/i18n/routes";
 import { INDEXED_NON_EN_LOCALES } from "@/lib/i18n/localeIndexing";
 import { absoluteUrl } from "@/lib/site";
 import { getAllSlugs } from "@/lib/blog";
@@ -11,6 +11,9 @@ import { getAllSlugs } from "@/lib/blog";
  * URL is a language variant when it's really just English text.
  */
 const VOCAL_REMOVER_TRANSLATED_LOCALES = ["es", "pt", "ru", "ja", "ko", "fr", "it", "vi", "th", "id"] as const;
+
+/** Same rule as above, for the MP3 Cutter tool's fully translated locales. */
+const MP3_CUTTER_TRANSLATED_LOCALES = ["es", "pt", "de", "ru", "ja", "ko", "zh", "tr", "ar", "id", "th"] as const;
 
 /** Update when editorial content on a locale home page changes. */
 const LOCALE_HOME_DATES: Record<string, string> = {
@@ -31,7 +34,8 @@ const DATES = {
   about: "2026-04-15",
   pictureTool: "2026-04-15",
   audioTool: "2026-04-15",
-  vocalRemoverTool: "2026-07-14"
+  vocalRemoverTool: "2026-07-14",
+  mp3CutterTool: "2026-07-15"
 } as const;
 
 const localizedHomeEntries = (): MetadataRoute.Sitemap =>
@@ -63,6 +67,15 @@ const localizedToolEntries = (): MetadataRoute.Sitemap =>
       entries.push({
         url: absoluteUrl(vocalRemoverPath(lang)),
         lastModified: DATES.vocalRemoverTool,
+        changeFrequency: "monthly" as const,
+        priority: 0.7
+      });
+    }
+
+    if ((MP3_CUTTER_TRANSLATED_LOCALES as readonly string[]).includes(lang)) {
+      entries.push({
+        url: absoluteUrl(mp3CutterPath(lang)),
+        lastModified: DATES.mp3CutterTool,
         changeFrequency: "monthly" as const,
         priority: 0.7
       });
@@ -131,6 +144,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: absoluteUrl("/vocal-remover"),
       lastModified: DATES.vocalRemoverTool,
+      changeFrequency: "monthly",
+      priority: 0.75
+    },
+    {
+      url: absoluteUrl("/mp3-cutter"),
+      lastModified: DATES.mp3CutterTool,
       changeFrequency: "monthly",
       priority: 0.75
     },

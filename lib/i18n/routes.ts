@@ -4,7 +4,8 @@ import { LOCALE_PATH_SEGMENTS } from "@/lib/localeFromPath";
 export const TOOL_SLUGS = {
   audio: "/audio-morse-code-decoder",
   picture: "/morse-code-picture-translator",
-  vocalRemover: "/vocal-remover"
+  vocalRemover: "/vocal-remover",
+  mp3Cutter: "/mp3-cutter"
 } as const;
 
 export type ToolSlug = keyof typeof TOOL_SLUGS;
@@ -32,6 +33,10 @@ export function pictureTranslatorPath(locale: HomeLocale): string {
 
 export function vocalRemoverPath(locale: HomeLocale): string {
   return toolPath(locale, "vocalRemover");
+}
+
+export function mp3CutterPath(locale: HomeLocale): string {
+  return toolPath(locale, "mp3Cutter");
 }
 
 export function isNonEnLocale(lang: string): lang is HomeLocale {
