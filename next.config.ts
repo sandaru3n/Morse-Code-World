@@ -41,26 +41,6 @@ const nextConfig: NextConfig = {
         ]
       },
       {
-        /**
-         * ffmpeg.wasm (used only for M4A/M4R export on the MP3 cutter tool)
-         * needs SharedArrayBuffer, which requires cross-origin isolation.
-         * Scoped to just this tool's routes — applying COEP: require-corp
-         * site-wide would break third-party AdSense iframes on other pages.
-         */
-        source: "/mp3-cutter",
-        headers: [
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" }
-        ]
-      },
-      {
-        source: "/:lang/mp3-cutter",
-        headers: [
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" }
-        ]
-      },
-      {
         source: "/blogimages/:path*",
         headers: [
           {
