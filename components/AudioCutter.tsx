@@ -7,7 +7,6 @@ import { computeWaveformPeaks, type WaveformPeaks } from "@/lib/audio/waveform";
 import { encodeWavBlob } from "@/lib/audio/wavEncoder";
 
 const ACCEPTED_EXTENSIONS = [".mp3", ".wav", ".m4a", ".ogg"];
-const PRESETS_SEC = [20, 30, 40];
 const FADE_DURATION_SEC = 2;
 const HANDLE_HIT_PX = 22;
 const EDGE_BAR_WIDTH = 12;
@@ -51,13 +50,50 @@ function hasAcceptedExtension(name: string): boolean {
 }
 
 function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number): void {
+  const radius = Math.max(0, Math.min(r, w / 2, h / 2));
   ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
   ctx.closePath();
+}
+
+/** Yellow time chip that sits above a selection handle while the user is interacting with it. */
+function drawTimeTooltip(
+  ctx: CanvasRenderingContext2D,
+  centerX: number,
+  canvasWidth: number,
+  label: string
+): void {
+  ctx.font = "600 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const paddingX = 8;
+  const paddingY = 5;
+  const metrics = ctx.measureText(label);
+  const boxW = Math.ceil(metrics.width) + paddingX * 2;
+  const boxH = 22;
+  const arrowH = 6;
+  const arrowW = 8;
+  const top = 4;
+  const left = clamp(centerX - boxW / 2, 4, Math.max(4, canvasWidth - boxW - 4));
+
+  ctx.fillStyle = "#eab308";
+  drawRoundedRect(ctx, left, top, boxW, boxH, 6);
+  ctx.fill();
+
+  // Downward caret pointing at the yellow bar.
+  ctx.beginPath();
+  ctx.moveTo(centerX - arrowW / 2, top + boxH);
+  ctx.lineTo(centerX + arrowW / 2, top + boxH);
+  ctx.lineTo(centerX, top + boxH + arrowH);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = "#0b0d12";
+  ctx.fillText(label, left + boxW / 2, top + boxH / 2 + 0.5);
 }
 
 function downloadBlob(blob: Blob, filename: string) {
@@ -276,20 +312,27 @@ export function AudioCutter() {
       // edges are drawn as thick full-height grip bars — sized to roughly match
       // the actual pointer hit-target below — with thin lines joining them along
       // the top and bottom, matching a typical audio-editor selection.
+      //
+      // Clamp bar centers so the full yellow width stays on-canvas at t=0 / t=end;
+      // otherwise half the bar sits outside the rounded, overflow-hidden frame and
+      // looks "hidden".
+      const halfBar = EDGE_BAR_WIDTH / 2;
+      const startBarX = clamp(selX0, halfBar, width - halfBar);
+      const endBarX = clamp(selX1, halfBar, width - halfBar);
       const edgeBarRadius = 0;
       const connectorThickness = 3;
       const isNearHandle = hoverTarget !== null;
       ctx.fillStyle = "#eab308";
-      drawRoundedRect(ctx, selX0 - EDGE_BAR_WIDTH / 2, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
+      drawRoundedRect(ctx, startBarX - halfBar, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
       ctx.fill();
-      drawRoundedRect(ctx, selX1 - EDGE_BAR_WIDTH / 2, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
+      drawRoundedRect(ctx, endBarX - halfBar, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
       ctx.fill();
-      ctx.fillRect(selX0, 0, Math.max(0, selX1 - selX0), connectorThickness);
-      ctx.fillRect(selX0, height - connectorThickness, Math.max(0, selX1 - selX0), connectorThickness);
+      ctx.fillRect(startBarX, 0, Math.max(0, endBarX - startBarX), connectorThickness);
+      ctx.fillRect(startBarX, height - connectorThickness, Math.max(0, endBarX - startBarX), connectorThickness);
 
       // Grip-dot affordance in the middle of each bar so it visually reads as "drag me".
       ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
-      for (const cx of [selX0, selX1]) {
+      for (const cx of [startBarX, endBarX]) {
         for (let i = -1; i <= 1; i++) {
           drawRoundedRect(ctx, cx - 1.5, mid + i * 8 - 1.5, 3, 3, 1.5);
           ctx.fill();
@@ -298,10 +341,17 @@ export function AudioCutter() {
 
       // Brighten the bar the user is currently hovering/dragging for extra feedback.
       if (isNearHandle) {
-        const hx = hoverTarget === "start" ? selX0 : selX1;
+        const hx = hoverTarget === "start" ? startBarX : endBarX;
         ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
-        drawRoundedRect(ctx, hx - EDGE_BAR_WIDTH / 2, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
+        drawRoundedRect(ctx, hx - halfBar, 0, EDGE_BAR_WIDTH, height, edgeBarRadius);
         ctx.fill();
+      }
+
+      // Time chip above the active yellow bar (shown on hover / click / drag).
+      if (hoverTarget) {
+        const tipX = hoverTarget === "start" ? startBarX : endBarX;
+        const tipTime = hoverTarget === "start" ? selStart : selEnd;
+        drawTimeTooltip(ctx, tipX, width, formatTime(tipTime));
       }
 
       // Playhead.
@@ -325,13 +375,23 @@ export function AudioCutter() {
   }, [draw]);
 
   // --- Pointer dragging on the waveform handles ---
+  const handleVisualX = useCallback(
+    (t: number) => {
+      const width = canvasRef.current?.clientWidth ?? 0;
+      const halfBar = EDGE_BAR_WIDTH / 2;
+      // Match the clamped draw positions so hits line up with what the user sees.
+      return clamp(timeToX(t), halfBar, Math.max(halfBar, width - halfBar));
+    },
+    [timeToX]
+  );
+
   const onPointerDown = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
       if (!audioBuffer) return;
       const rect = canvasRef.current!.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      const startX = timeToX(selStart);
-      const endX = timeToX(selEnd);
+      const startX = handleVisualX(selStart);
+      const endX = handleVisualX(selEnd);
       const distToStart = Math.abs(x - startX);
       const distToEnd = Math.abs(x - endX);
 
@@ -346,7 +406,7 @@ export function AudioCutter() {
       canvasRef.current?.setPointerCapture(e.pointerId);
       e.preventDefault();
     },
-    [audioBuffer, selStart, selEnd, timeToX]
+    [audioBuffer, selStart, selEnd, handleVisualX]
   );
 
   const onPointerMove = useCallback(
@@ -357,8 +417,8 @@ export function AudioCutter() {
 
       if (!dragTargetRef.current) {
         // Not dragging yet — just show which handle is grabbable, for discoverability.
-        const startX = timeToX(selStart);
-        const endX = timeToX(selEnd);
+        const startX = handleVisualX(selStart);
+        const endX = handleVisualX(selEnd);
         const distToStart = Math.abs(x - startX);
         const distToEnd = Math.abs(x - endX);
         const nearest: DragTarget =
@@ -379,7 +439,7 @@ export function AudioCutter() {
         setSelEnd(clamp(t, selStart + MIN_SELECTION_SEC, duration));
       }
     },
-    [audioBuffer, selStart, selEnd, duration, xToTime, timeToX]
+    [audioBuffer, selStart, selEnd, duration, xToTime, handleVisualX]
   );
 
   const onPointerUp = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -393,6 +453,8 @@ export function AudioCutter() {
   }, []);
 
   const onPointerLeave = useCallback(() => {
+    // Keep the active handle (and its time chip) while a drag is in progress.
+    if (dragTargetRef.current) return;
     setHoverTarget(null);
     if (canvasRef.current) canvasRef.current.style.cursor = "default";
   }, []);
@@ -407,19 +469,6 @@ export function AudioCutter() {
     const parsed = parseTimeInput(endDraft);
     if (parsed !== null) setSelEnd(clamp(parsed, selStart + MIN_SELECTION_SEC, duration));
     setEndDraft(formatTime(parsed !== null ? clamp(parsed, selStart + MIN_SELECTION_SEC, duration) : selEnd));
-  };
-
-  const applyPreset = (presetSec: number) => {
-    if (!audioBuffer) return;
-    const len = Math.min(presetSec, duration);
-    let newStart = selStart;
-    let newEnd = newStart + len;
-    if (newEnd > duration) {
-      newEnd = duration;
-      newStart = Math.max(0, duration - len);
-    }
-    setSelStart(newStart);
-    setSelEnd(newEnd);
   };
 
   // --- Preview playback (plays exactly what will be exported, including the mode-aware jump and fades) ---
@@ -511,8 +560,11 @@ export function AudioCutter() {
       const tick = () => {
         const meta = previewMetaRef.current;
         if (!meta) return;
-        const elapsed = ctx.currentTime - meta.ctxStart;
-        if (elapsed >= meta.totalDuration || elapsed < 0) {
+        // Playback is scheduled 50ms in the future, so the first frames land
+        // BEFORE ctxStart — clamp to 0 rather than treating that as "finished",
+        // otherwise the sources get stopped before they ever make a sound.
+        const elapsed = Math.max(0, ctx.currentTime - meta.ctxStart);
+        if (elapsed >= meta.totalDuration) {
           stopPreview();
           return;
         }
@@ -692,19 +744,6 @@ export function AudioCutter() {
           {previewError ? (
             <p className="text-center font-label text-xs text-amber-500">{previewError}</p>
           ) : null}
-
-          <div className="flex flex-wrap items-center gap-2">
-            {PRESETS_SEC.map((sec) => (
-              <button
-                key={sec}
-                type="button"
-                onClick={() => applyPreset(sec)}
-                className="rounded-lg border border-slate-200/80 bg-white px-3 py-1.5 font-label text-xs font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-outline-variant/20 dark:bg-surface-container dark:text-on-surface"
-              >
-                {sec}s
-              </button>
-            ))}
-          </div>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <label className="flex flex-col gap-1">

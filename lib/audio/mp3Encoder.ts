@@ -1,5 +1,5 @@
 /** MP3 encoding via lamejs (pure JS, no wasm/threads needed) — runs entirely client-side. */
-import { Mp3Encoder } from "lamejs";
+import { Mp3Encoder } from "@breezystack/lamejs";
 
 const SAMPLES_PER_FRAME = 1152;
 
@@ -18,7 +18,7 @@ export async function encodeMp3Blob(buffer: AudioBuffer, kbps = 128): Promise<Bl
   const left = floatTo16BitInt(buffer.getChannelData(0));
   const right = channelCount === 2 ? floatTo16BitInt(buffer.getChannelData(1)) : undefined;
 
-  const chunks: Int8Array[] = [];
+  const chunks: Uint8Array[] = [];
   for (let i = 0; i < left.length; i += SAMPLES_PER_FRAME) {
     const leftChunk = left.subarray(i, i + SAMPLES_PER_FRAME);
     const rightChunk = right ? right.subarray(i, i + SAMPLES_PER_FRAME) : undefined;
@@ -33,5 +33,5 @@ export async function encodeMp3Blob(buffer: AudioBuffer, kbps = 128): Promise<Bl
   const final = encoder.flush();
   if (final.length > 0) chunks.push(final);
 
-  return new Blob(chunks as unknown as BlobPart[], { type: "audio/mpeg" });
+  return new Blob(chunks as BlobPart[], { type: "audio/mpeg" });
 }
