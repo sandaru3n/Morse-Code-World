@@ -88,9 +88,9 @@ const EN: Mp3CutterPageCopy = {
 
 const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
   es: {
-    title: "Cortador de MP3 y Creador de Tonos - Cortar audio online gratis",
+    title: "Cortar MP3 - Cortador de Canciones y Creador de Tonos Gratis",
     description:
-      "Cortador de MP3 y creador de tonos de llamada gratis que funciona en tu navegador. Recorta cualquier canción, añade fundidos y exporta en MP3, WAV, M4A o M4R. No se sube nada.",
+      "Cortar MP3 online gratis con este cortador de canciones y creador de tonos que funciona en tu navegador. Recorta cualquier cancion, añade fundidos y exporta en MP3, WAV, M4A o M4R. No se sube nada.",
     h1: "Cortador de MP3 - Cortador de canciones directo en tu navegador",
     keywords: [
       "cortar mp3",
@@ -151,9 +151,9 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
     linkHome: "traductor de Morse"
   },
   pt: {
-    title: "Cortador de MP3 e Criador de Toques - Cortar música online grátis",
+    title: "Cortar Música Online - Cortador de MP3 e Criador de Toques Grátis",
     description:
-      "Cortador de MP3 e criador de toques grátis que funciona no seu navegador. Corte qualquer música online, adicione fades e exporte em MP3, WAV, M4A ou M4R. Nada é enviado.",
+      "Cortar música online grátis com este cortador de MP3 e criador de toques que funciona no seu navegador. Corte qualquer música, adicione fades e exporte em MP3, WAV, M4A ou M4R. Nada é enviado.",
     h1: "Cortador de MP3 - Cortar música online direto no navegador",
     keywords: [
       "cortar mp3",
@@ -216,7 +216,7 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
   de: {
     title: "MP3 Schneiden & Klingelton Erstellen - Audio online kostenlos schneiden",
     description:
-      "Kostenloser MP3-Schneider und Klingelton-Ersteller, der komplett im Browser läuft. Song kürzen, Fades hinzufügen und als MP3, WAV, M4A oder M4R exportieren. Es wird nichts hochgeladen.",
+      "MP3 schneiden und Klingelton erstellen — kostenlos, komplett im Browser. Song kürzen, Fades hinzufügen und als MP3, WAV, M4A oder M4R exportieren. Es wird nichts hochgeladen.",
     h1: "MP3 Schneiden - Klingelton erstellen direkt im Browser",
     keywords: [
       "mp3 schneiden",
@@ -277,9 +277,9 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
     linkHome: "Morse-Übersetzer"
   },
   ru: {
-    title: "Обрезать MP3 и сделать рингтон - Обрезка аудио онлайн бесплатно",
+    title: "Обрезать песню онлайн - Обрезать MP3 и сделать рингтон бесплатно",
     description:
-      "Бесплатный обрезчик MP3 и создание рингтонов прямо в браузере. Обрежьте любую песню онлайн, добавьте затухания и экспортируйте в MP3, WAV, M4A или M4R. Ничего не загружается.",
+      "Обрезать песню онлайн и сделать рингтон бесплатно прямо в браузере. Обрежьте любой MP3, добавьте затухания и экспортируйте в MP3, WAV, M4A или M4R. Ничего не загружается.",
     h1: "Обрезать MP3 - Сделать рингтон прямо в браузере",
     keywords: [
       "обрезать mp3",
@@ -340,9 +340,9 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
     linkHome: "переводчик Морзе"
   },
   ja: {
-    title: "MP3カット＆着信音作成 - 音声を無料でオンラインカット",
+    title: "MP3 カット＆着信音 作成 - 無料オンライン音声カットツール",
     description:
-      "ブラウザだけで動く無料のMP3カット・着信音作成ツール。曲をカットし、フェードを追加して、MP3、WAV、M4A、M4Rで書き出せます。アップロードは一切ありません。",
+      "MP3 カットと着信音 作成が無料でできる、ブラウザだけで動くツール。曲をカットし、フェードを追加して、MP3、WAV、M4A、M4Rで書き出せます。アップロードは一切ありません。",
     h1: "MP3カット - ブラウザだけで着信音を作成",
     keywords: [
       "mp3 カット",
@@ -405,7 +405,7 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
   ko: {
     title: "MP3 자르기 & 벨소리 만들기 - 무료 온라인 오디오 자르기",
     description:
-      "브라우저에서 완전히 작동하는 무료 MP3 자르기 및 벨소리 만들기 도구. 노래를 자르고 페이드를 추가해 MP3, WAV, M4A, M4R로 내보내세요. 업로드는 전혀 없습니다.",
+      "MP3 자르기와 벨소리 만들기를 브라우저에서 무료로. 노래를 자르고 페이드를 추가해 MP3, WAV, M4A, M4R로 내보내세요. 업로드는 전혀 없습니다.",
     h1: "MP3 자르기 - 브라우저에서 바로 벨소리 만들기",
     keywords: [
       "mp3 자르기",
@@ -468,7 +468,7 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
   zh: {
     title: "MP3剪切與鈴聲製作 - 免費線上剪輯音訊",
     description:
-      "完全在瀏覽器中運作的免費 MP3 剪切與鈴聲製作工具。剪輯歌曲、加入淡入淡出，並匯出為 MP3、WAV、M4A 或 M4R。完全不會上傳任何檔案。",
+      "MP3剪切與鈴聲製作，免費且完全在瀏覽器中運作。剪輯歌曲、加入淡入淡出，並匯出為 MP3、WAV、M4A 或 M4R。完全不會上傳任何檔案。",
     h1: "MP3剪切 - 直接在瀏覽器中製作鈴聲",
     keywords: [
       "mp3剪切",
@@ -531,7 +531,7 @@ const OVERRIDES: Partial<Record<HomeLocale, Partial<Mp3CutterPageCopy>>> = {
   tr: {
     title: "MP3 Kesme ve Zil Sesi Yapma - Ücretsiz Online Ses Kesme",
     description:
-      "Tamamen tarayıcınızda çalışan ücretsiz MP3 kesme ve zil sesi yapma araci. Şarkıyı kesin, geçişler ekleyin, MP3, WAV, M4A veya M4R olarak dışa aktarın. Hiçbir şey yüklenmez.",
+      "MP3 kesme ve zil sesi yapma araci — ücretsiz ve tamamen tarayıcınızda çalışır. Şarkıyı kesin, geçişler ekleyin, MP3, WAV, M4A veya M4R olarak dışa aktarın. Hiçbir şey yüklenmez.",
     h1: "MP3 Kesme - Tarayıcınızda Doğrudan Zil Sesi Yapın",
     keywords: [
       "mp3 kesme",

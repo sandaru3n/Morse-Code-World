@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { shouldIndexLocale } from "@/lib/i18n/localeIndexing";
+import { isIndexableTranslatedToolPath } from "@/lib/i18n/toolIndexing";
 import { htmlDirForLocale, localeFromPathname } from "@/lib/localeFromPath";
 import { isTrackingQueryParam } from "@/lib/trackingQueryParams";
 
@@ -27,8 +28,14 @@ function indexNowKeyResponse(request: NextRequest): NextResponse | null {
   });
 }
 
-function applyLocaleIndexingHeaders(response: NextResponse, locale: ReturnType<typeof localeFromPathname>) {
-  if (!shouldIndexLocale(locale)) {
+function applyLocaleIndexingHeaders(
+  response: NextResponse,
+  locale: ReturnType<typeof localeFromPathname>,
+  pathname: string
+) {
+  // A fully-translated tool page (e.g. /de/mp3-cutter) is quality localized
+  // content and stays indexable even when its locale is otherwise noindex'd.
+  if (!shouldIndexLocale(locale) && !isIndexableTranslatedToolPath(pathname, locale)) {
     response.headers.set("X-Robots-Tag", "noindex, follow");
   }
   return response;
@@ -53,16 +60,18 @@ export function proxy(request: NextRequest) {
   }
 
   const requestHeaders = withLocaleHeaders(request);
-  const locale = localeFromPathname(request.nextUrl.pathname);
+  const pathname = request.nextUrl.pathname;
+  const locale = localeFromPathname(pathname);
 
   if (!removed) {
     return applyLocaleIndexingHeaders(
       NextResponse.next({ request: { headers: requestHeaders } }),
-      locale
+      locale,
+      pathname
     );
   }
 
-  return applyLocaleIndexingHeaders(NextResponse.redirect(url, 308), locale);
+  return applyLocaleIndexingHeaders(NextResponse.redirect(url, 308), locale, pathname);
 }
 
 export const config = {

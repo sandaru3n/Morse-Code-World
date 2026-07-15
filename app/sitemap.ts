@@ -1,19 +1,24 @@
 import type { MetadataRoute } from "next";
 import { audioDecoderPath, mp3CutterPath, pictureTranslatorPath, vocalRemoverPath } from "@/lib/i18n/routes";
 import { INDEXED_NON_EN_LOCALES } from "@/lib/i18n/localeIndexing";
+import { TOOL_TRANSLATED_LOCALES } from "@/lib/i18n/toolIndexing";
 import { absoluteUrl } from "@/lib/site";
 import { getAllSlugs } from "@/lib/blog";
 
 /**
- * Locales with real (non-English-fallback) Vocal Remover copy. Only submit a
- * localized /vocal-remover URL to search engines when it actually has
- * translated content — otherwise we'd be telling Google a French/Italian/etc
- * URL is a language variant when it's really just English text.
+ * Locales with real (non-English-fallback) translated tool copy. Only submit a
+ * localized tool URL to search engines when it actually has translated
+ * content — otherwise we'd be telling Google a French/Italian/etc URL is a
+ * language variant when it's really just English text.
+ *
+ * Some translated tool locales (e.g. de/zh/ar/tr for the MP3 cutter) are NOT in
+ * INDEXED_NON_EN_LOCALES, so union them in below to still surface those pages.
  */
-const VOCAL_REMOVER_TRANSLATED_LOCALES = ["es", "pt", "ru", "ja", "ko", "fr", "it", "vi", "th", "id"] as const;
-
-/** Same rule as above, for the MP3 Cutter tool's fully translated locales. */
-const MP3_CUTTER_TRANSLATED_LOCALES = ["es", "pt", "de", "ru", "ja", "ko", "zh", "tr", "ar", "id", "th"] as const;
+const VOCAL_REMOVER_TRANSLATED_LOCALES = TOOL_TRANSLATED_LOCALES.vocalRemover;
+const MP3_CUTTER_TRANSLATED_LOCALES = TOOL_TRANSLATED_LOCALES.mp3Cutter;
+const TOOL_ONLY_LOCALES = Array.from(
+  new Set([...VOCAL_REMOVER_TRANSLATED_LOCALES, ...MP3_CUTTER_TRANSLATED_LOCALES])
+).filter((lang) => !INDEXED_NON_EN_LOCALES.includes(lang));
 
 /** Update when editorial content on a locale home page changes. */
 const LOCALE_HOME_DATES: Record<string, string> = {
@@ -46,22 +51,31 @@ const localizedHomeEntries = (): MetadataRoute.Sitemap =>
     priority: lang === "th" || lang === "vi" || lang === "id" || lang === "ko" ? 0.92 : 0.9
   }));
 
-const localizedToolEntries = (): MetadataRoute.Sitemap =>
-  INDEXED_NON_EN_LOCALES.flatMap((lang) => {
-    const entries: MetadataRoute.Sitemap = [
-      {
-        url: absoluteUrl(audioDecoderPath(lang)),
-        lastModified: DATES.audioTool,
-        changeFrequency: "monthly" as const,
-        priority: 0.7
-      },
-      {
-        url: absoluteUrl(pictureTranslatorPath(lang)),
-        lastModified: DATES.pictureTool,
-        changeFrequency: "monthly" as const,
-        priority: 0.7
-      }
-    ];
+const localizedToolEntries = (): MetadataRoute.Sitemap => {
+  // Editorial-indexed locales get the audio + picture tools; every locale in
+  // this union may additionally get the vocal remover / MP3 cutter when those
+  // pages are fully translated (which is decided per-tool below).
+  const toolLocales = Array.from(new Set([...INDEXED_NON_EN_LOCALES, ...TOOL_ONLY_LOCALES]));
+
+  return toolLocales.flatMap((lang) => {
+    const entries: MetadataRoute.Sitemap = [];
+
+    if (INDEXED_NON_EN_LOCALES.includes(lang)) {
+      entries.push(
+        {
+          url: absoluteUrl(audioDecoderPath(lang)),
+          lastModified: DATES.audioTool,
+          changeFrequency: "monthly" as const,
+          priority: 0.7
+        },
+        {
+          url: absoluteUrl(pictureTranslatorPath(lang)),
+          lastModified: DATES.pictureTool,
+          changeFrequency: "monthly" as const,
+          priority: 0.7
+        }
+      );
+    }
 
     if ((VOCAL_REMOVER_TRANSLATED_LOCALES as readonly string[]).includes(lang)) {
       entries.push({
@@ -83,6 +97,7 @@ const localizedToolEntries = (): MetadataRoute.Sitemap =>
 
     return entries;
   });
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

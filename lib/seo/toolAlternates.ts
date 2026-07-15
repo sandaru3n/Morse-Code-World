@@ -26,18 +26,30 @@ const OG_LOCALE: Record<HomeLocale, string> = {
   uk: "uk_UA"
 };
 
-export function buildToolAlternates(locale: HomeLocale, tool: ToolSlug) {
+/**
+ * Builds canonical + hreflang for a tool page.
+ *
+ * When `translatedLocales` is provided (per Google/Bing i18n guidelines):
+ * - hreflang only lists locales with real translations, so we never claim a
+ *   language variant for a URL that actually serves English fallback text;
+ * - untranslated locale URLs canonicalize to the English page instead of
+ *   themselves, since their content is a duplicate of the English page.
+ */
+export function buildToolAlternates(locale: HomeLocale, tool: ToolSlug, translatedLocales?: readonly HomeLocale[]) {
   const languages: Record<string, string> = {
     "x-default": toolPath("en", tool)
   };
 
   languages.en = toolPath("en", tool);
   for (const code of LOCALE_PATH_SEGMENTS) {
+    if (translatedLocales && !translatedLocales.includes(code)) continue;
     languages[code] = toolPath(code, tool);
   }
 
+  const isTranslated = locale === "en" || !translatedLocales || translatedLocales.includes(locale);
+
   return {
-    canonical: toolPath(locale, tool),
+    canonical: isTranslated ? toolPath(locale, tool) : toolPath("en", tool),
     languages
   };
 }
