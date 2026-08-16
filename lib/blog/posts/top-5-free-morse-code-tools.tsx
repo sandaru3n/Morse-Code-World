@@ -40,6 +40,8 @@ export const post: BlogPostMeta & { standalone: true } = {
   ],
   coverEmoji: "🛠️",
   coverGradient: "from-indigo-500 to-violet-600",
+  coverImage: "/blogimages/Morse%20Code%20top%205%20sites.webp",
+  coverImageAlt: "Top 5 free Morse code tools — best online translators, creators, and trainers ranked",
   layout: "classic",
   faq: [...TOOLS_FAQ],
   standalone: true
@@ -145,11 +147,26 @@ export function Top5MorseToolsPageBody() {
             </nav>
 
             <header className="blog-header-card mb-6 overflow-hidden rounded-2xl border border-white/15 bg-surface-container sm:mb-8">
-              <div className={`flex h-36 items-center justify-center bg-gradient-to-br ${post.coverGradient} sm:h-44`}>
-                <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
-                  {post.coverEmoji}
-                </span>
-              </div>
+              {post.coverImage ? (
+                <div className="overflow-hidden border-b border-white/10 bg-surface-container-high">
+                  <img
+                    src={post.coverImage}
+                    alt={post.coverImageAlt ?? post.title}
+                    width={1200}
+                    height={630}
+                    decoding="async"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="aspect-[21/9] w-full max-w-full object-cover sm:aspect-[2.2/1]"
+                  />
+                </div>
+              ) : (
+                <div className={`flex h-36 items-center justify-center bg-gradient-to-br ${post.coverGradient} sm:h-44`}>
+                  <span className="text-7xl drop-shadow-md" role="img" aria-label={post.title}>
+                    {post.coverEmoji}
+                  </span>
+                </div>
+              )}
 
               <div className="p-4 sm:p-6">
                 <div className="mb-4 space-y-2">

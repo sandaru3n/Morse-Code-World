@@ -94,6 +94,9 @@ const faqSchema = {
 export default function Top5FreeMorseCodeToolsPage() {
   return (
     <>
+      {post.coverImage ? (
+        <link rel="preload" as="image" href={absoluteUrl(post.coverImage)} fetchPriority="high" />
+      ) : null}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
