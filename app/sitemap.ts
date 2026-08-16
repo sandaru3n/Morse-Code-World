@@ -3,7 +3,7 @@ import { audioDecoderPath, mp3CutterPath, pictureTranslatorPath, vocalRemoverPat
 import { INDEXED_NON_EN_LOCALES } from "@/lib/i18n/localeIndexing";
 import { TOOL_TRANSLATED_LOCALES } from "@/lib/i18n/toolIndexing";
 import { absoluteUrl } from "@/lib/site";
-import { getAllSlugs } from "@/lib/blog";
+import { getAllSitemapPosts } from "@/lib/blog";
 
 /**
  * Locales with real (non-English-fallback) translated tool copy. Only submit a
@@ -137,9 +137,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7
     },
-    ...getAllSlugs().map((slug) => ({
+    ...getAllSitemapPosts().map(({ slug, date }) => ({
       url: absoluteUrl(`/blog/${slug}`),
-      lastModified: DATES.home,
+      lastModified: date,
       changeFrequency: "monthly" as const,
       priority: 0.65
     })),

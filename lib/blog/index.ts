@@ -1,5 +1,6 @@
 import { post as lovePostMeta } from "./posts/how-to-say-i-love-you-in-morse-code";
 import { post as thankYouPostMeta } from "./posts/morse-code-for-thank-you";
+import { post as toolsPostMeta } from "./posts/top-5-free-morse-code-tools";
 import { post as aLetterPost } from "./posts/a-in-morse-code";
 import { post as historyPost } from "./posts/history-of-morse-code";
 import { post as learnPost } from "./posts/how-to-learn-morse-code";
@@ -9,7 +10,7 @@ import { post as comparisonPost } from "./posts/international-vs-american-morse-
 import { post as sosPost } from "./posts/what-is-sos-in-morse-code";
 import type { BlogPost, BlogPostMeta } from "./types";
 
-const STANDALONE_POSTS: BlogPostMeta[] = [thankYouPostMeta, lovePostMeta];
+const STANDALONE_POSTS: BlogPostMeta[] = [toolsPostMeta, thankYouPostMeta, lovePostMeta];
 
 const ALL_POSTS: BlogPost[] = [
   aLetterPost,
@@ -33,4 +34,9 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 
 export function getAllSlugs(): string[] {
   return ALL_POSTS.map((p) => p.slug);
+}
+
+/** Every blog URL for the sitemap — includes standalone posts with dedicated route pages. */
+export function getAllSitemapPosts(): { slug: string; date: string }[] {
+  return [...STANDALONE_POSTS, ...ALL_POSTS].map(({ slug, date }) => ({ slug, date }));
 }
