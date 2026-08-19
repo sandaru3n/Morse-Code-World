@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AdsenseHorizontalBanner } from "@/components/AdsenseHorizontalBanner";
+import { AdsenseSquareAd } from "@/components/AdsenseSquareAd";
 import AudioMorseDecoder from "@/components/AudioMorseDecoder";
 import { SiteTopBar } from "@/components/SiteTopBar";
 import type { HomeLocale } from "@/lib/i18n/home";
@@ -72,11 +72,13 @@ export function AudioMorseDecoderPageView({ locale }: { locale: HomeLocale }) {
               </p>
             </section>
 
-            <AdsenseHorizontalBanner className="mt-6" />
+            <AdsenseSquareAd className="mt-6" />
 
             <div className="mt-6">
               <AudioMorseDecoder />
             </div>
+
+            <AdsenseSquareAd className="mt-8" />
 
             <section
               className="mt-12 rounded-2xl border border-slate-200/80 bg-white/80 p-5 dark:border-outline-variant/25 dark:bg-surface-container/40 sm:p-6"
@@ -163,6 +165,8 @@ export function AudioMorseDecoderPageView({ locale }: { locale: HomeLocale }) {
                 ))}
               </div>
             </section>
+
+            <AdsenseSquareAd className="mt-8" />
 
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />

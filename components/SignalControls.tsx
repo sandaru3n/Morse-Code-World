@@ -1,6 +1,7 @@
 "use client";
 
 import { memo } from "react";
+import { AdsenseSquareAd } from "@/components/AdsenseSquareAd";
 import { IconTune, IconVerified } from "@/components/SignalPulseIcons";
 
 const QUICK_REF = [
@@ -129,6 +130,8 @@ const SignalControls = memo(function SignalControls({
           </div>
         </div>
       </div>
+
+      <AdsenseSquareAd className="relative z-[1] mt-5" />
 
       <div className="relative z-[1] mt-5 overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-slate-100 to-white p-4 dark:border-white/5 dark:from-surface-container-high/40 dark:to-surface-container-high/20 dark:bg-surface-container-high/30">
         <div
