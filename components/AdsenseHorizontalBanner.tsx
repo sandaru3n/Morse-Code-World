@@ -1,13 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useAdsensePush } from "@/hooks/useAdsensePush";
 
 const ADSENSE_CLIENT = "ca-pub-7227917768990151";
 const HEADER_HORIZONTAL_SLOT = "5039334568";
-
-type AdsWindow = Window & {
-  adsbygoogle?: unknown[];
-};
 
 export function AdsenseHorizontalBanner({
   className = "",
@@ -16,20 +12,11 @@ export function AdsenseHorizontalBanner({
   className?: string;
   appearance?: "default" | "white";
 }) {
-  useEffect(() => {
-    try {
-      const adsWindow = window as AdsWindow;
-      adsWindow.adsbygoogle = adsWindow.adsbygoogle || [];
-      adsWindow.adsbygoogle.push({});
-    } catch {
-      // Ad blockers or consent tooling can prevent AdSense initialization.
-    }
-  }, []);
-
+  const insRef = useAdsensePush();
   const isWhite = appearance === "white";
 
   return (
-    <aside className={`w-full ${className}`} aria-label="Advertisement">
+    <aside className={`block w-full ${className}`} aria-label="Advertisement">
       <div
         className={
           isWhite
@@ -43,8 +30,9 @@ export function AdsenseHorizontalBanner({
           Advertisement
         </div>
         <ins
+          ref={insRef}
           className="adsbygoogle"
-          style={{ display: "block" }}
+          style={{ display: "block", width: "100%", minHeight: 90 }}
           data-ad-client={ADSENSE_CLIENT}
           data-ad-slot={HEADER_HORIZONTAL_SLOT}
           data-ad-format="auto"

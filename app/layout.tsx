@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { DeferredVercelScripts } from "@/components/DeferredVercelScripts";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
@@ -113,17 +114,18 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} className={`dark ${spaceGrotesk.variable} ${manrope.variable}`} suppressHydrationWarning>
-      <head>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className={`min-h-screen font-body ${manrope.className}`}>
         <GlobalAiSeoJsonLd />
         {children}
         <DeferredVercelScripts />
+        {/* Load after hydration so AdSense DOM changes don't trigger React #418 mismatches */}
+        <Script
+          id="adsbygoogle-init"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
