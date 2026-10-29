@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
+// AdSense temporarily disabled — Scriptwrapper is used instead.
+/*
 type AdsWindow = Window & { adsbygoogle?: unknown[] };
+*/
 
 /**
  * Returns a ref for an <ins class="adsbygoogle"> and pushes the unit only after
@@ -13,6 +16,8 @@ export function useAdsensePush() {
   const insRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
+    // AdSense push disabled
+    /*
     const ins = insRef.current;
     if (!ins) return;
 
@@ -47,6 +52,7 @@ export function useAdsensePush() {
       ro.disconnect();
       window.clearTimeout(t);
     };
+    */
   }, []);
 
   return insRef;

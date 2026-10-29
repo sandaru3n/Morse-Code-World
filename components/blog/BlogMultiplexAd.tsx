@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+// AdSense temporarily disabled — Scriptwrapper is used instead.
+// import { useEffect, useRef } from "react";
 
-/** Exact AdSense multiplex unit code — do not edit the snippet below. */
+/*
 const ADSENSE_MULTIPLEX_HTML = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7227917768990151"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -12,8 +13,12 @@ const ADSENSE_MULTIPLEX_HTML = `<script async src="https://pagead2.googlesyndica
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>`;
+*/
 
 export function BlogMultiplexAd() {
+  return null;
+
+  /*
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +26,6 @@ export function BlogMultiplexAd() {
     if (!el || el.dataset.adsInserted === "1") return;
     el.dataset.adsInserted = "1";
 
-    // createContextualFragment runs <script> tags; innerHTML does not.
     const range = document.createRange();
     range.selectNode(el);
     el.appendChild(range.createContextualFragment(ADSENSE_MULTIPLEX_HTML));
@@ -34,4 +38,5 @@ export function BlogMultiplexAd() {
       aria-label="Advertisement"
     />
   );
+  */
 }

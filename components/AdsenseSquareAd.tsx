@@ -1,9 +1,13 @@
 "use client";
 
-import { useAdsensePush } from "@/hooks/useAdsensePush";
+// AdSense temporarily disabled — Scriptwrapper is used instead.
+// import { useAdsensePush } from "@/hooks/useAdsensePush";
 
-/** Square AdSense unit (morsecodesquare, slot 1887151488). Loader script lives in app/layout.tsx. */
 export function AdsenseSquareAd({ className = "" }: { className?: string }) {
+  void className;
+  return null;
+
+  /*
   const insRef = useAdsensePush();
 
   return (
@@ -11,7 +15,6 @@ export function AdsenseSquareAd({ className = "" }: { className?: string }) {
       className={`block w-full overflow-hidden ${className}`}
       aria-label="Advertisement"
     >
-      {/* morsecodesquare — attributes match the AdSense snippet exactly */}
       <ins
         ref={insRef}
         className="adsbygoogle"
@@ -23,4 +26,5 @@ export function AdsenseSquareAd({ className = "" }: { className?: string }) {
       />
     </aside>
   );
+  */
 }

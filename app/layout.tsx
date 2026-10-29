@@ -27,7 +27,7 @@ const manrope = localFont({
   fallback: ["system-ui", "sans-serif"]
 });
 
-const ADSENSE_CLIENT = "ca-pub-7227917768990151";
+// const ADSENSE_CLIENT = "ca-pub-7227917768990151";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -91,8 +91,8 @@ export const metadata: Metadata = {
     }
   },
   other: {
-    "ai-content-declaration": "human-authored, tool-generated-output-in-browser",
-    "google-adsense-account": ADSENSE_CLIENT
+    "ai-content-declaration": "human-authored, tool-generated-output-in-browser"
+    // "google-adsense-account": ADSENSE_CLIENT
   }
 };
 
@@ -118,12 +118,22 @@ export default async function RootLayout({
         <GlobalAiSeoJsonLd />
         {children}
         <DeferredVercelScripts />
-        {/* Load after hydration so AdSense DOM changes don't trigger React #418 mismatches */}
+        {/*
         <Script
           id="adsbygoogle-init"
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
           crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        */}
+        <Script
+          id="scriptwrapper-init"
+          async
+          type="text/javascript"
+          data-noptimize="1"
+          data-cfasync="false"
+          src="//scripts.scriptwrapper.com/tags/5ef64e26-ac75-465e-9279-956d76d4629d.js"
           strategy="afterInteractive"
         />
       </body>
