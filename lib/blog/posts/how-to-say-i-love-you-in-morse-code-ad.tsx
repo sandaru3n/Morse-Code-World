@@ -1,10 +1,9 @@
 "use client";
 
-// AdSense temporarily disabled — Scriptwrapper is used instead.
-// import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { BlogMultiplexAd } from "@/components/blog/BlogMultiplexAd";
 
-/*
+/** Exact AdSense unit code — do not edit the snippet below. */
 const ADSENSE_RECTANGLE_HTML = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7227917768990151"
      crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
@@ -14,12 +13,8 @@ const ADSENSE_RECTANGLE_HTML = `<script async src="https://pagead2.googlesyndica
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>`;
-*/
 
 export function LoveMorseRectangleAd() {
-  return null;
-
-  /*
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,6 +22,7 @@ export function LoveMorseRectangleAd() {
     if (!el || el.dataset.adsInserted === "1") return;
     el.dataset.adsInserted = "1";
 
+    // createContextualFragment runs <script> tags; innerHTML does not.
     const range = document.createRange();
     range.selectNode(el);
     el.appendChild(range.createContextualFragment(ADSENSE_RECTANGLE_HTML));
@@ -39,7 +35,7 @@ export function LoveMorseRectangleAd() {
       aria-label="Advertisement"
     />
   );
-  */
 }
 
+/** Shared multiplex unit for this post. */
 export { BlogMultiplexAd as LoveMorseMultiplexAd };

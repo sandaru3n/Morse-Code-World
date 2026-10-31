@@ -1,10 +1,9 @@
 "use client";
 
-// AdSense temporarily disabled — Scriptwrapper is used instead.
-// import { useAdsensePush } from "@/hooks/useAdsensePush";
+import { useAdsensePush } from "@/hooks/useAdsensePush";
 
-// const ADSENSE_CLIENT = "ca-pub-7227917768990151";
-// const HEADER_HORIZONTAL_SLOT = "5039334568";
+const ADSENSE_CLIENT = "ca-pub-7227917768990151";
+const HEADER_HORIZONTAL_SLOT = "5039334568";
 
 export function AdsenseHorizontalBanner({
   className = "",
@@ -13,11 +12,6 @@ export function AdsenseHorizontalBanner({
   className?: string;
   appearance?: "default" | "white";
 }) {
-  void className;
-  void appearance;
-  return null;
-
-  /*
   const insRef = useAdsensePush();
   const isWhite = appearance === "white";
 
@@ -47,5 +41,4 @@ export function AdsenseHorizontalBanner({
       </div>
     </aside>
   );
-  */
 }

@@ -1,12 +1,8 @@
 "use client";
 
-// AdSense temporarily disabled — Scriptwrapper is used instead.
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 export function BlogInArticleAd() {
-  return null;
-
-  /*
   useEffect(() => {
     try {
       const w = window as Window & { adsbygoogle?: Record<string, unknown>[] };
@@ -29,5 +25,4 @@ export function BlogInArticleAd() {
       />
     </div>
   );
-  */
 }
